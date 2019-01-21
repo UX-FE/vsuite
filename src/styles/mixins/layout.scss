@@ -1,0 +1,25 @@
+$row-prefix:#{$css-prefix}row;
+$col-prefix:#{$css-prefix}col;
+@mixin row($gutter: $grid-gutter-width){
+    position: relative;
+    margin-left: $gutter / 2;
+    margin-right: $gutter / 2;
+    height: auto;
+    @include clearfix;
+}
+@mixin float-grid($gutter: $grid-gutter-width){
+    position: relative;
+    margin-left: $gutter / -2;
+    margin-right: $gutter / -2;
+    height: auto;
+    @include clearfix;
+}
+@mixin grid{
+    @for $i from 1 through 24 {
+        .#{$col-prefix}-span-#{$i} {
+            display: block;
+            float: left;
+            width: percentage(($i / $grid-columns));
+        }
+    }
+}

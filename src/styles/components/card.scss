@@ -1,0 +1,39 @@
+/*button class has a prefix*/
+$card-prefix:#{$css-prefix}card;
+.#{$card-prefix}{
+    @include card;/*common style*/
+    @include card-default;/*default style*/
+    &-circle{
+        @include card-circle;
+    }
+    &-group {
+        @include card-group($card-prefix);
+    }
+    &-group-vertical {
+        @include  card-group-vertical($card-prefix);
+    }
+    &-loading{
+        pointer-events: none;
+        opacity:0.7;
+        .status-icon{
+            i{
+                animation: rotating 2s linear infinite;
+                -webkit-animation: rotating 2s linear infinite;
+            }
+        }
+    }
+}
+
+@keyframes rotating
+{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+
+
+

@@ -1,0 +1,33 @@
+$icons-font-path: "./fonts" !default;
+$icons-font-family: "iconFont" !default;
+$icons-version: "0.0.1" !default;
+$icons-prefix: #{$css-prefix-iconfont}- !default;
+
+
+@font-face {
+  font-family: $icons-font-family;
+  // src:url(#{$icons-font-path}/icomoon.eot?v=#{$icons-version});
+  src:url(#{$icons-font-path}/ionicons.ttf?v=#{$icons-version}) format("truetype"),
+  url(#{$icons-font-path}/ionicons.woff?v=#{$icons-version}) format("woff"),
+  url(#{$icons-font-path}/ionicons.svg?v=#{$icons-version}#ionicons) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@mixin icon() {
+  display: inline-block;
+  font-family: $icons-font-family;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #4c5764;
+}
+i[class^="#{$icons-prefix}"],
+i[class*="#{$icons-prefix}"] {
+  @include icon();
+}

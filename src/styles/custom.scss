@@ -1,0 +1,851 @@
+// -----------Prefix -------------
+$css-prefix             : vsu- !default !default;//prefix for all
+$css-prefix-iconfont    : vsu-ion !default;//prefix for icon
+
+//=====================Base start==========================
+// -----------Color start----------- 
+// primary color
+$primary-color          : #1864FF !default;// primary color
+$primary-hover-color    : #518aff !default;
+$primary-active-color   : #114abf !default;
+$primary-disabled-color : #e2e2e2 !default;
+
+// action color 
+$info-color             : #2db7f5 !default;
+$success-color          : #19be6b !default; 
+$warning-color          : #ff9900 !default;
+$error-color            : #ed3f14 !default;
+
+//chart color
+$light-green-color      : #2FC277 !default;
+$deep-green-color       : #13A1C2 !default; 
+$purple-color           : #9543E0 !default;
+$light-red-color        : #F26463 !default;
+$orange-color           : #FFC05B !default;
+$yellow-color           : #FAD814 !default;
+
+//assist color
+$assist-6-color         : #05183F !default;
+$assist-5-color         : #558CFF !default;
+$assist-4-color         : #88AFFF !default;
+$assist-3-color         : #B4CCFF !default;
+$assist-2-color         : #DAE6FF !default;
+$assist-1-color         : #EEF3FF !default;
+$assist-0-color         : #FFFFFF !default;
+
+//link color
+$link-color             : $primary-color !default;
+$link-hover-color       : $primary-hover-color !default;
+$link-active-color      : $primary-active-color !default;
+
+//font color            
+$title-color            : #262626 !default;         
+$text-color             : #595959 !default;      
+$describe-color         : #8c8c8c !default;  
+$tip-color              : #bfbfbf !default;
+
+//border color          
+$border-color-base      : #D9D9D9 !default;  // outside
+$border-color-split     : #e9eaec !default;  // inside
+$border-color-disabled  : #CFCCD0 !default;  // outside
+
+
+//back color
+$background-color-base  : #fff !default;  // base
+$background-color-disabled  : #f3f3f3 !default;  // base
+//-------------Color end-------------------
+
+//-------------Font start------------------
+//font
+$font-family            : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, sans-serif !default;
+// $font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !default;
+$code-family            : Consolas,Menlo,Courier,monospace !default;
+$font-size-small        : 12px !default;
+$line-height-small      : 20px !default;
+$font-size-base         : 14px !default;
+$line-height-base       : 22px !default;
+$font-size-title2       : 16px !default;
+$line-height-title2     : 24px !default;
+$font-size-title        : 20px !default;
+$line-height-title      : 28px !default;
+$font-size-sum-data     : 24px !default;
+$line-height-sum-data   : 32px !default;
+$font-size-sum-text     : 30px !default;
+$line-height-sum-text   : 38px !default;
+$line-height-computed   : floor(($font-size-base * $line-height-base)) !default;
+//-------------Font end--------------------
+
+
+//-------------base (back/border/shadow/cursor) start------------------
+// Base and common
+$subsidiary-color       : #80848f !default;
+
+ //border
+$border-radius-large     : 6px !default;
+$border-radius-base     : 4px !default;
+$border-radius-small    : 2px !default;
+
+// Shadow
+$shadow-color           : rgba(0, 0, 0, .2) !default;
+$shadow-card            : 0 1px 1px 0 rgba(0,0,0,.1) !default;
+$shadow-up              : 0 -1px 6px $shadow-color !default;
+$shadow-down            : 0 1px 6px $shadow-color !default;
+$shadow-left            : -1px 0 6px $shadow-color !default;
+$shadow-right           : 1px 0 6px $shadow-color !default;
+$shadow-base            : $shadow-down !default;
+
+//cursor
+$cursor-disabled        : default !default;
+//-------------base  (back/border/shadow/cursor)  end--------------------
+
+
+//---------------screen start-----------------
+// Media queries breakpoints
+// Extra small screen / phone
+$screen-xs              : 480px !default;
+$screen-xs-min          : $screen-xs !default;
+$screen-xs-max          : ($screen-xs-min - 1) !default;
+
+// Small screen / tablet
+$screen-sm              : 768px !default;
+$screen-sm-min          : $screen-sm !default;
+$screen-sm-max          : ($screen-sm-min - 1) !default;
+
+// Medium screen / desktop
+$screen-md              : 992px !default;
+$screen-md-min          : $screen-md !default;
+$screen-md-max          : ($screen-md-min - 1) !default;
+
+// Large screen / wide desktop
+$screen-lg              : 1200px !default;
+$screen-lg-min          : $screen-lg !default;
+$screen-lg-max          : ($screen-lg-min - 1) !default;
+//----------------screen end----------------
+
+//----------------z-index start-----------------
+// Z-index
+$zindex-spin            : 0.1 !default;
+$zindex-affix           : 10 !default;
+$zindex-back-top        : 10 !default;
+$zindex-select          : 900 !default;
+$zindex-menu            : 900 !default;
+$zindex-modal           : 1000 !default;
+$zindex-message         : 1010 !default;
+$zindex-notification    : 1010 !default;
+$zindex-tooltip         : 1060 !default;
+$zindex-alert           : 1060 !default;
+$zindex-transfer        : 1060 !default;
+$zindex-loading-bar     : 2000 !default;
+$zindex-spin-fullscreen : 2010 !default;
+//---------------z-index end----------------------
+
+//----------------animation start-----------------
+// Animation
+$animation-time         : .3s !default;
+$transition-time        : .2s !default;
+$ease-in-out            : ease-in-out !default;
+//----------------animation end-------------------
+
+//=====================Components start==========================
+//base component:
+//----------------Layout start-----------------
+
+// Layout and Grid
+$grid-columns                : 24 !default;
+$grid-gutter-width           : 0 !default;
+$layout-body-background      : #f5f7f9 !default;
+//layout-header
+$layout-header-position      : relative !default;
+$layout-header-width         : 100% !default;
+$layout-header-height        : 60px !default;
+$layout-header-background    : #fff !default;
+$layout-header-shadow        : 0 2px 8px 0 rgba(13,29,74,.19) !default;
+$layout-header-title-width         : 180px !default;
+$layout-header-title-height        : 100% !default;
+$layout-header-title-background    : #4b61d9 !default;
+$layout-header-title-fontSize      : 28px !default;
+$layout-header-title-color         : #fff !default;
+$layout-header-title-textAlign     : center !default;
+$layout-header-title-lineHeight    : 60px !default;
+$layout-header-logout-position      : absolute !default;
+$layout-header-logout-top           : 20px !default;
+$layout-header-logout-right         : 30px !default;
+$layout-header-logout-fontSize      : 14px !default;
+$layout-header-logout-color         : #495060 !default;
+//layout-sider
+$layout-sider-position      : relative !default;
+$layout-sider-width         : 180px !default;
+$layout-sider-height        : 100% !default;
+$layout-sider-background    : #152858 !default;
+$layout-sider-shadow        : 0 6px 10px 0 rgba(74,97,217,.55) !default;
+$layout-sider-siderMenu-height :50px !default;
+$layout-sider-siderMenu-lineHeight :50px !default;
+$layout-sider-siderMenu-color  : #d5e0e4 !default;
+$layout-sider-siderMenu-fontSize  : 16px !default;
+$layout-sider-siderMenu-hover-background : #27386f !default;
+$layout-sider-siderMenu-active-background : #27386f !default;
+$layout-sider-siderMenu-active-color : #96acff !default;
+$layout-sider-siderMenu-marginBottom: 6px !default;
+$layout-sider-siderMenu-paddingLeft: 45px !default;
+$layout-sider-siderMenu-icon-left: 14px !default;
+$layout-sider-siderMenu-icon-top: 16px !default;
+$layout-sider-siderMenu-icon-color: $layout-sider-siderMenu-color !default;
+$layout-sider-siderMenu-active-icon-color: $layout-sider-siderMenu-active-color !default;
+$layout-sider-siderMenu-icon-fontSize : 20px !default;
+$layout-sider-siderMenu-slide-right: 10px !default;
+$layout-sider-siderMenu-slide-top: 16px !default;
+$layout-sider-siderMenu-slide-color: #fff !default;
+$layout-sider-siderSubMenu-height: 42px !default;
+$layout-sider-siderSubMenu-lineHeight :42px !default;
+$layout-sider-siderSubMenu-color  : #fff !default;
+$layout-sider-siderSubMenu-fontSize  : 14px !default;
+$layout-sider-siderSubMenu-hover-background : #27386f !default;
+$layout-sider-siderSubMenu-active-background : #27386f !default;
+$layout-sider-siderSubMenu-active-color : #96acff !default;
+$layout-sider-siderSubMenu-marginTop: 4px !default;
+$layout-sider-siderSubMenu-paddingLeft: 54px !default;
+//layout-footer
+$layout-footer-padding       : 24px 50px !default;
+$layout-footer-background    : $layout-body-background !default;
+// $layout-sider-background     : $layout-header-background !default;
+$layout-trigger-height       : 48px !default;
+$layout-trigger-color        : #fff !default;
+$layout-zero-trigger-width   : 36px !default;
+$layout-zero-trigger-height  : 42px !default;
+//----------------Layout end-------------------
+//----------------Button start-----------------
+$btn-font-weight        : normal !default;
+$btn-padding-base       : 3px 16px 5px 16px !default;
+$btn-padding-large      : 5px 16px 6px 16px !default;
+$btn-padding-small      : 0px 8px 2px 8px !default;
+$btn-font-size          : $font-size-base !default;
+$btn-font-size-large    : $font-size-base !default;
+$btn-font-size-small    : $font-size-small !default;
+$btn-border-radius      : $border-radius-base !default;
+$btn-border-radius-small: $border-radius-small !default;
+$btn-group-border       : shade($primary-color, 5%) !default;
+
+$btn-disable-color      : #fff !default;
+$btn-disable-bg         : $primary-disabled-color  !default;
+$btn-disable-border     : $border-color-disabled  !default;
+
+$btn-default-color      : $text-color !default;
+$btn-default-bg         : transparent !default;
+$btn-default-border     : $border-color-base !default;
+
+$btn-primary-color      : #fff !default;
+$btn-primary-bg         : $primary-color !default;
+$btn-primary-border     : $primary-color !default;
+
+$btn-text-color      : $text-color !default;
+$btn-text-bg         : transparent !default;
+$btn-text-border     : transparent !default;
+
+$btn-ghost-color        : $text-color !default;
+$btn-ghost-bg           : transparent !default;
+$btn-ghost-border       : $border-color-base !default;
+
+$btn-circle-size        : 32px !default;
+$btn-circle-size-large  : 36px !default;
+$btn-circle-size-small  : 24px !default;
+//----------------Button end------------------
+
+
+//form component:
+//----------------Input start-----------------
+$input-height-base           : 32px !default;
+$input-lineheight-base       : 32px !default;
+$input-height-large          : 36px !default;
+$input-height-small          : 24px !default;
+
+$input-padding-horizontal    : 12px !default;
+$input-padding-vertical-base : 5px !default;
+$input-padding-vertical-small: 1px !default;
+$input-padding-vertical-large: 6px !default;
+$input-padding-icon-base :30px !default;
+
+$input-placeholder-color     : $btn-disable-color !default;
+$input-color                 : $text-color !default;
+$input-border-color          : $border-color-base !default;
+$input-bg                    : transparent !default;
+
+$input-hover-border-color    : $primary-color !default;
+$input-focus-border-color    : $primary-color !default;
+$input-disabled-bg           : $primary-disabled-color !default;
+
+$input-icon-size             :18px !default;
+//----------------Input end-----------------
+//----------------Radio start-----------------
+//radio
+$radio-bg-base            : #fff !default;
+$radio-bg-disabled            : $background-color-disabled !default;
+$radio-height-base        : 16px !default;
+$radio-height-large       : 18px !default;
+$radio-height-small       : 14px !default;
+$radio-inner-height-base  : 8px !default;
+$radio-inner-height-large  : 10px !default;
+$radio-inner-height-small  : 8px !default;
+$radio-inner-left-base    : 3px !default;
+$radio-inner-left-base    : 3px !default;
+$radio-inner-left-small    : 3px !default;
+$radio-border-color         : $border-color-base !default;
+$radio-border-hover-color    : $primary-color !default;
+$radio-disabled-bg-color     :  $border-color-base !default;
+$radio-disabled-border-color :  $primary-disabled-color !default;
+$radio-item-margin                : 0 8px 0 0 !default;
+$radio-margin                : 0 4px 0 0 !default;
+$radio-vertical-height       :32px !default;
+$radio-button-padding        :0 16px !default;
+//----------------Radio end------------------
+//----------------Checkbox end-----------------
+
+//checkbox
+$checkbox-height-base        : 16px !default;
+$checkbox-height-large       : 18px !default;
+$checkbox-height-small       : 14px !default;
+$checkbox-inner-bg   : #fff !default;
+$checkbox-inner-width-base   : 4px !default;
+$checkbox-inner-height-base   : 10px !default;
+$checkbox-inner-top-base   : 1px !default;
+$checkbox-inner-left-base   : 5px !default;
+$checkbox-icon-padding:4px !default;
+$checkbox-name-padding:0 20px 0 0 !default;
+//----------------Checkbox end-----------------
+//----------------Select start-----------------
+$select-border-color:rgba(0,0,0,0.15) !default;
+$select-hover-color:$primary-color !default;
+$select-active-color:$primary-color !default;
+$select-drop-backColor:#fff !default;
+$select-drop-margin:0px 0 !default;
+$select-drop-padding:0 0 !default;
+$select-default-height :32px !default;
+$select-large-height :40px !default;
+$select-small-height :28px !default;
+$select-default-padding:5px 30px 0 15px !default;
+$select-large-padding:10px 30px 0 15px !default;
+$select-small-padding:4px 30px 0 15px !default;
+$select-disabled-color:#c0c4cc !default;
+$select-disabled-backColor:#e4e7ed !default;
+$select-disabled-borderColor:#e4e7ed !default;
+$select-option-fontSize: 14px !default;
+$select-option-height: 32px !default;
+$select-option-padding: 0 12px !default;
+$select-option-hover-backColor:#EEF3FF !default;
+$select-option-active-backColor:#DAE6FF !default;
+$select-option-active-weight:bold !default;
+$select-icon-size-base:18px !default;
+$select-icon-margin:-9px 0 0 0 !default;
+$select-icon-left:12px !default;
+$select-search-padding:0 12px 0 12px !default;
+$select-multi-option-hover-backColor:#fff !default;
+$select-multi-option-active-backColor:#fff !default;
+$select-multi-active-color:$text-color !default;
+$select-multi-padding:2px 30px 0 4px !default;
+$select-multi-tag-width:70px !default;
+$select-judge-height:56px !default;
+$select-judge-padding:12px 12px !default;
+$select-judge-shadow:0 -1px 2px 0 rgba(0,0,0,0.03) !default;
+$select-sum-padding:8px 0 !default;
+$select-sum-font-size:12px !default;
+$select-searchtip-padding:10px 10px !default;
+//----------------Select end-----------------
+//----------------Switch start-----------------
+$switch-width-base:48px !default;
+$switch-height-base:24px !default;
+$switch-width-small:24px !default;
+$switch-height-small:12px !default;
+$switch-width-large:60px !default;
+$switch-height-large:24px !default;
+$switch-radius-base:24px !default;
+$switch-inner-bg:#fff !default;
+$switch-inner-checked-bg:#fff !default;
+$switch-size-base:20px !default;
+$switch-size-small:10px !default;
+$switch-bg-disabled:$background-color-disabled !default;
+$switch-active-shadow:0 0 0 2px fade($primary-color, 20%) !default;
+//----------------Switch end-----------------
+//----------------Date start-----------------
+//date
+$date-width: 276px !default;
+$date-height: 235px !default;
+$date-padding: 10px 16px 10px 16px !default;
+$date-bg: #fff !default;
+$date-border:1px solid rgba(0,0,0,0.09);
+$date-radius: 4px !default;
+$date-shadow: $shadow-base !default;
+$date-color: $text-color !default;
+$date-fontSize: 14px !default;
+$date-placeholder-color: $text-color !default;
+$date-calendar-fontSize: 20px !default;
+$date-calendar-color: $text-color !default;
+$date-close-circled-fontSize: 12px !default;
+$date-close-circled-color: rgba(255, 255, 255, 0.4) !default;
+$date-close-circled-hover-color: rgba(255, 255, 255, 0.6) !default;
+$date-arrow-fontSize: 16px !default;
+$date-arrow-color: $text-color !default;
+$date-disable-color:$primary-disabled-color !default;
+
+$date-ref-padding : 5px 12px !default;
+$date-ref-icon-top :8px !default;
+$date-ref-icon-right : 12px !default;
+
+$date-sidebar-bg:#F1F3F6 !default;
+$date-sidebar-hover-bg:#DAE6FF !default;
+$date-sidebar-item-height:38px !default;
+$date-sidebar-item-padding:8px 16px !default;
+$date-sidebar-width:104px !default;
+$date-sidebar-height:273px !default;
+$date-sidebar-range-height:329px !default;
+
+
+$date-pikerbar-height:48px !default;
+$date-pikerbar-padding:8px 16px !default;
+
+$date-header-height:38px !default;
+$date-header-margin:5px 0 5px 0 !default;
+
+$date-cell-height:24px !default;
+$date-cell-width:36px !default;
+$date-cell-padding:6px !default;
+$date-cell-radius:2px !default;
+$date-cell-side-width:30px !default;
+$date-cell-roll-margin:30px !default;
+
+
+$date-cells-left-padding:10px 12px 10px 24px !default;
+$date-month-cells-left-padding:24px 34px 10px 36px !default;
+$date-cells-right-padding:10px 24px 10px 12px !default;
+$date-month-cells-right-padding:24px 34px 10px 36px !default;
+
+$date-prev-arrow:41px;
+$date-prev-double-arrow:16px;
+
+$date-confirm-height:56px !default;
+$date-confirm-padding:12px 16px !default;
+$date-tip-color:#FF1A2E !default;
+$date-tip-padding:7px 0 !default;
+$date-tip-width:181px !default;
+$date-tip-left:196px !default;
+
+$date-prefix-cells-width-base: 56px !default;
+$date-prefix-cells-width-with-date-base: 72px !default;
+$date-prefix-cells-width: 240 !default;
+
+$date-month-padding:10px 36px !default;
+$date-month-cell-width:82px !default;
+$date-month-cell-height:40px !default;
+$date-month-cell-padding:21px !default;
+$date-month-cell-side-width:61px !default;
+$date-month-cell-roll-margin:0 0 14px 0 !default;
+
+$date-pickerBody-tbody-hover:#EEF3FF !default;
+//----------------Date end-----------------
+//----------------Rate start-----------------
+$rate-star-active-color        : #f5a623 !default;
+$rate-star-color        : #e9e9e9 !default;
+$rate-star-size        : 20px !default;
+$rate-star-margin        : 0 0 0 8px !default;
+$rate-score-margin        : 0 0 0 8px !default;
+//----------------Rate end-----------------
+//----------------Upload start-----------------
+$upload-tip-margin:7px 0 0 0 !default;
+
+$upload-item-transition:all .5s cubic-bezier(.55,0,.1,1) !default;
+$upload-item-margin:5px 0 0 0 !default;
+$upload-item-name-margin:0 4px 0 0 !default;
+$upload-item-name-padding: 0 0 0 4px !default;
+$upload-item-name-icon-margin: 0 7px 0 0 !default;
+$upload-item-hover-bg:$assist-1-color !default;
+$upload-item-close-top-base:5px !default;
+$upload-item-close-right-base:5px !default;
+$upload-item-radius:6px !default;
+$upload-item-bg:$background-color-base !default;
+
+$upload-item-picturecard-width:148px  !default;
+$upload-item-picturecard-height:148px  !default;
+$upload-item-picturecard-margin:0 8px 8px 0 !default;
+$upload-item-picturecard-status-bg:$success-color !default;
+$upload-item-picturecard-status-color:#fff !default;
+$upload-item-picturecard-status-width:40px !default;
+$upload-item-picturecard-status-height:24px !default;
+$upload-item-picturecard-status-padding:2px !default;
+$upload-item-picturecard-status-top:-6px !default;
+$upload-item-picturecard-status-right:-15px !default;
+$upload-item-picturecard-status-shadow:0 0 1pc 1px rgba(8, 7, 7, 0.2) !default;
+$upload-item-picturecard-actions-bg:rgba(0,0,0,.5) !default;
+$upload-item-picturecard-actions-size:20px !default;
+$upload-item-picturecard-actions-item-margin:0 0 0 15px !default;
+
+$upload-item-picture-padding:10px 10px 10px 90px !default;
+$upload-item-picture-margin:10px 0 0 0 !default;
+$upload-item-picture-height:92px !default;
+$upload-item-picture-thumbnail-height:70px !default;
+$upload-item-picture-thumbnail-margin:0 0 0 -80px !default;
+
+$upload-dragger-bg:$background-color-base !default;
+$upload-dragger-hover-bg:$assist-1-color !default;
+$upload-dragger-width:360px !default;
+$upload-dragger-height:180px !default;
+//----------------Upload end-----------------
+//----------------Form start-----------------
+$form-item-height:32px !default;
+$form-item-label-weight:700 !default;
+$form-item-label-padding:0 12px 0 0 !default;
+$form-required-color:#F26463 !default;
+$form-required-margin:0 4px 0 0 !default;
+$form-error-color:#F26463 !default;
+$form-error-top-padding:0 0 0 0 !default;
+$form-top-label-padding:0 0 10px !default;
+//----------------Form end-----------------
+
+
+
+//interact component:
+//----------------Modal start-----------------
+$modal-bg:#fff !default;
+$modal-shadow:0 2px 8px 0 rgba(0,0,0,0.15) !default;
+$modal-radius:4px !default;
+$modal-mask-bg:rgba(0,0,0,0.65) !default;
+$modal-header-bg:#fff !default;
+$modal-header-radius:4px 4px 0 0 !default;
+$modal-header-border:1px solid $border-color-base !default;
+$modal-header-padding:15px 24px !default;
+$modal-header-font-size:16px !default;
+$modal-header-color:$title-color !default;
+$modal-body-padding:16px !default;
+$modal-footer-btn-width:65px !default;
+$modal-footer-border:1px solid $border-color-base !default;
+$modal-footer-padding:10px 24px 10px !default;
+$modal-footer-btn-margin:8px !default;
+$modal-close-icon-color:$text-color !default;
+$modal-close-icon-size:30px !default;
+$modal-close-icon-top:12px !default;
+$modal-close-icon-right:24px !default;
+//----------------Modal end-----------------
+
+
+//tip component:
+//----------------Alert start-----------------
+$alert-back-color-default:#fff !default;
+$alert-back-color-info:#f4f4f5 !default;
+$alert-back-color-success:#f0f9eb !default;
+$alert-back-color-warn:#fdf6ec !default;
+$alert-back-color-error:#fef0f0 !default;
+$alert-padding:8px 16px !default;
+$alert-radius:4px !default;
+$alert-shadow:0 2px 8px 0 rgba(0,0,0,0.15) !default;
+$alert-fix-top:16px !default;
+$alert-color:$text-color !default;
+$alert-color-info:#909399 !default;
+$alert-color-success:#67c23a !default;
+$alert-color-warn:#e6a23c !default;
+$alert-color-error:#f56c6c !default;
+$alert-font-size:14px !default;
+$alert-icon-size:16px !default;
+$alert-icon-margin:0 6px 0 0 !default;
+//----------------Alert end-----------------
+//----------------Loading start-----------------
+$loading-icon-size-base:24px !default;
+$loading-icon-size-large:36px !default;
+$loading-icon-size-small:18px !default;
+//----------------Loading end-----------------
+//----------------Tooltip start-----------------
+$tooltip-color          : #fff !default;
+$tooltip-bg             : rgba(0,0,0,0.75) !default;
+$tooltip-shadow         : 0 2px 8px 0 rgba(0,0,0,0.15) !default;
+$tooltip-radius         : 6px  !default;
+$tooltip-font-size      :14px !default;
+$tooltip-padding        :8px 12px !default;
+$tooltip-max-width      : 250px !default;
+$tooltip-min-height     :34px !default;
+$tooltip-arrow-width    : 5px !default;
+//----------------Tooltip end-----------------
+//----------------Bubble start-----------------
+$bubble-bg              : #fff !default;
+$bubble-max-width       : 250px !default;
+$bubble-arrow-width     : 5px !default;
+$bubble-radius          : 6px  !default;
+$bubble-min-height      :34px !default;
+$bubble-padding         :8px 12px !default;
+$bubble-shadow          : 0 2px 8px 0 rgba(0,0,0,0.15) !default;
+$bubble-font-size       :14px !default;
+$bubble-title-font-size :16px !default;
+//----------------Bubble end-----------------
+
+
+//data component:
+//----------------Table start-----------------
+//table
+$table-thead-bg               : #FAFAFA !default;
+$table-td-stripe-bg           : #f8f8f9 !default;
+$table-td-hover-bg            : #F7F9FF !default;
+$table-td-highlight-bg        : #F7F9FF  !default;
+$table-border-color      : #E8E8E8 !default;
+$table-td-padding    : 16px 16px !default;
+$table-td-color     : #495060 !default;
+$table-th-color     : rgba(0,0,0,0.85) !default;
+$table-td-font-size   :14px !default;
+$table-th-font-size   :14px !default;
+$table-icon-color   :#c0c4cc !default;
+$table-nodata-height:72px !default;
+$table-loading-height:72px !default;
+//----------------Table end-----------------
+//----------------Page start---------------
+$page-item-height:32px !default;
+$page-item-margin: 0 4px 0 0 !default;
+$page-item-bg: #fff !default;
+$page-fold-color:#ccc !default;
+$page-fold-width:36px !default;
+$page-fold-padding: 0 8px !default;
+$page-search-width:48px !default;
+$page-info-width:112px !default;
+$page-info-margin:0 20px 0 0 !default;
+$page-jump-margin:0 0 0 15px !default;
+$page-jump-input-margin:0 8px !default;
+$page-jump-input-padding:4px 7px !default;
+$table-check-size:16px !default;
+$table-check-icon-height:9px  !default;
+$table-check-icon-left:5px  !default;
+$table-check-icon-width:3px !default;
+//----------------Page end-----------------
+//----------------Tag start-----------------
+// Tag
+$tag-bg-base          : $background-color-disabled !default;
+$tag-font-size          :$font-size-small !default;
+$tag-line-height          : $line-height-small !default;
+$tag-info-border-color  : #4CAF50 !default;
+$tag-info-color          : #4CAF50 !default;
+$tag-info-active-color   : #409544 !default;
+$tag-default-height     :22px !default;
+$tag-default-padding      :0 8px !default;
+$tag-large-height        :30px !default;
+$tag-large-padding        :0 10px !default;
+$tag-small-height        :18px !default;
+$tag-small-padding        :0 6px !default;
+$tag-default-margin       :2px 4px 2px 0 !default;
+$tag-default-large       :2px 4px 2px 0 !default;
+$tag-default-small       :2px 4px 2px 0 !default;
+$tag-default-width          : 70px !default;
+$tag-close-icon-size          : 18px !default;
+$tag-close-width          : 14px !default;
+//----------------Tag end-----------------
+//----------------Tree start-----------------
+$tree-bg:$background-color-base !default;
+$tree-item-height:26px !default;
+$tree-check-padding:0 10px 0 0 !default;
+$tree-arrow-color:#c0c4cc !default;
+$tree-arrow-padding:6px !default;
+$tree-arrow-size:12px !default;
+//----------------Tree end-----------------
+//----------------Progress start-----------------
+$progress-bar-radius :4px !default;
+$progress-bar-color :#fff !default;
+$progress-bar-shadow :inset 0 0 3px 0 rgba(162,179,192,.27) !default;
+$progress-text-width:55px !default;
+$progress-text-margin:0 0 0 5px !default;
+$progress-inner-text-margin:0 6px !default;
+$progress-back-color: rgba(24,100,255,0.05) !default;
+//----------------Progress end-----------------
+//----------------Badge start-----------------
+$badge-color:#fff !default;
+$badge-font-size:$font-size-small !default;
+$badge-radius:10px !default;
+$badge-padding:0 6px !default;
+$badge-height:20px !default;
+$badge-top:-10px !default;
+$badge-line-height-base:18px;
+
+//----------------Badge end-----------------
+
+
+//navigation component:
+//----------------Step start-----------------
+$step-item-head-height:32px !default;
+$step-title-font-size:16px !default;
+$step-title-color:$text-color !default;
+$step-tail-width:1px !default;
+$step-tail-radius:2px !default;
+$steps-wait-icon-color:  rgba(0,0,0,0.15) !default;
+$steps-wait-title-color: rgba(0,0,0,0.45) !default;
+$steps-wait-description-color: $steps-wait-title-color !default;
+$steps-wait-tail-color: $border-color-split !default;
+$steps-title-color: #666 !default;
+$step-custom-icon-font-size:28px !default;
+$step-vertical-tail-padding:38px 0 4px 0 !default;
+//----------------Step end-----------------
+//----------------Bread start-----------------
+$bread-separator-color:$border-color-base !default;
+$bread-separator-margin:0 8px !default;
+$bread-font-size:14px !default;
+//----------------Bread end-----------------
+//----------------Tab start-----------------
+//tab
+$tab-default-height:52px;
+$tab-padding:0 8px !default;
+$tab-font-size:16px !default;
+$tab-default-color: rgba(0,0,0,0.65) !default;
+//----------------Tab end-----------------
+//----------------Menu start-----------------
+//menu
+$menu-dark-title              : #495060 !default;
+$menu-dark-active-bg          : #363e4f !default;
+$menu-dark-subsidiary-color   : rgba(255,255,255,.7) !default;
+$menu-dark-group-title-color  : rgba(255,255,255,.36) !default;
+$menu-vertical-hover-bg       : $assist-1-color !default;
+$menu-vertical-active-bg       : $assist-1-color !default;
+$menu-vertical-title-padding  : 14px 24px !default;
+$menu-vertical-item-padding   : 14px 24px 14px 43px !default;
+$menu-icon-margin             : 0 8px 0 0 !default;
+$menu-horizontal-height       : 60px !default;
+$menu-horizontal-padding      : 0 20px !default;
+$menu-drop-bg                 : #fff !default;
+$menu-drop-margin             : 5px 0 !default;
+$menu-drop-padding            : 5px 0 !default;
+$menu-drop-radius             : 4px !default;
+$menu-drop-item-padding       : 7px 16px 8px !default;
+$menu-group-title-height      : 32px !default;
+$menu-group-title-padding     :0 0 0 6px !default;
+//----------------Menu end-----------------
+//----------------DropDown start-----------------
+$dropdown-drop-bg                 : #fff !default;
+$dropdown-drop-margin             : 5px 0 !default;
+$dropdown-drop-padding            : 5px 0 !default;
+$dropdown-drop-radius             : 4px !default;
+$dropdown-drop-shadow             : $shadow-base !default;
+$dropdown-bubble-margin           : 12px 0 0 0 !default;
+$dropdown-hover-bg                : $assist-1-color !default;
+$dropdown-active-bg               : $assist-1-color !default;
+$dropdown-item-padding               : 7px 16px !default;
+$dropdown-arrow-top               : -13px !default;
+$dropdown-arrow-left               : 20px !default;
+$dropdown-arrow-size               : 6px !default;
+//----------------DropDown end-----------------
+
+
+//view component:
+//----------------Avatar start-----------------
+// Avatar
+$avatar-size-base: 32px !default;
+$avatar-size-lg: 40px !default;
+$avatar-size-sm: 24px !default;
+$avatar-font-size-base: 18px !default;
+$avatar-font-size-lg: 24px !default;
+$avatar-font-size-sm: 14px !default;
+$avatar-bg: #ccc !default;
+$avatar-color: #fff !default;
+$avatar-border-radius: $border-radius-small !default;
+$avatar-circle-radius: 16px !default;
+$avatar-position: absolute !default;
+$avatar-top: 20px !default;
+$avatar-right: 80px !default;
+//name
+$avatar-name-maxWidth: 120px !default;
+$avatar-name-fontSize: 14px !default;
+$avatar-name-color: #4b61d9 !default;
+//----------------Avatar end-----------------
+//----------------Collapse start-----------------
+$collapse-height:36px !default;
+$collapse-head-padding:5px 24px !default;
+$collapse-color:$text-color !default;
+$collapse-font-size:14px !default;
+$collapse-icon-size:14px !default;
+$collapse-icon-left-margin:8px !default;
+$collapse-icon-right-right:20px !default;
+$collapse-icon-right-top:18px !default;
+//----------------Collapse end-----------------
+//----------------Card start-----------------
+$card-padding-base:10px !default;
+$card-font-size:14px !default;
+$card-border-radius:4px !default;
+$card-default-color:$btn-default-color !default;
+$card-default-bg:#fff !default;
+$card-default-border:#fff !default;
+$card-disable-bg:#fff !default;
+$card-disable-color:#fff !default;
+$card-disable-border: #fff !default;
+$card-circle-size:12px;
+//----------------Card end-----------------
+//----------------Transfer start-----------------
+$transfer-item-width:200px !default;
+$transfer-header-height:40px !default;
+$transfer-header-bg:#f5f7fa !default;
+$transfer-padding:0 0 0 15px !default;
+$transfer-header-sum-padding:0 15px !default;
+$transfer-body-height:240px !default;
+$transfer-body-padding:6px 0px !default;
+$transfer-action-padding:0 30px !default;
+$transfer-action-radius:12px !default;
+$transfer-action-btn-padding:10px !default;
+//----------------Transfer end-----------------
+//----------------TimeLine start-----------------
+//timeline
+$timeline-border-color:  $border-color-split;
+$timeline-border-width :1px !default;
+$timeline-border-left:4px !default;
+$timeline-item-head-size:10px !default;
+$timeline-item-head-width:2px !default;
+$timeline-content-top:-6px !default;
+$timeline-content-padding:0 0 0 32px !default;
+$timeline-font-size:14px !default;
+//----------------TimeLine end-----------------
+//----------------Carousel start-----------------
+$carousel-mask-bg:#fff !default;
+$carousel-mask-opacity:.24 !default;
+$carousel-arrow-size:36px !default;
+$carousel-arrow-bg:rgba(31, 45, 61, .11) !default;
+$carousel-arrow-hover-bg:rgba(31, 45, 61, 0.5) !default;
+$carousel-arrow-color:#fff  !default;
+$carousel-dot-bg:#8391a5  !default;
+$carousel-dot-width:24px !default;
+//----------------Carousel end-----------------
+//----------------Scroll start-----------------
+//scroll
+$scroll-xy-opacity :0.5 !default;
+$scroll-xy-opacity-hover :0.8 !default;
+$scroll-xy-radius :10px !default;
+$scroll-y-width :7px !default;
+$scroll-x-height :7px !default;
+//----------------Scroll end-----------------
+//----------------BackTop start-----------------
+$backtop-bg:rgba(0,0,0,.6) !default;
+$backtop-hover-bg:rgba(0,0,0,.7) !default;
+$backtop-radius:2px !default;
+$backtop-shadow:0 1px 3px rgba(0,0,0,.2) !default;
+$backtop-icon-color:#fff !default;
+$backtop-icon-size:24px !default;
+$backtop-icon-padding: 8px 12px !default;
+//----------------BackTop end-----------------
+
+//chart component
+
+
+
+
+
+// Legend
+$legend-color           : #999 !default;
+
+
+// Slider
+$slider-color              : tint($primary-color, 20%) !default;
+$slider-height             : 4px !default;
+$slider-margin             : 16px 0 !default;
+$slider-button-wrap-size   : 18px !default;
+$slider-button-wrap-offset : -4px !default;
+$slider-disabled-color     : #ccc !default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

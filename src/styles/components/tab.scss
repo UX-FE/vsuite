@@ -1,0 +1,88 @@
+$tab-prefix:#{$css-prefix}tab;
+
+.#{$tab-prefix}{
+    box-sizing: border-box;
+    position: relative;
+    // overflow: hidden;
+    color: $text-color;
+    @include clearfix;
+    &-tabs{
+        outline: none;
+        // border-bottom: 1px solid #4b61d9;
+    }
+    &-tabs-item{
+        padding:$tab-padding;
+        position: relative;
+        font-size: $tab-font-size;
+        color: $tab-default-color;
+        text-align: center;
+        display: inline-block;
+        height: $tab-default-height;
+        line-height: $tab-default-height;
+        margin-right: 10px;
+        cursor: pointer;
+        i{
+            margin-right:8px;
+        }
+        .line{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 100px;
+            height: 2px;
+            width: 100%;
+        }
+        &:hover{
+            color:$primary-color;
+            i{
+                color:$primary-color;
+            }
+
+        }
+        &:active,&.active{
+            color:$primary-color;
+            i{
+                color:$primary-color;
+            }
+            .line{
+                background: $primary-color;
+            }
+        }
+    }
+    &-content-wrap{
+        outline: none;
+        .#{$tab-prefix}-content {
+            flex-shrink: 0;
+            width: 100%;
+            transition: opacity .3s;
+         
+        }
+    }
+    &-bordered{
+        .#{$tab-prefix}-tabs{
+            margin-bottom: -1px;
+            overflow: hidden;
+            height: $tab-default-height;
+
+            box-sizing: border-box;
+            white-space: nowrap;
+            position:relative;
+
+
+        }
+        .#{$tab-prefix}-tab-item {
+            border:1px solid $border-color-base;
+            border-bottom:none;
+            border-radius: 4px 4px 0 0;
+            &:hover,&:active,&.active{
+                background:#fff;
+                height:$tab-default-height;
+                z-index:2;
+
+            }
+         
+        }
+
+    }
+
+}

@@ -1,0 +1,33 @@
+$badge-prefix: #{$css-prefix}badge;
+
+.#{$badge-prefix}{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    &-count {
+        position: absolute;
+        top: $badge-top;
+        right: 0;
+        height: $badge-height;
+        -webkit-border-radius: $badge-radius;
+        -moz-border-radius: $badge-radius;
+        -ms-border-radius: $badge-radius;
+        -o-border-radius: $badge-radius;
+        border-radius: $badge-radius;
+        min-width: $badge-height;
+        background: $error-color;
+        color: $badge-color;
+        line-height: $badge-line-height-base;
+        text-align: center;
+        padding: $badge-padding;
+        font-size: $badge-font-size;
+        white-space: nowrap;
+        // transform-origin: -10% center;
+        // z-index: 10;
+
+        a,
+        a:hover {
+            color: $badge-color;
+        }
+    }
+}

@@ -1,0 +1,68 @@
+$bubble-prefix:#{$css-prefix}bubble;
+$bubble-arrow:#{$bubble-prefix}-arrow;
+$bubble-distance: $bubble-arrow-width - 1 + 4;
+
+.#{$bubble-prefix}{
+    display: inline-block;
+    position:relative;
+    &-target{
+        display: inline-block;
+        position: relative;
+    }
+    &-wrap{
+        @include popper($bubble-arrow, $bubble-arrow-width, $bubble-distance, $bubble-bg);
+    }
+    &-text{
+        max-width: $bubble-max-width;
+        min-height: $bubble-min-height;
+        padding: $bubble-padding;
+        // background: #fff;
+        color:$text-color;
+        text-align: left;
+        text-decoration: none;
+        background-color: $bubble-bg;
+        -webkit-border-radius: $bubble-radius;
+        -moz-border-radius: $bubble-radius;
+        -ms-border-radius: $bubble-radius;
+        -o-border-radius: $bubble-radius;
+        border-radius: $bubble-radius;
+        -webkit-border-shadow: $bubble-shadow;
+        -moz-border-shadow: $bubble-shadow;
+        -ms-border-shadow: $bubble-shadow;
+        -o-border-shadow: $bubble-shadow;
+        box-shadow: $bubble-shadow ;
+        font-size:$bubble-font-size;
+    }
+    &-title{
+        font-size:$bubble-title-font-size;
+    }
+    &-arrow{
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 6px;
+        &:after{
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            content: " ";
+            border-width: 6px;
+        }
+    }
+    &-dark{
+        .#{$bubble-prefix}-text{
+            color: $tooltip-color;
+            background-color: $tooltip-bg;
+        }
+        .#{$bubble-prefix}-wrap{
+            @include popper($bubble-arrow, $bubble-arrow-width, $bubble-distance, $tooltip-bg);
+        }
+    }
+
+}

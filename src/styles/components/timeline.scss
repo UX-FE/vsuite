@@ -1,0 +1,93 @@
+$timeline-prefix: #{$css-prefix}timeline;
+
+.#{$timeline-prefix}{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &-item{
+        margin: 0;
+        padding: 0 0 12px 0;
+        list-style: none;
+        position: relative;
+
+        &-line {
+            height: 100%;
+            border-left: $timeline-border-width solid $timeline-border-color;
+            position: absolute;
+            left: $timeline-border-left;
+            top: 0;
+        }
+
+        &-more &-line {
+            display: none;
+        }
+
+        &-head {
+            width: $timeline-item-head-size;
+            height: $timeline-item-head-size;
+            background-color: #fff;
+            border-radius: 50%;
+            border: $timeline-item-head-width solid transparent;
+            position: absolute;
+
+            &-blue {
+                border-color: $primary-color;
+                color: $primary-color;
+            }
+            &-red {
+                border-color: $error-color;
+                color: $error-color;
+            }
+            &-green {
+                border-color: $success-color;
+                color: $success-color;
+            }
+        }
+
+        &-head-custom {
+            width: 40px;
+            height: auto;
+            margin-top: 6px;
+            padding: 3px 0;
+            text-align: center;
+            line-height: 1;
+            border: 0;
+            border-radius: 0;
+            font-size: $font-size-base;
+            position: absolute;
+            left: -13px;
+            transform: translateY(-50%);
+        }
+
+        &-content {
+            padding: $timeline-content-padding;
+            font-size:$timeline-font-size;
+            position: relative;
+            top: $timeline-content-top;
+        }
+
+        &:last-child {
+            .#{$timeline-prefix}-item-line {
+                display: none;
+            }
+        }
+        &-active{
+            font-weight:700;
+            .#{$timeline-prefix}{
+                &-head{
+                    background-color: $primary-color;
+                }
+            }
+        }
+    }
+
+    &-more &-item:nth-last-of-type(2) {
+
+        .#{$timeline-prefix}-item-line {
+            border-left: 1px dotted $timeline-border-color;
+        }
+        .#{$timeline-prefix}-item-content {
+            min-height: 48px;
+        }
+    }
+}

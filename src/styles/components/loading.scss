@@ -1,0 +1,67 @@
+$loading-prefix: #{$css-prefix}loading;
+.#{$loading-prefix} {
+    vertical-align: middle;
+    text-align: center;
+    &-icon{
+        i{
+            font-size:$loading-icon-size-base;
+            color: $primary-color;
+            animation: rotating 2s linear infinite;
+            -webkit-animation: rotating 2s linear infinite;
+        }
+    }
+    &-large .#{$loading-prefix}-icon i{
+        font-size:$loading-icon-size-large;
+    }
+
+    &-small .#{$loading-prefix}-icon i{
+        font-size:$loading-icon-size-small;
+    }
+    &-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: $zindex-spin;
+        width:100%;
+        height:100%;
+        background-color: rgba(255,255,255,.9);
+    }
+    &-fullscreen{
+        z-index: $zindex-spin-fullscreen;
+        &-wrapper{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    }
+    &-fix &-main {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    &-fix &-icon {
+        display: inline-block;
+    }
+    &-text,
+    &-show-text &-icon {
+        display: none;
+    }
+
+    &-show-text &-text {
+        display: block;
+    }
+}
+@keyframes rotating
+{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+}

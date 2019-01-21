@@ -1,0 +1,358 @@
+$step-prefix: #{$css-prefix}step;
+$step-item-prefix: #{$css-prefix}step-item;
+
+.#{$step-prefix} {
+    font-size: 0;
+    width: 100%;
+    line-height: 1.5;
+
+    &-item{
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+
+        &.#{$step-item-prefix}-status-wait{
+            .#{$step-item-prefix}-head-inner {
+                background-color: #fff;
+                > #{$step-item-prefix}-icon, span {
+                    color: $steps-wait-icon-color;
+                }
+            }
+            .#{$step-item-prefix}-title {
+                color: $steps-wait-title-color;
+            }
+            .#{$step-item-prefix}-content {
+                color: $steps-wait-description-color;
+            }
+            .#{$step-item-prefix}-tail > i {
+                background-color: $steps-wait-tail-color;
+            }
+        }
+        &.#{$step-item-prefix}-status-process {
+            .#{$step-item-prefix}-head-inner {
+                border-color: $primary-color;
+                background-color: $primary-color;
+                > #{$step-item-prefix}-icon, span {
+                    color: #fff;
+                }
+            }
+            .#{$step-item-prefix}-title {
+                color: $steps-title-color;
+            }
+            .#{$step-item-prefix}-content {
+                color: $steps-title-color;
+            }
+            .#{$step-item-prefix}-tail > i {
+                background-color:  $border-color-split;
+            }
+        }
+        &.#{$step-item-prefix}-status-finish {
+            .#{$step-item-prefix}-head-inner {
+                background-color: #fff;
+                border-color:  $primary-color;
+                > .#{$step-item-prefix}-icon, span {
+                    color:  $primary-color;
+                }
+            }
+            .#{$step-item-prefix}-tail > i:after {
+                width: 100%;
+                background:  $primary-color;
+                transition: all  $transition-time  $ease-in-out;
+                opacity: 1;
+            }
+            .#{$step-item-prefix}-title {
+                color:  $steps-wait-title-color;
+            }
+            .#{$step-item-prefix}-content {
+                color:  $steps-wait-description-color;
+            }
+        }
+
+        &.#{$step-item-prefix}-status-error {
+            .#{$step-item-prefix}-head-inner {
+                background-color: #fff;
+                border-color:  $error-color;
+                > .#{$step-item-prefix}-icon {
+                    color:  $error-color;
+                }
+            }
+            .#{$step-item-prefix}-title {
+                color:  $error-color;
+            }
+            .#{$step-item-prefix}-content {
+                color:  $error-color;
+            }
+            .#{$step-item-prefix}-tail > i {
+                background-color:  $border-color-split;
+            }
+        }
+
+        &#{$step-item-prefix}-next-error {
+            .#{$step-item-prefix}-tail > i,
+            .#{$step-item-prefix}-tail > i:after {
+                background-color:  $error-color;
+            }
+        }
+
+        &.#{$step-item-prefix}-custom {
+            .#{$step-item-prefix}-head-inner {
+                background: none;
+                border: 0;
+                width: auto;
+                height: auto;
+                > #{$step-item-prefix}-icon {
+                    font-size: 20px;
+                    top: 2px;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            &.#{$step-item-prefix}-status-process {
+                .#{$step-item-prefix}-head-inner > #{$step-item-prefix}-icon {
+                    color:  $primary-color;
+                }
+            }
+        }
+    }
+    &-item:last-child &-tail{
+        display: none;
+    }
+
+    .#{$step-item-prefix}-head,
+    .#{$step-item-prefix}-main {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .#{$step-item-prefix}-head {
+        background: #fff;
+    }
+
+    .#{$step-item-prefix}-head-inner {
+        display: block;
+        width: $step-item-head-height;
+        height: $step-item-head-height;
+        line-height: $step-item-head-height;
+        margin-right: 8px;
+        text-align: center;
+        border: 1px solid  $steps-wait-icon-color;
+        border-radius: 50%;
+        font-size: 14px;
+        transition: background-color  $transition-time  $ease-in-out;
+
+        > .#{$step-item-prefix}-icon {
+            line-height: 1;
+            position: relative;
+            font-size: 14px;
+            // font-weight: bold;
+
+            // &.ivu-icon {
+            //     font-size: 24px;
+            //     &-ios-checkmark-empty,
+            //     &-ios-close-empty {
+            //         font-weight: bold;
+            //     }
+            // }
+        }
+    }
+    .#{$step-item-prefix}-main {
+        margin-top: 2.5px;
+        display: inline;
+    }
+    .#{$step-item-prefix}-custom {
+        .#{$step-item-prefix}-title{
+        }
+        .#{$step-item-prefix}-head-inner {
+            > .#{$step-item-prefix}-icon{
+                font-size:$step-custom-icon-font-size;
+                line-height: 1.3;
+            }
+        }
+    }
+
+    .#{$step-item-prefix}-title {
+        display: inline-block;
+        height:$step-item-head-height;
+        line-height:$step-item-head-height;
+        margin-bottom: 4px;
+        padding-right: 10px;
+        font-size: $step-title-font-size;
+        color: $step-title-color;
+        background: #fff;
+
+        > a:first-child:last-child {
+            color: $steps-wait-icon-color;
+        }
+    }
+    .#{$step-item-prefix}-item-last {
+        .#{$step-item-prefix}-title {
+            padding-right: 0;
+            width: 100%;
+        }
+    }
+    .#{$step-item-prefix}-content {
+        font-size: 12px;
+        color: $text-color;
+    }
+    .#{$step-item-prefix}-tail {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: $step-item-head-height/2;
+        > i {
+            display: inline-block;
+            width: 100%;
+            height: $step-tail-width;
+            vertical-align: top;
+            background:  $border-color-split;
+            border-radius:$step-tail-radius;
+            position: relative;
+            &:after {
+                content: '';
+                width: 0;
+                height: 100%;
+                background:  $border-color-split;
+                opacity: 0;
+                position: absolute;
+                top: 0;
+            }
+        }
+    }
+
+    &.#{$step-prefix}-small {
+        .#{$step-item-prefix}-head-inner {
+            width: 18px;
+            height: 18px;
+            line-height: 16px;
+            margin-right: 10px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 12px;
+
+            > #{$step-item-prefix}-icon.ivu-icon {
+                font-size: 16px;
+                top: 0;
+            }
+        }
+        .#{$step-item-prefix}-main {
+            margin-top: 0;
+        }
+        .#{$step-item-prefix}-title {
+            margin-bottom: 4px;
+            margin-top: 0;
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .#{$step-item-prefix}-content {
+            font-size: 12px;
+            color: #999;
+            padding-left: 30px;
+        }
+        .#{$step-item-prefix}-tail {
+            top: 8px;
+            padding: 0 8px;
+            > i {
+                height: 1px;
+                width: 100%;
+                border-radius: 1px;
+            }
+        }
+    }
+
+    &.#{$step-prefix}-small .#{$step-prefix}-item.#{$step-item-prefix}-custom .#{$step-item-prefix}-head-inner,
+    .#{$step-prefix}-item.#{$step-item-prefix}-custom .#{$step-item-prefix}-head-inner {
+        width: inherit;
+        height: inherit;
+        line-height: inherit;
+        border-radius: 0;
+        border: 0;
+        background: none;
+    }
+}
+
+.#{$step-prefix}-vertical {
+    .#{$step-prefix}-item {
+        display: block;
+    }
+
+    .#{$step-item-prefix}-tail {
+        position: absolute;
+        left: $step-item-head-height/2;
+        top: 0;
+        height: 100%;
+        width: $step-tail-width;
+        padding: $step-vertical-tail-padding;
+        > i {
+            height: 100%;
+            width: $step-tail-width;
+            &:after {
+                height: 0;
+                width: 100%;
+            }
+        }
+    }
+
+    .#{$step-item-prefix}-status-finish {
+        .#{$step-item-prefix}-tail > i:after {
+            height: 100%;
+        }
+    }
+
+    .#{$step-item-prefix}-head {
+        float: left;
+        &-inner {
+            margin-right: 16px;
+        }
+    }
+
+    .#{$step-item-prefix}-main {
+        min-height: 47px;
+        overflow: hidden;
+        display: block;
+        .#{$step-item-prefix}-title {
+            line-height: $step-item-head-height;
+        }
+        .#{$step-item-prefix}-content {
+            padding-bottom: 12px;
+            padding-left: 0;
+        }
+    }
+
+    .#{$step-item-prefix}-custom #{$step-item-prefix}-icon {
+        left: 4px;
+    }
+    &.#{$step-prefix}-small .#{$step-item-prefix}-custom #{$step-item-prefix}-icon {
+        left: 0;
+    }
+}
+
+.#{$step-prefix}-vertical.#{$step-prefix}-small {
+    .#{$step-item-prefix}-tail {
+        position: absolute;
+        left: 9px;
+        top: 0;
+        padding: 22px 0 4px 0;
+        > i {
+            height: 100%;
+        }
+    }
+
+    .#{$step-item-prefix}-title {
+        line-height: 18px;
+    }
+}
+
+.#{$step-prefix}-horizontal {
+    &.#{$step-prefix}-hidden {
+        visibility: hidden;
+    }
+    .#{$step-item-prefix}-content {
+        //max-width: 100px;
+        padding-left: 35px;
+    }
+    .#{$step-prefix}-item:not(:first-child) .#{$step-item-prefix}-head {
+        padding-left: 10px;
+        margin-left: -10px;
+    }
+}

@@ -1,0 +1,39 @@
+$layout-prefix: #{$css-prefix}layout;
+$header-prefix: #{$css-prefix}header;
+$sider-prefix: #{$css-prefix}sider;
+$footer-prefix: #{$css-prefix}footer;
+$main-prefix: #{$css-prefix}main;
+.#{$layout-prefix} {
+    display: block;
+    position: relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    &-has-sider{
+        .#{$main-prefix}{
+            margin-left:200px;
+        }
+    }
+}
+.#{$header-prefix} {
+    position: relative;
+
+}
+.#{$sider-prefix} {
+    position:absolute;
+    z-index: 1;
+    top:0;
+    width:200px;
+    height:100%;
+    &-children{
+        height:100%;
+    }
+}   
+.#{$footer-prefix} {
+    position: relative;
+
+}
+.#{$main-prefix} {
+    position: relative;
+
+}

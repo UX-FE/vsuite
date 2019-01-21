@@ -1,0 +1,149 @@
+$tooltip-prefix:#{$css-prefix}tooltip;
+$tooltip-arrow:#{$tooltip-prefix}-arrow;
+$bubble-prefix:#{$css-prefix}bubble;
+$bubble-arrow:#{$bubble-prefix}-arrow;
+@mixin popper($arrow, $arrow-width, $arrow-distance, $bg){
+    display: block;
+    visibility: visible;
+    font-size: $font-size-small;
+    line-height: $line-height-base;
+    position: absolute;
+    z-index: $zindex-tooltip;
+    
+    
+    &.#{$tooltip-prefix},&.#{$bubble-prefix}{
+        &-top,&-top-start,&-top-end{
+            padding: $arrow-width 0 $arrow-distance 0;
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                bottom: $arrow-distance - $arrow-width;
+                margin-right: 3px;
+                border-bottom-width: 0;
+                border-top-color: rgba(0, 0, 0, 0.25);
+                filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.03));
+                &:after{
+                    bottom: 0px;
+                    margin-left: -6px;
+                    border-bottom-width: 0;
+                    border-top-color: $bg;
+                }
+            }
+        }
+        &-top{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                left: 50%;
+                margin-left: -$arrow-width;
+            }
+        }
+        &-top-start{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                left: 16px;
+            }
+        }
+        &-top-end{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                right: 16px;
+            }
+        }
+        
+        &-bottom,&-bottom-start,&-bottom-end{
+            padding: $arrow-width 0 $arrow-distance 0;
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                top: -1px;
+                margin-right: 3px;
+                border-top-width: 0;
+                border-bottom-color: rgba(0, 0, 0, 0.25);
+                filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.03));
+                &:after{
+                    top: 0px;
+                    margin-left: -6px;
+                    border-top-width: 0;
+                    border-bottom-color: $bg;
+                }
+            }
+        }
+        &-bottom{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                left: 50%;
+                margin-left: -$arrow-width;
+            }
+        }
+        &-bottom-start{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                left: 16px;
+            }
+        }
+        &-bottom-end{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                right: 16px;
+            }
+        }
+        
+        &-right,&-right-start,&-right-end{
+            padding: 0 $arrow-width 0 $arrow-distance;
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                left: $arrow-distance - $arrow-width;
+                border-left-width: 0;
+                border-right-color: rgba(0, 0, 0, 0.25);
+                filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.03));
+                &:after{
+                    left: 0;
+                    margin-top: -6px;
+                    border-left-width: 0;
+                    border-right-color: $bg;
+                }
+            }
+        }
+        &-right{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                top: 50%;
+                margin-top: -$arrow-width;
+            }
+        }
+        &-right-start{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                top: 8px;
+            }
+        }
+        &-right-end{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                bottom: 8px;
+            }
+        }
+        
+        &-left,&-left-start,&-left-end{
+            padding: 0 $arrow-distance 0 $arrow-width;
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                right: $arrow-distance - $arrow-width;
+                border-right-width: 0;
+                border-left-color: rgba(0, 0, 0, 0.25);
+                filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.03));
+                &:after{
+                    right: 0;
+                    margin-top: -6px;
+                    border-right-width: 0;
+                    border-left-color: $bg;
+                }
+                // right: $arrow-distance - $arrow-width;
+                // border-width: $arrow-width 0 $arrow-width $arrow-width;
+                // border-left-color: $bg;
+            }
+        }
+        &-left{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                top: 50%;
+                margin-top: -$arrow-width;
+            }
+        }
+        &-left-start{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                top: 8px;
+            }
+        }
+        &-left-end{
+            .#{$tooltip-arrow},.#{$bubble-arrow}{
+                bottom: 8px;
+            }
+        }
+    }
+
+}

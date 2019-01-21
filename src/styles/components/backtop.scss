@@ -1,0 +1,40 @@
+$backtop-prefix: #{$css-prefix}backtop;
+
+.#{$backtop-prefix}{
+    z-index: $zindex-back-top;
+    position: fixed;
+    cursor: pointer;
+    display: none;
+    &-show {
+        display: block;
+    }
+    &-icon-wrap {
+        background-color: $backtop-bg;
+        -webkit-border-radius: $backtop-radius;
+        -moz-border-radius: $backtop-radius;
+        -ms-border-radius: $backtop-radius;
+        -o-border-radius: $backtop-radius;
+        border-radius: $backtop-radius;
+        -webkit-border-radius: $backtop-radius;
+        -moz-border-radius: $backtop-radius;
+        -ms-border-radius: $backtop-radius;
+        -o-border-radius: $backtop-radius;
+        border-radius: $backtop-radius;
+        -webkit-border-shadow: $backtop-shadow;
+        -moz-border-shadow: $backtop-shadow;
+        -ms-border-shadow: $backtop-shadow;
+        -o-border-shadow: $backtop-shadow;
+        box-shadow:$backtop-shadow;
+        transition: all $transition-time $ease-in-out;
+
+        &:hover {
+            background-color: $backtop-hover-bg;
+        }
+        i{
+            color: $backtop-icon-color;
+            font-size: $backtop-icon-size;
+            padding: $backtop-icon-padding;
+        }
+    }
+
+}

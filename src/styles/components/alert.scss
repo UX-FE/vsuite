@@ -1,0 +1,113 @@
+$alert-prefix: #{$css-prefix}alert;
+
+.#{$alert-prefix}{
+    width: 100%;
+    transition: opacity .2s;
+    &-content{
+        background-color: $alert-back-color-default;
+        padding: $alert-padding;
+        box-sizing: border-box;
+        -webkit-border-radius: $alert-radius;
+        -moz-border-radius: $alert-radius;
+        -ms-border-radius: $alert-radius;
+        -o-border-radius: $alert-radius;
+        border-radius: $alert-radius;
+        -webkit-box-shadow: $alert-shadow;
+        -ms-box-shadow: $alert-shadow;
+        -o-box-shadow: $alert-shadow;
+        box-shadow: $alert-shadow;
+        position:relative;
+        font-size:$alert-font-size;
+    }
+    &-normal{
+        width: 100%;
+        margin:0;
+        display: flex;
+        align-items: center;
+        .#{$alert-prefix}{
+            &-content{
+                width: 100%;
+            }
+        }
+
+    }
+    &-fix{
+        position: fixed;
+        z-index: $zindex-alert;
+        width: 100%;
+        top:$alert-fix-top;
+        left: 0;
+        text-align:center;
+        .#{$alert-prefix}{
+            &-content{
+                display: inline-block;
+                box-shadow: $alert-shadow;
+                padding-right:64px;
+            }
+        }
+    }
+    &-close{
+        font-size: $alert-font-size;
+        opacity: 1;
+        position:absolute;
+        right:16px;
+        top:7px;
+        display: inline-block;
+        cursor: pointer;
+        z-index:$zindex-alert+1;
+        i{
+            // position:absolute;
+            // right:0;
+            color: $alert-color;
+        }
+    }
+    &-icon{
+        font-size: $alert-icon-size;
+        width: $alert-icon-size;
+        margin:$alert-icon-margin;
+    }
+    &-info{
+        .#{$alert-prefix}{
+            &-content{
+                background-color: $alert-back-color-info;
+                color: $alert-color-info;
+            }
+            &-icon>i{
+                color:$alert-color-info;
+            }
+        }
+    }
+    &-success{
+        .#{$alert-prefix}{
+            &-content{
+                background-color: $alert-back-color-success;
+                color: $alert-color-success;
+            }
+            &-icon>i{
+                color:$alert-color-success;
+            }
+        }
+    }
+    &-warn{
+        .#{$alert-prefix}{
+            &-content{
+                background-color: $alert-back-color-warn;
+                color: $alert-color-warn;
+            }
+            &-icon>i{
+                color:$alert-color-warn;
+            }
+        }
+    }
+    &-error{
+        .#{$alert-prefix}{
+            &-content{
+                background-color: $alert-back-color-error;
+                color: $alert-color-error;
+            }
+            &-icon>i{
+                color:$alert-color-error;
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+/*button class has a prefix*/
+$btn-prefix:#{$css-prefix}btn;
+.#{$btn-prefix}{
+    @include btn;/*common style*/
+    @include btn-default;/*default style*/
+    &-primary{
+        @include btn-primary;
+    }
+    &-ghost{
+        @include btn-ghost;
+    }
+    &-text{
+        @include btn-text;
+    }
+    &-circle{
+        @include btn-circle;
+    }
+    &-group {
+        @include btn-group($btn-prefix);
+    }
+
+    &-group-vertical {
+        @include  btn-group-vertical($btn-prefix);
+    }
+    &-loading{
+        pointer-events: none;
+        opacity:0.7;
+        .status-icon{
+            i{
+                animation: rotating 2s linear infinite;
+                -webkit-animation: rotating 2s linear infinite;
+            }
+        }
+    }
+    &-success{
+        pointer-events: none;
+        background-color:$success-color;
+    }
+    &-error{
+        pointer-events: none;
+        background-color:$error-color;
+    }
+    &-warning{
+        pointer-events: none;
+        background-color:$warning-color;
+    }
+}
+
+@keyframes rotating
+{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+
+
+

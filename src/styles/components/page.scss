@@ -1,0 +1,193 @@
+$page-prefix:#{$css-prefix}page;
+$select-prefix:#{$css-prefix}select;
+.#{$page-prefix}{
+    display: inline-block;
+    vertical-align: middle;
+    &-paging{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    &-info{
+        display: inline-block;
+        vertical-align: middle;
+        .#{$select-prefix}{
+            height:$page-item-height;
+            width:$page-info-width;
+            margin:$page-info-margin;
+            
+        }
+
+    }
+    &-item{
+        display: inline-block;
+        //float: left;
+        vertical-align: middle;
+        min-width: $page-item-height;
+        height: $page-item-height;
+        line-height: $page-item-height - 2px;
+        margin: $page-item-margin;
+        text-align: center;
+        list-style: none;
+        background-color: $page-item-bg;
+        color:$text-color;
+        user-select: none;
+        cursor: pointer;
+        font-family: Arial;
+        border: 1px solid $border-color-base;
+        border-radius: $btn-border-radius;
+        //transition: all @transition-time @ease-in-out;
+        transition: border $transition-time $ease-in-out, color $transition-time $ease-in-out;
+        &:hover {
+            border-color: $primary-color;
+            a {
+                color: $primary-color;
+            }
+        }
+
+        &-active {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            color: $page-item-bg;
+        }
+        &:last-child{
+            margin-right:0;
+        }
+    }
+    &-prefold,&-nextfold{
+        width:$page-fold-width;
+        &:after {
+            content: "•••";
+            display: block;
+            letter-spacing: 1px;
+            color: $page-fold-color;
+            text-align: center;
+        }
+
+        .fold-body{
+            display: none;
+        }
+
+        &:hover {
+            &:after{
+                display: none;
+            }
+            .fold-body{
+                display: inline;
+            }
+        }
+
+    }
+    &-pre,&-next,&-prefold,&-nextfold{
+        display: inline-block;
+        margin: $page-item-margin;
+        vertical-align: middle;
+        min-width: $page-item-height;
+        height: $page-item-height;
+        line-height: $page-item-height - 2px;
+        list-style: none;
+        text-align: center;
+        cursor: pointer;
+        color: $text-color;
+        padding:$page-fold-padding;
+        font-family: Arial;
+        border: 1px solid $border-color-base;
+        border-radius: $btn-border-radius;
+        transition: all $transition-time $ease-in-out;
+        &:hover {
+            border-color: $primary-color;
+            a {
+                color: $primary-color;
+            }
+        }
+
+        &-active {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            color: $page-item-bg;
+        }
+
+    }
+    &-jump{
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: $page-jump-margin;
+        .#{$page-prefix}-edit{
+            display: inline-block;
+            vertical-align: middle;
+            input{
+                height: $page-item-height;
+                padding: $page-jump-input-padding;
+                font-size: $font-size-small;
+                border: 1px solid $border-color-base;
+                color: $text-color;
+                background-color: transparent;
+                background-image: none;
+                position: relative;
+                cursor: text;
+                transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+                border-radius: $btn-border-radius;
+                margin: $page-jump-input-margin;
+                width: $page-search-width;
+            }
+        }
+        .#{$page-prefix}-search{
+            display: inline-block;
+            vertical-align: middle;
+            //float: left;
+            min-width: $page-item-height;
+            height: $page-item-height;
+            line-height: $page-item-height - 2px;
+            list-style: none;
+            text-align: center;
+            cursor: pointer;
+            color: $text-color;
+            padding: $page-fold-padding;
+            font-family: Arial;
+            border: 1px solid $border-color-base;
+            border-radius: $btn-border-radius;
+            transition: all $transition-time $ease-in-out;
+            &:hover {
+                border-color: $primary-color;
+                a {
+                    color: $primary-color;
+                }
+            }
+
+            &-active {
+                background-color: $primary-color;
+                border-color: $primary-color;
+                color: $page-item-bg;
+            }
+
+        }
+    }
+    &-noborder{
+        .#{$page-prefix}{
+            &-item{
+                border: none;
+                &-active{
+                    background-color: $page-item-bg;
+                    border-color: none;
+                    color: $primary-color;
+                    font-weight:700;
+                }
+            }
+            &-prefold,&-nextfold{
+                border: none;
+            }
+            &-pre,&-next,&-prefold,&-nextfold{
+                border: none;
+
+            }
+            &-jump{
+                .#{$page-prefix}-search{
+                    border: none;
+
+                }
+            }
+        }
+    }
+
+
+
+}

@@ -1,0 +1,42 @@
+$avatar-prefix: #{$css-prefix}avatar;
+
+.#{$avatar-prefix}{
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    &-circle{
+        background: $avatar-bg;
+        color: $avatar-color;
+        width: $avatar-size-base;
+        height:$avatar-size-base;
+        line-height: $avatar-size-base;
+        -webkit-border-radius: $avatar-circle-radius;
+        -moz-border-radius: $avatar-circle-radius;
+        -ms-border-radius: $avatar-circle-radius;
+        -o-border-radius: $avatar-circle-radius;
+        border-radius: $avatar-circle-radius;
+    }
+    &-square{
+        background: $avatar-bg;
+        color: $avatar-color;
+        width: $avatar-size-base;
+        height: $avatar-size-base;
+        line-height: $avatar-size-base;
+        -webkit-border-radius: $avatar-border-radius;
+        -moz-border-radius: $avatar-border-radius;
+        -ms-border-radius: $avatar-border-radius;
+        -o-border-radius: $avatar-border-radius;
+        border-radius: $avatar-border-radius;
+    }
+    &-noback{
+        background: transparent;
+        color: $text-color;
+    }
+    i{
+        font-size:$avatar-font-size-base;
+        color:$avatar-color;
+    }
+}

@@ -1,0 +1,173 @@
+$progress-prefix:#{$css-prefix}progress;
+
+.#{$progress-prefix}{
+    display: inline-block;
+    width: 100%;
+    &-outer{
+        padding-right: $progress-text-width;
+        margin-right: -$progress-text-width;
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+    }
+    &-hidetext{
+        .#{$progress-prefix}-outer{
+            padding-right: 0;
+            margin-right: 0;
+
+        }
+    }
+    &-bar-wrap{
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+        background: $progress-back-color;
+        -webkit-box-shadow: $progress-bar-shadow;
+        -moz-box-shadow: $progress-bar-shadow;
+        -ms-box-shadow: $progress-bar-shadow;
+        -o-box-shadow: $progress-bar-shadow;
+        box-shadow:$progress-bar-shadow;
+        -webkit-border-radius: $progress-bar-radius;
+        -moz-border-radius: $progress-bar-radius;
+        -ms-border-radius: $progress-bar-radius;
+        -o-border-radius: $progress-bar-radius;
+        border-radius: $progress-bar-radius;
+
+    }
+    &-bar{
+        position: relative;
+        -webkit-border-radius: $progress-bar-radius;
+        -moz-border-radius: $progress-bar-radius;
+        -ms-border-radius: $progress-bar-radius;
+        -o-border-radius: $progress-bar-radius;
+        border-radius: $progress-bar-radius;
+        height: 100%;
+        background-color:$primary-color;
+        text-align: right;
+        color: $progress-bar-color;
+    }
+    &-text{
+        display: inline-block;
+        margin: $progress-text-margin;
+        text-align: left;
+        font-size: 1em;
+        vertical-align: middle;
+
+    }
+    &-inner-text{
+        color:$progress-bar-color;
+        margin:$progress-inner-text-margin;
+    }
+    &-vertical{
+        height: 100%;
+        width: auto;
+        .#{$progress-prefix}{
+            &-outer{
+                height: 100%;
+                width: auto;
+            }
+            &-bar-wrap{
+                height: 100%;
+                width: auto;
+
+            }
+
+        }
+    }
+    &-default{
+        &.#{$progress-prefix}-active{
+            .#{$progress-prefix}{
+                &-bar{
+                    transition: all .2s linear;
+                    &:before{
+                        content: "";
+                        opacity: 0;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: $progress-bar-color;
+                        border-radius: $progress-bar-radius;
+                        animation: progress-active 2s ease-in-out infinite;
+                    }
+                }
+            }
+    
+        }
+    }
+    &-error{
+        .#{$progress-prefix}{
+            &-bar{
+                background-color: #f56c6c;
+            }
+        }
+        .error-icon{
+            color:#f56c6c;
+        }
+    }
+    &-success{
+        .#{$progress-prefix}{
+            &-bar{
+                background-color: #19be6b;
+            }
+        }
+        .success-icon{
+            color:#19be6b;
+        }
+        
+    }
+    &-strip{
+        .#{$progress-prefix}-bar{
+            background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+        }
+        &.#{$progress-prefix}-active{
+            .#{$progress-prefix}{
+                &-bar{
+                    transition: width .6s ease;
+                    -webkit-animation: progress-strip-active 2s linear infinite;
+                    -o-animation: progress-strip-active 2s linear infinite;
+                    animation: progress-strip-active 2s linear infinite;
+                }
+            }
+    
+        }
+    }
+    &-circle{
+        width:initial;
+        position: relative;
+        .circle-text{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            transform: translateY(-50%);
+        }
+    }
+    
+}
+@keyframes progress-active {
+    0% {
+        opacity: .3;
+        width: 0;
+    }
+    100% {
+        opacity: 0;
+        width: 100%;
+    }
+}
+@keyframes progress-strip-active {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 0;
+    }
+}

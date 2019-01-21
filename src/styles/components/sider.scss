@@ -1,0 +1,85 @@
+$layout-sider-prefix: #{$css-prefix}layout-sider;
+
+.#{$layout-sider-prefix}{
+    z-index: 5000;
+    position: $layout-sider-position;
+    width: $layout-sider-width;
+    height: $layout-sider-height;
+    background-color: $layout-sider-background; 
+    box-shadow: $layout-sider-shadow; 
+    margin-top: -$layout-header-height;
+    padding-top: $layout-header-height;
+    &>ul{
+        overflow: auto;
+        height: $layout-sider-height;
+        &>li{
+            margin-bottom: $layout-sider-siderMenu-marginBottom;
+        }
+    }
+    .siderMenu{
+        position: relative;
+        cursor: pointer;
+        height: $layout-sider-siderMenu-height;
+        line-height: $layout-sider-siderMenu-lineHeight;
+        color:  $layout-sider-siderMenu-color; 
+        font-size:  $layout-sider-siderMenu-fontSize; 
+        padding-left: $layout-sider-siderMenu-paddingLeft; 
+        transition: all $transition-time $ease-in-out;
+        &:hover{
+            background-color: $layout-sider-siderMenu-hover-background;
+        }
+        &.active{
+            background-color: $layout-sider-siderMenu-active-background;
+            color: $layout-sider-siderMenu-active-color;
+            i:first-child{
+                &:before{
+                    color: $layout-sider-siderMenu-active-icon-color;
+                }
+            } 
+            
+        }
+        i:last-child{
+            position: absolute;
+            right: $layout-sider-siderMenu-slide-right;
+            top: $layout-sider-siderMenu-slide-top;
+            &:before{
+                color: $layout-sider-siderMenu-slide-color;
+            }
+        }
+        i:first-child{
+            position: absolute;
+            left: $layout-sider-siderMenu-icon-left;
+            top: $layout-sider-siderMenu-icon-top;
+            &:before{
+                color: $layout-sider-siderMenu-icon-color;
+                font-size: $layout-sider-siderMenu-icon-fontSize;
+            }
+        }
+    }
+    ul.siderSubList{
+        display: none;
+        &.slide{
+            display: block;
+        }
+        li{
+            cursor: pointer;
+            height: $layout-sider-siderSubMenu-height;
+            margin-top: $layout-sider-siderSubMenu-marginTop;
+            color: $layout-sider-siderSubMenu-color;
+            font-size:  $layout-sider-siderSubMenu-fontSize;  
+            transition: all $transition-time $ease-in-out;
+            a{
+                color: inherit; 
+                line-height: $layout-sider-siderSubMenu-lineHeight;
+                padding-left: $layout-sider-siderSubMenu-paddingLeft; 
+            }
+            &:hover{
+                background-color: $layout-sider-siderSubMenu-hover-background;
+            }
+            &.active{
+                background-color: $layout-sider-siderSubMenu-active-background;
+                color: $layout-sider-siderSubMenu-active-color; 
+            }
+        }
+    }
+}

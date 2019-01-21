@@ -1,0 +1,11 @@
+@charset "utf-8";
+//自定义主题变量
+@import "./custom";
+//基础变量
+@import "./mixins/index";
+//框架，通用
+@import "./common/index";
+//动画
+@import "./animation/index";
+//组件
+@import "./components/index";

@@ -1,0 +1,20 @@
+$input-prefix: #{$css-prefix}input;
+.#{$input-prefix} {
+    @include input;
+    &-wrapper{
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        vertical-align: middle;
+        line-height: normal
+    }
+    &-icon{
+        &-pre,&-aft{
+            font-size:$input-icon-size;
+        }
+    }
+}
+
+.#{$input-prefix}-group{
+    @include input-group("#{$input-prefix}");
+}

@@ -1,0 +1,68 @@
+$rate-prefix: #{$css-prefix}rate;
+.#{$rate-prefix} {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: $rate-star-size;
+    vertical-align: middle;
+    font-weight: normal;
+    font-style: normal;
+    &-disabled &-star {
+        &>i,&-content>i{
+            cursor: default;
+        }
+        &:hover {
+            transform: scale(1);
+        }
+    }
+    &-star {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+        margin: $rate-star-margin;
+        position: relative;
+        font-family: 'Ionicons';
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &>i,&-content>i{
+            color: $rate-star-color;
+            cursor: pointer;
+            transition: all $transition-time $ease-in-out;
+            display: block;
+        }
+
+        &-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            &>i{
+                color: transparent;
+            }
+        }
+
+        &-half &-content>i,
+        &-full>i {
+            color: $rate-star-active-color;
+        }
+
+        &-half:hover &-content>i,
+        &-full:hover>i {
+            color: tint($rate-star-active-color, 20%);
+        }
+    }
+    &-score {
+        margin:$rate-score-margin;
+        vertical-align: middle;
+        display: inline-block;
+        font-size: $font-size-small;
+    }
+
+}

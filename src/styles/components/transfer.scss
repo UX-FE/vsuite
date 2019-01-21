@@ -1,0 +1,94 @@
+$transfer-prefix:#{$css-prefix}transfer;
+
+.#{$transfer-prefix}{
+    &-panel{
+        border: 1px solid $border-color-base;
+        -webkit-border-radius: $border-radius-base;
+        -moz-border-radius: $border-radius-base;
+        -ms-border-radius: $border-radius-base;
+        -o-border-radius: $border-radius-base;
+        border-radius: $border-radius-base;
+        overflow: hidden;
+        background: $background-color-base;
+        display: inline-block;
+        vertical-align: middle;
+        width: $transfer-item-width;
+        box-sizing: border-box;
+        position: relative;
+        .#{$transfer-prefix}-panel{
+            &-header{
+                height: $transfer-header-height;
+                line-height: $transfer-header-height;
+                background: $transfer-header-bg;
+                margin: 0;
+                padding: $transfer-padding;
+                border-bottom: 1px solid $border-color-base;
+                box-sizing: border-box;
+                color: $text-color;
+                position:relative;
+                .sum{
+                    position: absolute;
+                    right: 0;
+                    padding:$transfer-header-sum-padding;
+                }
+            }
+            &-body{
+                margin: 0;
+                padding: $transfer-body-padding;
+                list-style: none;
+                height: $transfer-body-height;
+                box-sizing: border-box;
+            }
+            &-item{
+                padding:$transfer-padding;
+            }
+        }
+    }
+    &-action{
+        display: inline-block;
+        vertical-align: middle;
+        padding: $transfer-action-padding;
+        .#{$transfer-prefix}-button{
+            display: block;
+            margin: 0 auto;
+            color: #fff;
+            background-color: $primary-color;
+            -webkit-border-radius: $transfer-action-radius;
+            -moz-border-radius: $transfer-action-radius;
+            -ms-border-radius:$transfer-action-radius;
+            -o-border-radius: $transfer-action-radius;
+            border-radius:$transfer-action-radius;
+            padding:$transfer-action-btn-padding;
+            cursor: pointer;
+            i{
+                font-size:18px;
+                color:#fff;
+            }
+            &:nth-child(1){
+                margin-bottom: 10px;
+            }
+            &:nth-child(2){
+                margin: 0;
+            }
+            &:hover,&:active{
+                color: #fff;
+                background-color:  $primary-hover-color;
+                border-color: $primary-hover-color;
+            }
+            &.disabled{
+                border: 1px solid $border-color-base;
+                background-color: $background-color-disabled;
+                color: $border-color-base;
+                cursor: default;
+                &:hover,&:active{
+                    border: 1px solid $border-color-base;
+                    background-color: $background-color-disabled;
+                    color: $border-color-base;
+                }
+                i{
+                    color:$border-color-base;
+                }
+            }
+        }
+    }
+}

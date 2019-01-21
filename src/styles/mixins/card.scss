@@ -1,0 +1,186 @@
+// card size 
+@mixin card-size($padding,$font-size,$border-radius) {
+    padding:$padding;
+    font-size:$font-size;
+    border-radius:$border-radius;
+}
+// card color 
+@mixin card-color($color, $background, $border) {
+  color:$color;
+  background-color:$background;
+  border-color:$border;
+}
+
+// card color 
+@mixin card {
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: left;
+    vertical-align: middle;
+    touch-action: manipulation;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: $line-height-base;
+    @include card-size($card-padding-base, $card-font-size, $card-border-radius);
+    transition: color $transition-time linear, background-color $transition-time linear, border $transition-time linear;
+    &:active,
+    &:focus {
+        outline: 0;
+    }
+
+    &:not([disabled]):hover {
+        text-decoration: none;
+    }
+
+    &:not([disabled]):active {
+        outline: 0;
+        transition: none;
+    }
+
+    &.disabled,
+    &[disabled] {
+        cursor: $cursor-disabled;
+        @include card-color($card-disable-color, $card-disable-bg, $card-disable-border);
+        > * {
+            pointer-events: none;
+        }
+    }
+}
+// card default 
+@mixin card-default {
+    @include card-size($card-padding-base, $card-font-size, $card-border-radius);
+    @include card-color($card-default-color, $card-default-bg, $card-default-border);
+}
+// card circle 
+@mixin card-circle {
+    border-radius: $card-circle-size;
+}
+@mixin card-group($card-prefix){
+    position: relative;
+    display: block;
+    width: 100%;
+    zoom:1;
+    &:after{
+        display:block;
+        clear:both;
+        content:"";
+        visibility:hidden;
+        height:0
+    }
+    > .#{$card-prefix} {
+        position: relative;
+        float: left;
+        &:hover,
+        //&:focus,
+        &:active,
+        &.active {
+            // z-index: 2;
+        }
+    }
+
+    & .#{$card-prefix}-icon-only .ivu-icon {
+        font-size: 14px;
+        position: relative;
+        top: 1px;
+    }
+
+
+    &-circle .#{$card-prefix} {
+        border-radius: $card-circle-size;
+    }
+
+
+    .#{$card-prefix} + .#{$card-prefix},
+    .#{$card-prefix} + &,
+    & + .#{$card-prefix},
+    & + & {
+        margin-left: -1px;
+    }
+
+    .#{$card-prefix}:not(:first-child):not(:last-child) {
+        border-radius: 0;
+    }
+
+    &:not(&-vertical) > .#{$card-prefix}:first-child {
+        margin-left: 0;
+        &:not(:last-child) {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+    }
+
+    &:not(&-vertical) > .#{$card-prefix}:last-child:not(:first-child) {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    & > & {
+        float: left;
+    }
+
+    & > &:not(:first-child):not(:last-child) > .#{$card-prefix} {
+        border-radius: 0;
+    }
+
+    &:not(&-vertical) > &:first-child:not(:last-child) {
+        > .#{$card-prefix}:last-child {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            padding-right: 8px;
+        }
+    }
+
+    &:not(&-vertical) > &:last-child:not(:first-child) > .#{$card-prefix}:first-child {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        padding-left: 8px;
+    }
+}
+@mixin card-group-vertical($card-prefix){
+    
+    
+    display: inline-block;
+    vertical-align: middle;
+    > .#{$card-prefix} {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        float: none;
+    }
+
+    .#{$card-prefix} + .#{$card-prefix},
+    .#{$card-prefix} + &,
+    & + .#{$card-prefix},
+    & + & {
+        margin-top: -1px;
+        margin-left: 0px;
+    }
+
+    > .#{$card-prefix}:first-child {
+        margin-top: 0;
+        &:not(:last-child) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    > .#{$card-prefix}:last-child:not(:first-child) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    & > &:first-child:not(:last-child) {
+        > .#{$card-prefix}:last-child {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            padding-bottom: 8px;
+        }
+    }
+
+    & > &:last-child:not(:first-child) > .#{$card-prefix}:first-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        padding-top: 8px;
+    }
+}

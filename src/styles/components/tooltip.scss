@@ -1,0 +1,76 @@
+$tooltip-prefix:#{$css-prefix}tooltip;
+$tooltip-arrow:#{$tooltip-prefix}-arrow;
+$tooltip-distance: $tooltip-arrow-width - 1 + 4;
+
+.#{$tooltip-prefix}{
+    display: inline-block;
+    position:relative;
+    &-target{
+        display: inline-block;
+        position: relative;
+    }
+    &-wrap{
+        @include popper($tooltip-arrow, $tooltip-arrow-width, $tooltip-distance, $tooltip-bg);
+    }
+    &-text{
+        max-width:$tooltip-max-width;
+        min-height: $tooltip-min-height;
+        padding: $tooltip-padding;
+        color: $tooltip-color;
+        word-break: break-all;
+        word-wrap: break-word;
+        text-align: left;
+        font-size:$tooltip-font-size;
+        text-decoration: none;
+        background-color: $tooltip-bg;
+        -webkit-border-radius: $tooltip-radius;
+        -moz-border-radius: $tooltip-radius;
+        -ms-border-radius: $tooltip-radius;
+        -o-border-radius: $tooltip-radius;
+        border-radius: $tooltip-radius;
+        box-shadow: $tooltip-shadow;
+    }
+    &-arrow{
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 6px;
+        &:after{
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            content: " ";
+            border-width: 6px;
+        }
+    }
+    &-light{
+        .#{$tooltip-prefix}-text{
+            background: #fff;
+            color:$text-color;
+        }
+        .#{$tooltip-prefix}-arrow{
+            border-top-color: #fff;
+            &:after{
+                content: " ";
+                border-width: 5px;
+                border-top-color: #fff;
+                bottom: 1px;
+                margin-left: -5px;
+                border-bottom-width: 0;
+                position: absolute;
+                display: block;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+            }
+        }
+    }
+
+}

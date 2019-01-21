@@ -1,0 +1,91 @@
+$tag-prefix:#{$css-prefix}tag;
+
+.#{$tag-prefix}{
+    display: inline-block;
+    line-height:$tag-line-height;
+    height: $tag-default-height;
+    margin: $tag-default-margin;
+    padding: $tag-default-padding;
+    border: 1px solid $border-color-base;
+    border-radius: $btn-border-radius-small;
+    background: $tag-bg-base;
+    font-size: $tag-font-size;
+    vertical-align: middle;
+    opacity: 1;
+    color: $text-color;
+    position: relative;
+    width:$tag-default-width;
+    &-close{
+        position: absolute;
+        right:0;
+        top:0;
+        height: 100%;
+        width: $tag-close-width;
+        font-size:$tag-close-icon-size;
+        cursor:pointer;
+        i{
+            position: relative;
+        }
+        &:hover,&:active,&.active{
+            color:$primary-color;
+        }
+    }
+    &-closable{
+        padding-right:0;
+    }
+    &-checked{
+        cursor: pointer;
+    }
+    &:not(&-checked){
+        // background: transparent;
+        // border: 0;
+        // color: $text-color;
+        // .#{$tag-close-prefix} {
+        //     color: $text-color !important;
+        // }
+    }
+    &-text {
+        a:first-child:last-child {
+            display: inline-block;
+            margin: 0 -8px;
+            padding: 0 8px;
+        }
+    }
+    &-info{
+        border: 1px solid $tag-info-border-color;
+        background: $tag-info-color;
+        color:#fff;
+        .#{$tag-prefix}-text{
+            color:#fff;
+        }
+        .#{$tag-prefix}-close{
+            &:hover,&:active,&.active{
+                background:$tag-info-active-color ;
+            }
+        }
+    }
+    &-large{
+        height: $tag-large-height;
+        line-height: $tag-large-height;
+        margin:$tag-default-large;
+        padding:$tag-large-padding;
+    }
+    &-small{
+        height: $tag-small-height;
+        line-height: $tag-small-height;
+        margin: $tag-default-small;
+        padding: $tag-small-padding;
+    }
+    &-group{
+        &-horizontal{
+
+        }
+        &-vertical{
+            .#{$tag-prefix}{
+                display: block;
+
+            }
+        }
+    }
+
+}

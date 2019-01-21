@@ -1,0 +1,84 @@
+$modal-prefix: #{$css-prefix}modal;
+.#{$modal-prefix} {
+    width: auto;
+    margin: 0 auto;
+    outline: 0;
+    position: relative;
+    background-color: $modal-bg;
+    border: 0;
+    -webkit-border-radius: $modal-radius;
+    -moz-border-radius: $modal-radius;
+    -ms-border-radius: $modal-radius;
+    -o-border-radius: $modal-radius;
+    border-radius: $modal-radius;
+    -webkit-border-shadow: $modal-shadow;
+    -moz-border-shadow: $modal-shadow;
+    -ms-border-shadow: $modal-shadow;
+    -o-border-shadow: $modal-shadow;
+    border-shadow: $modal-shadow;
+    background-clip: padding-box;
+    &-mask{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color:$modal-mask-bg;
+        height: 100%;
+        z-index: $zindex-modal;
+    }
+    &-wrap{
+        position: fixed;
+        overflow: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: $zindex-modal;
+        -webkit-overflow-scrolling: touch;
+        outline: 0;
+    }
+    &-header{
+        background: $modal-header-bg;
+        padding: $modal-header-padding;
+        position:relative;
+        font-size:$modal-header-font-size;
+        color:$modal-header-color;
+        border-bottom:$modal-header-border;
+        -webkit-border-radius: $modal-header-radius;
+        -moz-border-radius:  $modal-header-radius;
+        -ms-border-radius:  $modal-header-radius;
+        -o-border-radius:  $modal-header-radius;
+        border-radius:  $modal-header-radius;
+    }
+    &-close{
+        font-size:$font-size-base;
+        position: absolute;
+        right: $modal-close-icon-right;
+        top:$modal-close-icon-top;
+        overflow: hidden;
+        cursor: pointer;
+        i{
+            color:$modal-close-icon-color;
+            font-size:$modal-close-icon-size;
+        }
+    }
+    &-body{
+        padding: $modal-body-padding;
+        font-size:$font-size-base;
+    }
+    &-footer{
+        padding: $modal-footer-padding;
+        text-align: right;
+        border-top:$modal-footer-border;
+        &-btn{
+            width:$modal-footer-btn-width;
+            &+.#{$modal-prefix}-footer-btn{
+                margin-left:$modal-footer-btn-margin;
+            }
+        }
+    }
+    &-hidden{
+
+    }
+}

@@ -1,0 +1,27 @@
+$layout-header-prefix: #{$css-prefix}layout-header;
+
+.#{$layout-header-prefix}{
+    z-index: 5001;
+    position: $layout-header-position;
+    width: $layout-header-width;
+    height: $layout-header-height;
+    background-color: $layout-header-background; 
+    box-shadow: $layout-header-shadow; 
+    .title{
+        width: $layout-header-title-width;
+        height: $layout-header-title-height;
+        background-color: $layout-header-title-background; 
+        font-size: $layout-header-title-fontSize;
+        color: $layout-header-title-color;
+        text-align: $layout-header-title-textAlign;
+        line-height: $layout-header-title-lineHeight;
+    }
+    .logout{
+        cursor: pointer;
+        position: $layout-header-logout-position;
+        top: $layout-header-logout-top;
+        right: $layout-header-logout-right;
+        color: $layout-header-logout-color;
+        font-size: $layout-header-logout-fontSize;
+    }
+}

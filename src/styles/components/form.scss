@@ -1,0 +1,74 @@
+$form-prefix:#{$css-prefix}form;
+$input-prefix:#{$css-prefix}input;
+$select-prefix:#{$css-prefix}select-selection;
+.#{$form-prefix}{
+    &-item{
+        margin-bottom:$form-item-height;
+        &-label{
+            text-align: right;
+            vertical-align: middle;
+            float: left;
+            font-size: $font-size-base;
+            color: $text-color;
+            line-height: $form-item-height;
+            padding: $form-item-label-padding;
+            box-sizing: border-box;
+        }
+        &-content{
+            line-height: $form-item-height;
+            position: relative;
+            font-size: $font-size-base;
+        }
+        &-required{
+            .#{$form-prefix}-item{
+                &-label{
+                    font-weight:$form-item-label-weight;
+                    &:before{
+                        content: "*";
+                        display: inline-block;
+                        margin: $form-required-margin;
+                        font-family: SimSun;
+                        font-size:  $font-size-small;
+                        color: $form-required-color;
+                    }
+
+                }
+            }
+        }
+        &-error{
+            .#{$input-prefix}{
+                border-color: $form-error-color;
+            }
+            .#{$select-prefix}{
+                border-color: $form-error-color;
+            }
+        }
+        &-error-tip{
+            color: $form-error-color;
+            font-size: $font-size-small;
+            padding: $form-error-top-padding;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+    }
+    &-label{
+        &-left{
+            .#{$form-prefix}{
+                &-item-label{
+                    text-align:left
+                }
+            }
+        }
+        &-top{
+            .#{$form-prefix}{
+                &-item-label{
+                    float: none;
+                    display: inline-block;
+                    text-align: left;
+                    padding: $form-top-label-padding;
+                }
+            }
+        }
+    }
+}

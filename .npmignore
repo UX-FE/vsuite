@@ -1,0 +1,9 @@
+.*
+*.md
+*.yml
+build/
+node_modules/
+test/
+examples/
+src/
+gulpfile.js

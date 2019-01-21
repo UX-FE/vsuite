@@ -1,0 +1,121 @@
+$tree-prefix:#{$css-prefix}tree;
+
+.#{$tree-prefix}{
+    cursor: default;
+    background: $tree-bg;
+    color: $text-color;
+    &-node{
+        white-space: nowrap;
+        outline: none;
+        &-check-box{
+            display:inline-block;
+            vertical-align: middle;
+            margin:$tree-check-padding;
+            width: $checkbox-height-base;
+            height: $checkbox-height-base;
+            position: relative;
+            top: 0;
+            left: 0;
+            border: 1px solid $border-color-base;
+            border-radius: 2px;
+            background-color: $checkbox-inner-bg;
+            transition: border-color $transition-time $ease-in-out, background-color $transition-time $ease-in-out;
+    
+            &:after {
+                content: '';
+                display: table;
+                width: $checkbox-inner-width-base;
+                height: $checkbox-inner-height-base;
+                position: absolute;
+                top: $checkbox-inner-top-base;
+                left: $checkbox-inner-left-base;
+                border: 1px solid $checkbox-inner-bg;
+                border-top: 0;
+                border-left: 0;
+                transform: rotate(45deg) scale(0);
+                transition: all $transition-time $ease-in-out;
+            }
+            
+        }
+        &-title{
+            font-size:$font-size-base;
+            &-wrap{
+                display: flex;
+                align-items: center;
+                height:$tree-item-height;
+                cursor: pointer;
+                &:hover,&:active{
+                    background-color: $assist-1-color ;
+                }
+            }
+            &-check{
+                &:hover,&:active{
+                    & .#{$checkbox-prefix}-node-check-box {
+                        border-color: $primary-color;
+                    }
+            
+                }
+                & .#{$tree-prefix}-node-check-box {
+                    border-color: $primary-color;
+                    background-color: $primary-color;
+                    &:after {
+                        content: '';
+                        display: table;
+                        width: $checkbox-inner-width-base;
+                        height: $checkbox-inner-height-base;
+                        position: absolute;
+                        top: $checkbox-inner-top-base;
+                        left: $checkbox-inner-left-base;
+                        border: 1px solid $checkbox-inner-bg;
+                        border-top: 0;
+                        border-left: 0;
+                        transform: rotate(45deg) scale(1);
+                        transition: all $transition-time $ease-in-out;
+                    }
+                }
+            }
+            &-active{
+                background-color: $assist-2-color ;
+            }
+        }
+        &-body{
+            overflow: hidden;
+            background-color: transparent;
+        }
+        &-arrow{
+            cursor: pointer;
+            color: $tree-arrow-color;
+            padding: $tree-arrow-padding;
+            i{
+                color: $tree-arrow-color;
+                font-size: $tree-arrow-size;
+                transform: rotate(0deg);
+                transition: transform .3s ease-in-out;
+                &.expanded{
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+        &-length{
+            color: $primary-disabled-color ;
+        }
+        &-disabled{
+            color: $primary-disabled-color ;
+            .#{$tree-prefix}-node-title-active{
+                background-color: transparent;
+            }
+            .#{$tree-prefix}-node-title-wrap{
+                color: $primary-disabled-color ;
+                cursor: $cursor-disabled;
+                &:hover,&:active{
+                    background-color: transparent;
+                }
+            }
+            .#{$tree-prefix}-node-arrow{
+                i{
+                    color: $primary-disabled-color ;
+                }
+            }
+        }
+    }
+}

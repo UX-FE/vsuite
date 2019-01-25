@@ -40,73 +40,66 @@
                     <table :border="border" :cellpadding="cellpadding" :cellspacing="cellspacing">
                         <tbody>
                             <slot name="tr">
-                                <template v-if="!loading">              
-                                    <template v-if="data.length > 0">         
-                                        <template v-for="(item,index) in data">                                                                                                            
-                                            <tr @click="clickTr(index)" :key="index" :class="{active:(currentRow===index)}">
-                                                <td v-for="(itm,i) in thead" :key="i" :style="cellStyles(i,false,item)">
+                                <template v-if="data.length > 0">         
+                                    <template v-for="(item,index) in data">                                                                                                            
+                                        <tr @click="clickTr(index)" :key="index" :class="{active:(currentRow===index)}">
+                                            <td v-for="(itm,i) in thead" :key="i" :style="cellStyles(i,false,item)">
+                                                
+                                                <div class="cell">    
                                                     
-                                                    <div class="cell">    
-                                                        
-                                                        <template v-if="!!order&&i===0">
-                                                            <span>{{index+1}}</span>
-                                                        </template>
-                                                        <template v-else-if="!!multiSelect&&i===0">
-                                                            <span class="checkbox-wrap" :class="{active:(currentMultiSelected.indexOf(index)>-1)}" @click="checkTr(index)">
-                                                                <span class="checkbox"></span>
-                                                            </span>
-                                                        </template>
-                                                        <template v-else-if="!!expand&&i===0">
-                                                            <span class="expand-warp" :class="{expanded:currentExpandShow.indexOf(index)>-1}">
-                                                                <Icon type="arrow-right"></Icon>
-                                                            </span>
-                                                        </template>
-                                                        <template v-if="itm.render">
-                                                            <Cell                                                       
-                                                                :row="item"
-                                                                :column="itm"
-                                                                :index="index"
-                                                                :render="itm.render">
-                                                            </Cell>
-                                                        </template>
-                                                        <template v-else>
-                                                            <span v-if="tableFormatter"> {{tableFormatter(item[itm.column], item, itm.column)}}</span>
-                                                            <span v-else v-html="item[itm.column]"></span>
-                                                        </template>
-                                                    </div>  
-                                                </td>
-                                            </tr>
-                                            <tr v-if="!!expand&&(currentExpandShow.indexOf(index)>-1)" :key="index+'_expand'" :class="[prefix + '-expand']">
-                                                <td :colspan="thead.length">
-                                                    <Expand :key="index" :row="item" :render="getExpandRender" :expandedIndexs="currentExpandShow" :index="index"></Expand>
-                                                </td>
-                                            </tr>
-                                        </template>                                    
-                                    </template>  
-                                    <template v-else>
-                                        <tr>
-                                            <td :span="thead.length" :class="[prefix + '-td-nodata']">
-                                                <slot name="nodata">
-                                                    <NoData fix  :class="[prefix + '-td-nodata-body']">暂无数据</NoData>
-                                                </slot>  
-                                            </td>  
-                                        </tr>                                
-                                    </template>                               
-                                    <template v-if="showSum">
-                                        <slot name="sum">
-                                        </slot>
-                                    </template>
+                                                    <template v-if="!!order&&i===0">
+                                                        <span>{{index+1}}</span>
+                                                    </template>
+                                                    <template v-else-if="!!multiSelect&&i===0">
+                                                        <span class="checkbox-wrap" :class="{active:(currentMultiSelected.indexOf(index)>-1)}" @click="checkTr(index)">
+                                                            <span class="checkbox"></span>
+                                                        </span>
+                                                    </template>
+                                                    <template v-else-if="!!expand&&i===0">
+                                                        <span class="expand-warp" :class="{expanded:currentExpandShow.indexOf(index)>-1}">
+                                                            <Icon type="arrow-right"></Icon>
+                                                        </span>
+                                                    </template>
+                                                    <template v-if="itm.render">
+                                                        <Cell                                                       
+                                                            :row="item"
+                                                            :column="itm"
+                                                            :index="index"
+                                                            :render="itm.render">
+                                                        </Cell>
+                                                    </template>
+                                                    <template v-else>
+                                                        <span v-if="tableFormatter"> {{tableFormatter(item[itm.column], item, itm.column)}}</span>
+                                                        <span v-else v-html="item[itm.column]"></span>
+                                                    </template>
+                                                </div>  
+                                            </td>
+                                        </tr>
+                                        <tr v-if="!!expand&&(currentExpandShow.indexOf(index)>-1)" :key="index+'_expand'" :class="[prefix + '-expand']">
+                                            <td :colspan="thead.length">
+                                                <Expand :key="index" :row="item" :render="getExpandRender" :expandedIndexs="currentExpandShow" :index="index"></Expand>
+                                            </td>
+                                        </tr>
+                                    </template>                                    
+                                </template>  
+                                <template v-else>
+                                    <tr>
+                                        <td :span="thead.length" :class="[prefix + '-td-nodata']">
+                                            <slot name="nodata">
+                                                <NoData fix  :class="[prefix + '-td-nodata-body']">暂无数据</NoData>
+                                            </slot>  
+                                        </td>  
+                                    </tr>                                
+                                </template>                               
+                                <template v-if="showSum">
+                                    <slot name="sum">
+                                    </slot>
                                 </template>
-                                 <tr v-else>
-                                    <td :span="thead.length" :class="[prefix + '-td-loading']">
-                                        <slot name="tr-loading"></slot>
-                                    </td>  
-                                </tr>
                             </slot>
                         </tbody>
                     </table>
                 </slot>
-                <slot name="loading"><Loading fix v-if="loading" icon="loading"></Loading></slot>
+                <slot name="loading"><Loading fix v-if="loading" :icon="loadIcon"></Loading></slot>
             </div>
             <div :class="[prefix + '-footer']" ref="footer">
                 <slot name="footer">
@@ -154,6 +147,10 @@
             loading:{
                 type:Boolean,
                 default:false
+            },
+            loadIcon:{
+                type:String,
+                default:'loading'
             },
             headerShow:{
                 type:Boolean,
@@ -403,6 +400,7 @@
                 }else{
                     this.currentMultiSelected.push(index);
                 }
+                this.selectedAll = ((this.currentMultiSelected.length===this.data.length))?true:false;
                 this.$emit('on-check-row',this.currentMultiSelected);
             }
         },

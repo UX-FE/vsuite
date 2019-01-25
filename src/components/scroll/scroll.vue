@@ -2,7 +2,8 @@
   <div :class="[prefix]">
     <div ref="wrap" :style="styles" @scroll="handleScroll" @mousewheel="handleMouseWheel" :class="classes" 
           @mouseenter="handleEnter"
-          @mouseleave="handleLeave">
+          @mouseleave="handleLeave"
+          >
       <div ref="resize" :class="viewClasses" :style="viewStyles">
         <slot></slot>
       </div>
@@ -10,11 +11,12 @@
     <template v-if="!native">
         <Bar v-if="showX" ref="xbar"
         :move="moveX" 
-        :size="sizeWidth"></Bar>
+        :size="sizeWidth" 
+        ></Bar>
       <Bar v-if="showY" ref="ybar"
         vertical
         :move="moveY" 
-        :size="sizeHeight"></Bar>
+        :size="sizeHeight" ></Bar>
     </template>
   </div>
 </template>
@@ -113,7 +115,7 @@
         let style = this.wrapStyle;
         //设置高度和overflow属性
         const maxH = `max-height: ${this.maxHeight}px;`;
-        const autoX = this.autoX ? `overflow-x:scroll;` : ((this.disabledX)?`overflow-x:hidden;`:`overflow-x:auto;`)
+        const autoX = this.autoX ? `overflow-x:scroll;` : ((this.showX)?`overflow-x:auto;`:((this.disabledX)?`overflow-x:hidden;`:`overflow-x:auto;`))
         if (Array.isArray(this.wrapStyle)) {
           style = toObject(this.wrapStyle);
           if(!!this.maxHeight){
@@ -139,7 +141,7 @@
           }
         }
         //当存在gutter时，设置样式，隐藏原生的滚动条
-        if (this.gutter) {
+        if (this.gutter&&!this.native) {
           const gutterWith = `-${this.gutter}px`;
           const gutterStyle = `margin-bottom: ${gutterWith}; margin-right: ${gutterWith};`;
           if (Array.isArray(this.wrapStyle)) {

@@ -1,7 +1,7 @@
 <template>
     <div>
                 <TagGroup :tags="tag1">
-                    <Tag v-for="(item,index) in tag1" :key="index" :tag="item" @on-close="closeTag">
+                    <Tag v-for="(item,index) in tag1" :key="index" :tag="item"  closable>
                         {{item.name}}
                     </Tag>
                 </TagGroup>

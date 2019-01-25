@@ -90,6 +90,11 @@
                 },
             }
         },
+        methods: {
+            handleClickNode() {
+                
+            }
+        },
     }
 </script>
 

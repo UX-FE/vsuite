@@ -10,14 +10,12 @@
 </template>
 <script>
     import { oneOf } from '../../utils/assist';
-    // import ScrollbarMixins from '../modal/mixins-scrollbar';
 
     import { prefix } from '../var';
     const loadingPrefix = prefix+'loading';
 
     export default {
         name: 'Loading',
-        // mixins: [ ScrollbarMixins ],
         props: {
             size: {
                 validator (value) {
@@ -75,13 +73,6 @@
             }
         },
         watch: {
-            visible (val) {
-                if (val) {
-                    //this.addScrollEffect();
-                } else {
-                    //this.removeScrollEffect();
-                }
-            }
         },
         mounted () {
             this.showText = this.$slots.default !== undefined;

@@ -45,7 +45,7 @@
                     style="width:100%;" 
                     aft-icon="ios-search-strong"></FormInput>
                 </div>
-                <div v-if="checkAll" :class="checkAllClasses">
+                <div v-if="checkAll&&!(filterable&&notFound)" :class="checkAllClasses">
                     <Checkbox v-model="checkedAll" @on-change="handleCheckAll" :disabled="!!checkRange">全选</Checkbox>
                 </div>
                 <div :class="[prefix+'-drop-body']">
@@ -165,10 +165,6 @@
                 type:Number,
                 default:200
             },
-            showRow:{
-                type:Number,
-                default:5
-            },
             clearable:{
                 type:Boolean,
                 default:false
@@ -180,9 +176,6 @@
             searchable:{
                 type:Boolean,
                 default:false
-            },
-            operate:{
-
             },
             value:{
                 type:[String,Number,Array],
@@ -414,7 +407,7 @@
                 }
             },
             transitionName () {
-                return this.deraction === 'bottom' ? 'slide-up' : 'slide-down';
+                return this.deraction === 'bottom' ? 'slide-down' : 'slide-up';
             },
         },
         methods: {
@@ -488,6 +481,7 @@
                         // this.currentLabel = this.currentValue;
                         // currentLabel 应该循环选中的并赋值label
                         if(this.type==='single'){
+                            this.currentLabel = this.currentValue;
                         }else{
                             this.currentLabel = [];
                             this.findChild((child) => {
@@ -554,6 +548,7 @@
                         }
                         this.currentValue = tempValue;
                     }
+                    this.updateMultipleSelected();
                 }
             },
             handleScroll(e){
@@ -595,6 +590,13 @@
                 if (this.filterable) {
                     this.searchword = '';
                     this.lastSearchword = '';
+                }
+                if(this.type === 'multiple'){
+                    //更新选项状态
+                    this.updateMultipleSelected();
+                }else{
+                    //更新选项状态
+                    this.updateSingleSelected();
                 }
             },
             getSearchResult(val){

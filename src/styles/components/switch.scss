@@ -1,8 +1,8 @@
 $switch-prefix:#{$css-prefix}switch;
 .#{$switch-prefix}-wrap{
     display: inline-block;
-    width: $switch-width-base;
-    height: $switch-height-base;
+    // width: $switch-width-base;
+    // height: $switch-height-base;
 
 }
 .#{$switch-prefix}{
@@ -44,7 +44,7 @@ $switch-prefix:#{$css-prefix}switch;
         background-color: $switch-inner-bg;
         position: absolute;
         left: 1px;
-        top: 0;
+        top: 1px;
         cursor: pointer;
         transition: left $transition-time $ease-in-out, width $transition-time $ease-in-out;
     }

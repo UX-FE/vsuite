@@ -4,7 +4,7 @@
             <input type="hidden" :name="name" v-model="currentValue"/>
             <slot name="selection">
                 <div :class="refNameClasses">
-                    <slot name="selection-name">                      
+                    <slot name="selection-name">                 
                         {{(this.fixTitle) ? this.fixTitle : (this.visualValue)?this.visualValue:this.placeholder}}
                     </slot>
                 </div>
@@ -159,10 +159,6 @@
             singleDate:{
                 type: Boolean,
                 default: false
-            },
-            editable: {
-                type: Boolean,
-                default: true
             },
             pikerType:{//是否有选择类型（可按自定义时间或者按月份）
                 type: Boolean,
@@ -334,7 +330,9 @@
             },
             dropStyles(){
                 return {
-                    right:(this.right)?this.right:(this.placement==='right')?0:'initial'
+                    right:(this.right)?this.right:(this.placement==='right' || this.placement==='bottom-end' || this.placement==='top-end')?0:'initial',
+                    top:(this.placement==='bottom-start' || this.placement==='bottom' ||this.placement==='bottom-end' )?'32px':'initial',
+                    bottom:(this.placement==='top-start'|| this.placement==='top' ||this.placement==='top-end' )?'32px':'initial',
                 }
             },
             selectionMode() {

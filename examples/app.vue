@@ -1,6 +1,7 @@
 <style lang="scss">
   @import "../src/styles/index.scss";
   body {
+    overflow: auto;
   }
   ul{
       font-size: 16px;

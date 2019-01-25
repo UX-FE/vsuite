@@ -576,6 +576,7 @@ $btn-prefix:#{$css-prefix}btn;
         .#{$date-prefix}{
             &-ref{
                 border:1px solid transparent ;
+                cursor: default;
             }
         }
     }

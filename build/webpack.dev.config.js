@@ -31,6 +31,7 @@ module.exports = merge(webpackBaseConfig, {
     }
   },
   plugins: [
+    // new webpack.optimize.RuntimeChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
     new HtmlWebpackPlugin({
       inject: true,

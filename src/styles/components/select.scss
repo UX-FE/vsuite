@@ -178,12 +178,10 @@ $tooltip-prefix:#{$css-prefix}tooltip;
         }
         &-top{
             bottom:$select-default-height;
-            .#{$select-prefix}{
+            &.#{$select-prefix}{
                 &-bubble{
                     margin-bottom:12px;
-                }
-                &-drop{
-                    &-arrow{
+                    .#{$select-prefix}-drop-arrow{
                         bottom:-6px;
                         top: initial;
                         border-bottom-width: 0;
@@ -194,15 +192,17 @@ $tooltip-prefix:#{$css-prefix}tooltip;
                             border-bottom-width: 0;
                             border-top-color: #fff;
                         }
-                    }
 
+                    }
                 }
             }
         }
+        &-bottom{
+            &.#{$select-prefix}-bubble{
+                margin-top: 12px;
+            }
+        }
 
-    }
-    &-bubble{
-        margin-top: 12px;
     }
     &-list{
         .#{$select-prefix}{
@@ -243,6 +243,9 @@ $tooltip-prefix:#{$css-prefix}tooltip;
     &-search-nodata{
         padding: $select-searchtip-padding;
         font-size: $font-size-base;
+    }
+    &-check-wrap{
+        padding: 6px 12px 6px 12px;
     }
     &-group{
         &-wrap{

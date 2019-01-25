@@ -126,31 +126,32 @@
                 ];
             },
             getIconColor(value){
-                return (!!this.color)?this.color:this.iconColor(value);
+                let colors = (!!this.colors)?this.colors:((!!this.color)?[this.color,this.color,this.color]:'')
+                if(colors){
+                    return this.iconColor(value,colors);
+                }
             },
-            iconColor(value){
-                if(!!this.colors){
-                    const hoverIndex = this.hoverIndex;
-                    const currentIndex = this.isHover ? hoverIndex : this.currentValue;
+            iconColor(value,colors){
+                const hoverIndex = this.hoverIndex;
+                const currentIndex = this.isHover ? hoverIndex : this.currentValue;
 
-                    let full = false;
-                    let isLast = false;
+                let full = false;
+                let isLast = false;
 
-                    if (currentIndex >= value) full = true;
+                if (currentIndex >= value) full = true;
 
-                    if (this.isHover) {
-                        isLast = currentIndex === value;
-                    } else {
-                        isLast = Math.ceil(this.currentValue) === value;
-                    }
-                    if((!isLast && full) || (isLast && !this.isHalf) || isLast && this.isHalf){
-                        if(currentIndex<this.full*((!!this.rank&&!isNaN(this.rank[0]))?this.rank[0]:0.5)){
-                            return this.colors[0];
-                        }else if(currentIndex>this.full*((!!this.rank&&!isNaN(this.rank[1]))?this.rank[1]:0.6)){
-                            return this.colors[2];
-                        }else{
-                            return this.colors[1];
-                        }
+                if (this.isHover) {
+                    isLast = currentIndex === value;
+                } else {
+                    isLast = Math.ceil(this.currentValue) === value;
+                }
+                if((!isLast && full) || (isLast && !this.isHalf) || isLast && this.isHalf){
+                    if(currentIndex<this.full*((!!this.rank&&!isNaN(this.rank[0]))?this.rank[0]:0.5)){
+                        return colors[0];
+                    }else if(currentIndex>this.full*((!!this.rank&&!isNaN(this.rank[1]))?this.rank[1]:0.6)){
+                        return colors[2];
+                    }else{
+                        return colors[1];
                     }
                 }
             },

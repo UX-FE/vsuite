@@ -1,6 +1,7 @@
 
 <template>
-  <div :class="classes" @mousedown="clickTrackHandler" :style="styles">
+  <div :class="classes" @mousedown="clickTrackHandler" :style="styles"   @mouseenter="handleEnter"
+          @mouseleave="handleLeave">
       <div
         ref="thumb"
         :class="[prefix+'-thumb']"
@@ -80,6 +81,12 @@ export default {
     }
   },
   methods: {
+      handleEnter(){
+          this.opacity = (this.$parent.isAways)?1:1;
+      },
+      handleLeave(){
+          this.opacity = (this.$parent.isAways)?1:0;
+      },
     getStyles(){
       this.styles = {
         opacity:(this.$parent.isAways)?1:this.opacity

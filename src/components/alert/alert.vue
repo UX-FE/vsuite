@@ -8,7 +8,7 @@
                     </slot>
                 </span>
                 <span :class="mainClasses"><slot></slot></span>
-                <a :class="closeClasses" v-if="closable" @click="close">
+                <a :class="closeClasses" v-if="closable" @click.stop="close">
                     <slot name="close">
                         <Icon :type="closeIcon"></Icon>
                     </slot>

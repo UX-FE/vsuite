@@ -1,9 +1,10 @@
-$form-prefix:#{$css-prefix}form;
-$input-prefix:#{$css-prefix}input;
-$select-prefix:#{$css-prefix}select-selection;
+$form-prefix: #{$css-prefix}form;
+$input-prefix: #{$css-prefix}input;
+$select-prefix: #{$css-prefix}select-selection;
+$date-prefix: #{$css-prefix}date-ref;
 .#{$form-prefix}{
     &-item{
-        margin-bottom:$form-item-height;
+        margin-bottom: $form-item-height;
         &-label{
             text-align: right;
             vertical-align: middle;
@@ -41,6 +42,15 @@ $select-prefix:#{$css-prefix}select-selection;
             }
             .#{$select-prefix}{
                 border-color: $form-error-color;
+                &>i{
+                    color: $form-error-color;
+                }
+            }
+            .#{$date-prefix}{
+                border-color: $form-error-color;
+                &>i{
+                    color: $form-error-color;
+                }
             }
         }
         &-error-tip{

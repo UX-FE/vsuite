@@ -50,7 +50,9 @@ $nodata-prefix:#{$css-prefix}nodata;
         }
     }
     &-footer{
-        
+        &-pull-bar{
+            text-align: center;
+        }
     }
     table{
         table-layout: fixed;

@@ -7,6 +7,11 @@ $tree-prefix:#{$css-prefix}tree;
     &-node{
         white-space: nowrap;
         outline: none;
+        .unCheckIcon{
+            font-size: 12px;
+            position: absolute;
+            right: 14px;
+        }
         &-check-box{
             display:inline-block;
             vertical-align: middle;

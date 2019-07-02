@@ -10,9 +10,6 @@
                     :hours="hours"
                     :minutes="minutes"
                     :seconds="seconds"
-                    :disabled-hours="disabledHours"
-                    :disabled-minutes="disabledMinutes"
-                    :disabled-seconds="disabledSeconds"
                     :hide-disabled-options="hideDisabledOptions"
                     @on-change="handleChange"
                     @on-pick-click="handlePickClick"></time-spinner>

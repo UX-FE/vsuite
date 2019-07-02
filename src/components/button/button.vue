@@ -12,6 +12,7 @@
 <script>
 import { oneOf } from '../../utils/assist'
 import { prefix } from '../var'
+import Icon from '../icon';
 const btnPrefix = prefix + 'btn'
 export default {
   name: 'BaseButton',
@@ -40,6 +41,9 @@ export default {
     },
     loading: String, // 按钮状态（是否加载中）
     disabled: Boolean // 按钮是否不可用
+  },
+  components:{
+      'Icon':Icon
   },
   data () {
     return {

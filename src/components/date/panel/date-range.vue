@@ -6,154 +6,183 @@
                 <Radio label="month" :disabled="singleDate || quickCompare">按自然月选择</Radio>
             </RadioGroup>
         </div>
-        <!-- <div> -->
-            <div :class="[datePanelPrefix + '-sidebar']" v-if="shortcuts.length">
-                <div
-                    v-for="(shortcut,i) in shortcuts" :key="i"
-                    :class="[
-                    (datePanelPrefix + '-shortcut'),
-                    {
-                        'active':(curShortIndex===i),
-                        'disabled':shortcut.disabled||(pikerType==='month')||(singleDate&&i>1) ||quickCompare
-                    }
-                    ]"
-                    @click="handleShortcutClick(shortcut,(shortcut.disabled||(pikerType==='month')||(singleDate&&i>1) ||quickCompare),isCompare)" >{{ shortcut.text }}</div>
-            </div>
-            <div :class="[datePanelPrefix + '-body']">
-                <div :class="[datePanelPrefix + '-content-wrapper']" >
-                    <div :class="[datePanelPrefix + '-content', datePanelPrefix + '-content-left']" v-show="!isTime">
-                        <div :class="[datePrefix + '-header']" v-show="leftCurrentView !== 'time'">
-                            <span
-                                :class="iconBtnCls('prev', '-double')"
-                                @click="prevYear('left')"><Icon :type="leftYearIcon"></Icon></span>
-                            <span
-                                :class="iconBtnCls('prev')"
-                                @click="prevMonth"
-                                v-show="leftCurrentView === 'date'"><Icon :type="leftIcon"></Icon></span>
-                            <date-panel-label
-                                :date-panel-label="leftDatePanelLabel"
-                                :current-view="leftCurrentView"
-                                :date-prefix-cls="datePrefix"/>
-                            <!-- <span
-                                :class="iconBtnCls('next', '-double')"
-                                @click="nextYear('left')"
-                                v-show="leftCurrentView === 'year' || leftCurrentView === 'month'"><Icon type="arrow-right"></Icon></span> -->
-                        </div>
-                        <date-table
-                            v-show="leftCurrentView === 'date'"
-                            :year="leftYear"
-                            :month="leftMonth"
-                            :date="date"
-                            :min-date="minDate"
-                            :max-date="maxDate"
-                            :handle-date="handleDate"
-                            :quick-compare="quickCompare"
-                            :origin-value="originValue"
-                            :range-state="rangeState"
-                            :single-date="singleDate"
-                            selection-mode="range"
-                            :max-range-day="maxRangeDay"
-                            :disabled-date="disabledDate"
-                            @on-changerange="handleChangeRange"
-                            @on-pick="handleRangePick"
-                            @on-pick-click="handlePickClick"></date-table>
-                        <year-table
-                            ref="leftYearTable"
-                            v-show="leftCurrentView === 'year'"
-                            :year="leftTableYear"
-                            :date="leftTableDate"
-                            selection-mode="range"
-                            :disabled-date="disabledDate"
-                            @on-pick="handleLeftYearPick"
-                            @on-pick-click="handlePickClick"></year-table>
-                        <month-table
-                            ref="leftMonthTable"
-                            v-show="leftCurrentView === 'month'"
-                            :date="leftTableDate"
-                            :min-date="minDate"
-                            :max-date="maxDate"
-                            :min="min"
-                            :max="max"
-                            :handle-date="handleDate"
-                            selection-mode="range"
-                            :max-range-day="maxRangeDay"
-                            :begin-status ="monthBegin"
-                            :disabled-date="disabledDate"
-                            @on-pick="handleRangePick"
-                            @on-pick-click="handlePickClick"></month-table>
+        <div :class="[datePanelPrefix + '-selectedbar']" v-if="selectedBar">
+            <span :class="[(datePanelPrefix + '-selectedbar-start-date'),(minDate)?'':'empty']">{{(minDate)?visualMinDate:'开始日期'}}</span>{{separator}}<span :class="[(datePanelPrefix + '-selectedbar-end-date'),(maxDate)?'':'empty']">{{(maxDate)?visualMaxDate:'结束日期'}}</span>
+        </div>
+        
+        <div :class="[datePanelPrefix + '-sidebar']" v-if="shortcuts.length">
+            <div
+                v-for="(shortcut,i) in shortcuts" :key="i"
+                :class="[
+                (datePanelPrefix + '-shortcut'),
+                {
+                    'active':(curShortIndex===i||(shortcut.pickType&&pikerType==='month')),
+                    'disabled':(pikerType==='custom'&&(shortcut.disabled))||(pikerType==='month')||(singleDate&&i>1) ||quickCompare
+                }
+                ]"
+                @click="handleShortcutClick(shortcut,(shortcut.disabled||(pikerType==='month')||(singleDate&&i>1) ||quickCompare),isCompare,emitShortCut)" >{{ shortcut.text }}</div>
+        </div>
+        <div :class="[datePanelPrefix + '-body']">
+            <div :class="[datePanelPrefix + '-content-wrapper']" >
+                <div :class="[datePanelPrefix + '-content', datePanelPrefix + '-content-left']" v-if="!isTime">
+                    <div :class="[datePrefix + '-header']" v-show="leftCurrentView !== 'time'">
+                        <span
+                            :class="iconBtnCls('prev', '-double')"
+                            @click="prevYear('left')"><Icon :type="leftYearIcon"></Icon></span>
+                        <span
+                            :class="iconBtnCls('prev')"
+                            @click="prevMonth"
+                            v-show="leftCurrentView === 'date'"><Icon :type="leftIcon"></Icon></span>
+                        <date-panel-label
+                            :date-panel-label="leftDatePanelLabel"
+                            :current-view="leftCurrentView"
+                            :date-prefix-cls="datePrefix"/>
+                        <!-- <span
+                            :class="iconBtnCls('next', '-double')"
+                            @click="nextYear('left')"
+                            v-show="leftCurrentView === 'year' || leftCurrentView === 'month'"><Icon type="arrow-right"></Icon></span> -->
                     </div>
-                    <div :class="[datePanelPrefix + '-content', datePanelPrefix + '-content-right']" v-show="!isTime">
-                        <div :class="[datePrefix + '-header']" v-show="rightCurrentView !== 'time'">
-                            <!-- <span
-                                :class="iconBtnCls('prev', '-double')"
-                                @click="prevYear('right')"
-                                v-show="rightCurrentView === 'year' || rightCurrentView === 'month'"><Icon type="arrow-left"></Icon></span> -->
-                            <date-panel-label
-                                :date-panel-label="rightDatePanelLabel"
-                                :current-view="rightCurrentView"
-                                :date-prefix-cls="datePrefix"/>
-                            <span
-                                :class="iconBtnCls('next', '-double')"
-                                @click="nextYear('right')"><Icon :type="rightYearIcon"></Icon></span>
-                            <span
-                                :class="iconBtnCls('next')"
-                                @click="nextMonth"
-                                v-show="rightCurrentView === 'date'"><Icon :type="rightIcon"></Icon></span>
-                        </div>
-                        <date-table
-                            v-show="rightCurrentView === 'date'"
-                            :year="rightYear"
-                            :month="rightMonth"
-                            :date="rightDate"
-                            :min-date="minDate"
-                            :max-date="maxDate"
-                            :handle-date="handleDate"
-                            :range-state="rangeState"
-                            :single-date="singleDate"
-                            :max-range-day="maxRangeDay"
-                            selection-mode="range"
-                            :quick-compare="quickCompare"
-                            :origin-value="originValue"
-                            :disabled-date="disabledDate"
-                            @on-changerange="handleChangeRange"
-                            @on-pick="handleRangePick"
-                            @on-pick-click="handlePickClick"></date-table>
-                        <year-table
-                            ref="rightYearTable"
-                            v-show="rightCurrentView === 'year'"
-                            :year="rightTableYear"
-                            :date="rightTableDate"
-                            selection-mode="range"
-                            :disabled-date="disabledDate"
-                            @on-pick="handleRightYearPick"
-                            @on-pick-click="handlePickClick"></year-table>
-                        <month-table
-                            ref="rightMonthTable"
-                            v-show="rightCurrentView === 'month'"
-                            :date="rightTableDate"
-                            :min-date="minDate"
-                            :max-date="maxDate"
-                            :min="min"
-                            :max="max"
-                            :handle-date="handleDate"
-                            selection-mode="range"
-                            :max-range-day="maxRangeDay"
-                            :begin-status ="monthBegin"
-                            :disabled-date="disabledDate"
-                            @on-pick="handleRangePick"
-                            @on-pick-click="handlePickClick"></month-table>
+                    <date-table
+                        v-show="leftCurrentView === 'date'"
+                        :year="leftYear"
+                        :month="leftMonth"
+                        :date="date"
+                        :min-date="minDate"
+                        :max-date="maxDate"
+                        :handle-date="handleDate"
+                        :quick-compare="quickCompare"
+                        :origin-value="originValue"
+                        :range-state="rangeState"
+                        :single-date="singleDate"
+                        selection-mode="range"
+                        :disabledFuction ="disabledFuction"
+                        :disabledOutRange="disabledOutRange"
+                        :max-range-hour="maxRangeHour"
+                        :max-range-day="maxRangeDay"
+                        :type="type"
+                        :confirm="confirm"
+                        :disabled-date="disabledDate"
+                        :curClickDate ="curClickDate"
+                        @on-change-diaFuc ="handleChangeDiaFuc"
+                        @on-changerange="handleChangeRange"
+                        @on-pick="handleRangePick"
+                        @on-pick-click="handlePickClick"></date-table>
+                    <year-table
+                        ref="leftYearTable"
+                        v-show="leftCurrentView === 'year'"
+                        :year="leftTableYear"
+                        :date="leftTableDate"
+                        selection-mode="range"
+                        :disabled-date="disabledDate"
+                        @on-pick="handleLeftYearPick"
+                        @on-pick-click="handlePickClick"></year-table>
+                    <month-table
+                        ref="leftMonthTable"
+                        v-show="leftCurrentView === 'month'"
+                        :date="leftTableDate"
+                        :min-date="minDate"
+                        :max-date="maxDate"
+                        :min="min"
+                        :max="max"
+                        :handle-date="handleDate"
+                        :rows="monthRows"
+                        selection-mode="range"
+                        :max-range-hour="maxRangeHour"
+                        :max-range-month="maxRangeMonth"
+                        :max-range-day="maxRangeDay"
+                        :begin-status ="monthBegin"
+                        :disabled-date="disabledDate"
+                        @on-pick="handleRangePick"
+                        @on-pick-click="handlePickClick"></month-table>
+                </div>
+                <div :class="[datePanelPrefix + '-content', datePanelPrefix + '-content-right']" v-if="!isTime">
+                    <div :class="[datePrefix + '-header']" v-show="rightCurrentView !== 'time'">
+                        <!-- <span
+                            :class="iconBtnCls('prev', '-double')"
+                            @click="prevYear('right')"
+                            v-show="rightCurrentView === 'year' || rightCurrentView === 'month'"><Icon type="arrow-left"></Icon></span> -->
+                        <date-panel-label
+                            :date-panel-label="rightDatePanelLabel"
+                            :current-view="rightCurrentView"
+                            :date-prefix-cls="datePrefix"/>
+                        <span
+                            :class="iconBtnCls('next', '-double')"
+                            @click="nextYear('right')"><Icon :type="rightYearIcon"></Icon></span>
+                        <span
+                            :class="iconBtnCls('next')"
+                            @click="nextMonth"
+                            v-show="rightCurrentView === 'date'"><Icon :type="rightIcon"></Icon></span>
                     </div>
-                    <div :class="[datePanelPrefix + '-content']" v-show="isTime">
-                        <!-- <time-picker
-                            ref="timePicker"
-                            v-show="isTime"
-                            @on-pick="handleTimePick"
-                            @on-pick-click="handlePickClick"></time-picker> -->
-                    </div>
+                    <date-table
+                        v-show="rightCurrentView === 'date'"
+                        :year="rightYear"
+                        :month="rightMonth"
+                        :date="rightDate"
+                        :min-date="minDate"
+                        :max-date="maxDate"
+                        :handle-date="handleDate"
+                        :range-state="rangeState"
+                        :single-date="singleDate"
+                        :curClickDate ="curClickDate"
+                        :disabledFuction ="disabledFuction"
+                        :disabledOutRange="disabledOutRange"
+                        :max-range-hour="maxRangeHour"
+                        :max-range-day="maxRangeDay"
+                        :type="type"
+                        :confirm="confirm"
+                        selection-mode="range"
+                        :quick-compare="quickCompare"
+                        :origin-value="originValue"
+                        :disabled-date="disabledDate"
+                        @on-change-diaFuc ="handleChangeDiaFuc"
+                        @on-changerange="handleChangeRange"
+                        @on-pick="handleRangePick"
+                        @on-pick-click="handlePickClick"></date-table>
+                    <year-table
+                        ref="rightYearTable"
+                        v-show="rightCurrentView === 'year'"
+                        :year="rightTableYear"
+                        :date="rightTableDate"
+                        selection-mode="range"
+                        :disabled-date="disabledDate"
+                        @on-pick="handleRightYearPick"
+                        @on-pick-click="handlePickClick"></year-table>
+                    <month-table
+                        ref="rightMonthTable"
+                        v-show="rightCurrentView === 'month'"
+                        :date="rightTableDate"
+                        :min-date="minDate"
+                        :max-date="maxDate"
+                        :min="min"
+                        :max="max"
+                        :handle-date="handleDate"
+                        :rows="monthRows"
+                        selection-mode="range"
+                        :max-range-month="maxRangeMonth"
+                        :max-range-day="maxRangeDay"
+                        :begin-status ="monthBegin"
+                        :disabled-date="disabledDate"
+                        @on-pick="handleRangePick"
+                        @on-pick-click="handlePickClick"></month-table>
+                </div>
+                <div :class="[datePanelPrefix + '-content']" v-if="isTime">
+                    <time-picker
+                        ref="timePicker"
+                        v-show="isTime"
+                        :min-date="minDate"
+                        :max-date="maxDate"
+                        :disabledOutRange="disabledOutRange"
+                        :max-range-day="maxRangeDay"
+                        @on-pick="handleTimePick"
+                        @on-pick-click="handlePickClick"></time-picker>
                 </div>
             </div>
-            <Confirm
+        </div>
+        <Confirm
                 v-if="confirm"
+                :type="type"
+                :value="value"
+                :selectedBar="selectedBar"
                 :show-date="showDate"
                 :show-time="showTime"
                 :is-time="isTime"
@@ -161,6 +190,7 @@
                 :max-date="maxDate"
                 :compare="compare"
                 :show-tip="showTip"
+                :extraTip="extraTip"
                 :max-range-month="maxRangeMonth"
                 :max-range-day="maxRangeDay"
                 :time-disabled="timeDisabled"
@@ -174,16 +204,20 @@
                 @on-pick-clear="handlePickClear"
                 @on-pick-cancel="handlePickCancel"
                 @on-pick-success="handleConfirmClick"></Confirm>
-        <!-- </div> -->
+      
     </div>
 </template>
 <script>
     import Icon from '../../icon/icon.vue';
+    import RadioGroup from '../../radio/radio-group.vue';
+    import Radio from '../../radio/radio.vue';
+    import TimePicker from './time-range.vue';
     import DateTable from '../base/date-table.vue';
     import YearTable from '../base/year-table.vue';
     import MonthTable from '../base/month-table.vue';
     import Confirm from '../base/confirm.vue';
-    import { toDate,formatDate, prevMonth, nextMonth, initTimeDate, formatDateLabels,getDateRange } from '../util';
+    import { oneOf,findComponentDownward } from '../../../utils/assist';
+    import { toDate,formatDate,parseDate, prevMonth, nextMonth, initTimeDate, formatDateLabels,getDateRange } from '../util';
     import datePanelLabel from './date-panel-label.vue';
 
     import Mixin from './mixin';
@@ -191,13 +225,124 @@
 
 
     import { prefix } from '../../var';
+import confirmVue from '../base/confirm.vue';
     const datePrefix = prefix+'date';
     const datePanelPrefix = prefix+'date-panel';
 
+
+     //默认格式化
+    const DEFAULT_FORMATS = {
+        date: 'yyyy-MM-dd',
+        month: 'yyyy-MM',
+        year: 'yyyy',
+        datetime: 'yyyy-MM-dd HH:mm:ss',
+        time: 'HH:mm:ss',
+        timerange: 'HH:mm:ss',
+        daterange: 'yyyy-MM-dd',
+        datetimerange: 'yyyy-MM-dd HH:mm:ss'
+    };
+
+
+    //格式化函数
+    const DATE_FORMATTER = function(value, format) {
+        return formatDate(value, format);
+    };
+    //
+    const DATE_PARSER = function(text, format) {
+        return parseDate(text, format);
+    };
+    const RANGE_FORMATTER = function(value, format,separator) {
+        if (Array.isArray(value) && value.length>=2) {
+            const start = value[0];
+            const end = value[1];
+
+            if (start && end) {
+                return formatDate(start, format) + separator + formatDate(end, format);
+            }
+        }
+        return '';
+    };
+    const RANGE_PARSER = function(text, format,separator) {
+        const array = text.split(separator);
+        if (array.length>=2) {
+            const range1 = array[0];
+            const range2 = array[1];
+            let range3 = '';
+            let range4 = '';
+            if(array.length===4){
+                range3 = array[2];
+                range4 = array[3];
+
+            }
+
+            return [parseDate(range1, format), parseDate(range2, format), parseDate(range3, format), parseDate(range4, format)];
+        }
+        return [];
+    };
+
+    const TYPE_VALUE_RESOLVER_MAP = {
+        default: {
+            formatter(value) {
+                if (!value) return '';
+                return '' + value;
+            },
+            parser(text) {
+                if (text === undefined || text === '') return null;
+                return text;
+            }
+        },
+        date: {
+            formatter: DATE_FORMATTER,
+            parser: DATE_PARSER
+        },
+        datetime: {
+            formatter: DATE_FORMATTER,
+            parser: DATE_PARSER
+        },
+        daterange: {
+            formatter: RANGE_FORMATTER,
+            parser: RANGE_PARSER
+        },
+        datetimerange: {
+            formatter: RANGE_FORMATTER,
+            parser: RANGE_PARSER
+        },
+        timerange: {
+            formatter: RANGE_FORMATTER,
+            parser: RANGE_PARSER
+        },
+        time: {
+            formatter: DATE_FORMATTER,
+            parser: DATE_PARSER
+        },
+        month: {
+            formatter: DATE_FORMATTER,
+            parser: DATE_PARSER
+        },
+        year: {
+            formatter: DATE_FORMATTER,
+            parser: DATE_PARSER
+        },
+        number: {
+            formatter(value) {
+                if (!value) return '';
+                return '' + value;
+            },
+            parser(text) {
+                let result = Number(text);
+
+                if (!isNaN(text)) {
+                    return result;
+                } else {
+                    return null;
+                }
+            }
+        }
+    };
     export default {
         name: 'DatePicker',
         mixins: [ Mixin, Locale ],
-        components: { Icon, DateTable, YearTable, MonthTable, Confirm, datePanelLabel },
+        components: { Icon, RadioGroup,Radio,TimePicker,DateTable, YearTable, MonthTable, Confirm, datePanelLabel },
         data () {
             return {
                 datePanelPrefix: datePanelPrefix,
@@ -205,10 +350,18 @@
                 shortcuts: [],//快速选择
                 pikerType:undefined,//自定义选择类型
                 singleDate:false,
+                monthRows:3,
                 date: initTimeDate(),
+                leftTime:'00:00:00',
+                rightTime:'00:00:00',
                 value: '',
+                type:'',
+                selectedBar:false,
+                separator:' ~ ',
                 minDate: '',
                 maxDate: '',
+                visualMinDate:'',
+                visualMaxDate:'',
                 min:'',
                 max:'',
                 compareMinDate:'',
@@ -217,9 +370,14 @@
                 quickCompare:false,//是否有快速对比时间功能
                 originValue: [],     
                 isCompare:false,//是否当前是时间对比
+                emitShortCut:true,//是否立即选择快捷选项选择日期并且关闭下拉框
                 showTip:false,
+                disabledFuction:'',
+                curClickDate:'',
+                disabledOutRange:false,
                 maxRangeMonth:'',
                 maxRangeDay:'',
+                maxRangeHour:'',
                 handleDate:'start',
                 monthBegin:false,
                 confirm: false,
@@ -368,6 +526,7 @@
         },
         watch: {
             value(newVal) {
+                this.handleDate = 'start'
                 if (!newVal) {
                     this.minDate = null;
                     this.maxDate = null;
@@ -381,10 +540,13 @@
             minDate (val) {
                 // if (this.showTime) this.$refs.timePicker.date = val;
                 this.resetCurShort();
+                
+                this.resetVisualMinDate();
             },
             maxDate (val) {
                 // if (this.showTime) this.$refs.timePicker.dateEnd = val;
                 this.resetCurShort();
+                this.resetVisualMaxDate();
             },
             format (val) {
                 // if (this.showTime) this.$refs.timePicker.format = val;
@@ -400,6 +562,26 @@
             }
         },
         methods: {
+            handleChangeDiaFuc(val,curDate){
+                this.curClickDate = curDate;
+                this.disabledFuction = val;
+            },
+            resetVisualMinDate(){
+                 const formatter = (
+                    TYPE_VALUE_RESOLVER_MAP['datetime']
+                ).formatter;
+                const format = DEFAULT_FORMATS['datetime'];
+                this.visualMinDate =  formatter(this.minDate,  format,this.separator);
+
+            },
+            resetVisualMaxDate(){
+                 const formatter = (
+                    TYPE_VALUE_RESOLVER_MAP['datetime']
+                ).formatter;
+                const format = DEFAULT_FORMATS['datetime'];
+                this.visualMaxDate =   formatter(this.maxDate,  format,this.separator);
+
+            },
             getRightMonthDate(){
                 const newDate = new Date(this.date);
                 newDate.setDate(1);
@@ -615,8 +797,6 @@
                     this.maxDate = val.maxDate;
                 });
                 /* end of #2122 patch */
-
-
                 if (!close) return;
 //                if (!this.showTime) {
 //                    this.handleConfirm(false);
@@ -638,6 +818,7 @@
             },
             handleToggleTime () {
                 this.isTime = !this.isTime;
+                this.handleDate = 'start';
             },
             handlePickCompare(isCompare,compareDate){
                 this.isCompare = isCompare;
@@ -648,11 +829,15 @@
             handleTimePick (date) {
                 this.minDate = date[0];
                 this.maxDate = date[1];
-                this.handleConfirm(false);
+                this.resetVisualMinDate()
+                this.resetVisualMaxDate()
+                // this.handleConfirm(false);
             }
         },
         mounted () {
             if (this.showTime) {
+
+                
             }
         }
     };

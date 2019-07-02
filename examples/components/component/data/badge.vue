@@ -4,10 +4,13 @@
                 <Badge count="5">
                     <BaseButton>消息</BaseButton>
                 </Badge>
+                <Badge count="NEW">
+                    <BaseButton>消息</BaseButton>
+                </Badge>
                 <Badge count="35">
                     <BaseButton>消息</BaseButton>
                 </Badge>
-                <Badge count="5">
+                <Badge count="5"  :scale=0.7 :translate-x="'36'">
                     <span class="text-badge">消息</span>
                 </Badge>
     </div>

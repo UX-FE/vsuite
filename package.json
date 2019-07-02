@@ -1,8 +1,8 @@
 {
   "name": "vsuite",
-  "version": "0.0.5",
+  "version": "0.0.786",
   "title": "vsuite",
-  "description": "A simple and easy-to-use components Library base on Vue.js",
+  "description": "A easy-to-use components Library base on Vue.js",
   "homepage": "https://github.com/UX-FE/vsuite#readme",
   "private": false,
   "keywords": [

@@ -70,6 +70,7 @@
 <script>
     import { oneOf } from '../../utils/assist';
     import { on, off } from '../../utils/dom';
+    import Icon from '../icon';
 
     import { prefix } from '../var';
     const progressPrefix = prefix+'progress';
@@ -144,12 +145,12 @@
                 default:'#EBEFF1'
             }
         },
+        components:{
+            'Icon':Icon
+        },
         data () {
             return {
-                currentValue: this.value,
                 circleColor:(!!this.color)?this.color:'#1864FF',
-                openValue:true,
-                shutValue:false,
                 innerTextStyle:{
                     'margin-left':'6px',
                     'color':'#fff'
@@ -217,9 +218,9 @@
                 
                 return this.size/2;
             },
-            circleTrans(){
-                return matrix(0,-1,1,0,0,"+this.size+");
-            },
+            // circleTrans(){
+            //     return matrix(0,-1,1,0,0,"+this.size+");
+            // },
             currentBackWidth(){
                 return (!!this.backWidth)?this.backWidth:this.strokeWidth;
             }

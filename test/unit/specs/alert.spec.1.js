@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createVue, createTest,destroyVM } from '../util'
+import { createVue, createTest, destroyVM } from '../util'
 import Alert from '../../../src/components/alert'
 
 describe('alert.vue', () => {
@@ -22,17 +22,17 @@ describe('alert.vue', () => {
   // })
   it('close', done => {
     vm = createTest(Alert, {
-      mode:'normal',
-      autoHidden:true,
-      duration:1.5,
-      value:true,
+      mode: 'normal',
+      autoHidden: true,
+      duration: 1.5,
+      value: true,
       type: 'info',
       closable: false,
-      showIcon:false,
-      closeIcon:'ios-close-empty',
-      top:60,
+      showIcon: false,
+      closeIcon: 'ios-close-empty',
+      top: 60
     })
-    vm.close();
-    done();
+    vm.close()
+    done()
   })
 })

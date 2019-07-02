@@ -219,11 +219,14 @@
           strategy: "scroll" //<- For ultra performance.
         });
         if(this.$slots.default&&this.$slots.default[0]){
-          erd.listenTo(this.$slots.default[0]['elm'], (element)=> {
-            var width = element.offsetWidth;
-            var height = element.offsetHeight;
-            this.update();
-          });
+            try{
+              erd.listenTo(this.$slots.default[0]['elm'], (element)=> {
+                var width = element.offsetWidth;
+                var height = element.offsetHeight;
+                this.update();
+              });
+            }catch(e){
+            }
         }
       }
     },

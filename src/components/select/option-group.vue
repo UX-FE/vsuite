@@ -31,6 +31,9 @@
                 type:[String,Object,Number]
             }
         },
+        components:{
+            'Option':Option
+        },
         computed: {
             optiongroupClasses () {
                 return [

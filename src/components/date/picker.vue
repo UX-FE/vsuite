@@ -3,13 +3,15 @@
         <div ref="reference" :class="refClasses" @click="toggleDrop" @mouseenter="hover = true"  @mouseleave="hover = false">
             <input type="hidden" :name="name" v-model="currentValue"/>
             <slot name="selection">
+                <Icon v-if="preIcon" :type="preIcon" class="pre-icon"></Icon>
                 <div :class="refNameClasses">
-                    <slot name="selection-name">                 
-                        {{(this.fixTitle) ? this.fixTitle : (this.visualValue)?this.visualValue:this.placeholder}}
+                    <slot name="selection-name">
+                        <template v-if="this.fixTitle || this.visualValue">{{(this.fixTitle) ? this.fixTitle : (this.visualValue)}}</template>       
+                        <template v-else><span class="placeholder">{{this.placeholder}}</span></template>     
                     </slot>
                 </div>
-                <!-- <Icon v-if="!!clearable&&(this.currentValue!=='')&&hover" type="close-circled" class="close-icon" @on-click-icon="clearSelect"></Icon> -->
-                <Icon v-if="!readonly" :type="icon"></Icon>
+                <Icon v-if="!!clearable&&(this.visualValue)&&hover" :type="closeIcon" class="after-icon" @on-click-icon.stop="clearSelect"></Icon>
+                <Icon v-if="!readonly&&(!(clearable&&(this.visualValue)&&hover))" :type="icon" class="after-icon"></Icon>
             </slot>
         </div>
         <transition :name="transition">
@@ -20,6 +22,7 @@
     </div>
 </template>
 <script>
+    import Icon from '../icon';
     import clickoutside from '../../directives/clickoutside';
     import TransferDom from '../../directives/transfer-dom';
     import { oneOf,findComponentDownward } from '../../utils/assist';
@@ -40,8 +43,8 @@
         datetimerange: 'yyyy-MM-dd HH:mm:ss'
     };
 
-    //范围分隔符
-    const RANGE_SEPARATOR = ' ~ ';
+    const DEFAULT_SEPARATOR = ' ~ ';
+
 
     //格式化函数
     const DATE_FORMATTER = function(value, format) {
@@ -51,19 +54,19 @@
     const DATE_PARSER = function(text, format) {
         return parseDate(text, format);
     };
-    const RANGE_FORMATTER = function(value, format) {
+    const RANGE_FORMATTER = function(value, format,separator=DEFAULT_SEPARATOR) {
         if (Array.isArray(value) && value.length>=2) {
             const start = value[0];
             const end = value[1];
 
             if (start && end) {
-                return formatDate(start, format) + RANGE_SEPARATOR + formatDate(end, format);
+                return formatDate(start, format) + separator + formatDate(end, format);
             }
         }
         return '';
     };
-    const RANGE_PARSER = function(text, format) {
-        const array = text.split(RANGE_SEPARATOR);
+    const RANGE_PARSER = function(text, format,separator=DEFAULT_SEPARATOR) {
+        const array = text.split(separator);
         if (array.length>=2) {
             const range1 = array[0];
             const range2 = array[1];
@@ -170,15 +173,21 @@
             },
             min:Date,
             max:Date,
+            extraTip:String,
+            disabledOutRange:{//默认设置选择范围
+                type:Boolean,
+                default:false
+            },
+            maxRangeHour:{},
             maxRangeDay:{},
             maxRangeMonth:{},
             showTime:{//是否显示选择时间
                 type: Boolean,
-                default: true
+                default: false
             },
             clearable: {//是否可清空
                 type: Boolean,
-                default: true
+                default: false
             },
             quickCompare:{  // 快速对比
                type: Boolean,
@@ -226,6 +235,10 @@
                 type:String,
                 default:'calendar'
             },
+            top:{
+                type:String,
+                default:'32px'
+            },
             options: {//快速选项
                 type: Object
             },
@@ -238,6 +251,10 @@
             },
             elementId: {
                 type: String
+            },
+            dropForDate:{
+                type:Boolean,
+                default:false
             },
             leftYearIcon:{
                 type:String,
@@ -255,9 +272,45 @@
                 type:String,
                 default:"arrow-right"
             },
+            preIcon:String,
+            closeIcon:{
+                type:String,
+                default:'close-circled'
+            },
             right:{
                 type:String
-            }
+            },
+            selectMaxHeight:{
+                type:[String,Number],
+                default:156
+            },
+            emitShortCut:{
+                type:Boolean,
+                default:true
+            },
+            selectedBar:{
+                type:Boolean,
+                default:false
+            },
+            separator:{
+                default:String,
+                default:' ~ ',
+            },
+            wrapSelection:{
+                type:Boolean,
+                default:false
+            },
+            dropIcon:{
+                type:String,
+                default:'sort-down'
+            },
+            monthRows:{
+                type:[String,Number],
+                default:3
+            },
+        },
+        components:{
+            'Icon':Icon
         },
         data () {
             return {
@@ -286,17 +339,18 @@
                 return icon;
             },
             transition () {
-                if (this.placement === 'bottom-start' || this.placement === 'bottom' || this.placement === 'bottom-end') {
-                    return 'slide-up';
-                } else {
+                if (this.placement === 'top-start' || this.placement === 'top' || this.placement === 'top-end') {
                     return 'slide-down';
+                } else {
+                    return 'slide-up';
                 }
             },
             refClasses(){
                 return [
                     `${datePrefix}-ref`,
                     {
-                        ['isFocus']:this.focus
+                        ['isFocus']:this.focus,
+                        [ `${datePrefix}-ref-name-hasPreIcon`]:this.preIcon,
                     }
                 ];
 
@@ -306,7 +360,8 @@
                     `${datePrefix}`,
                     {
                         [ `${datePrefix}-readonly`]:this.readonly,
-                        [ `${datePrefix}-disabled`]:this.disabled
+                        [ `${datePrefix}-disabled`]:this.disabled,
+                        [ `${datePrefix}-wrapSelection`]:this.wrapSelection
                     }
                 ]
 
@@ -314,9 +369,6 @@
             refNameClasses(){
                 return [
                     `${datePrefix}-ref-name`,
-                    // {
-                    //     ['isMultiple']:this.selectedMultiple.length
-                    // }
                 ]
             },
             dropClasses(){
@@ -331,7 +383,7 @@
             dropStyles(){
                 return {
                     right:(this.right)?this.right:(this.placement==='right' || this.placement==='bottom-end' || this.placement==='top-end')?0:'initial',
-                    top:(this.placement==='bottom-start' || this.placement==='bottom' ||this.placement==='bottom-end' )?'32px':'initial',
+                    top:(this.placement==='bottom-start' || this.placement==='bottom' ||this.placement==='bottom-end' || this.top )?this.top:'initial',
                     bottom:(this.placement==='top-start'|| this.placement==='top' ||this.placement==='top-end' )?'32px':'initial',
                 }
             },
@@ -354,7 +406,7 @@
                     ).formatter;
                     const format = DEFAULT_FORMATS[this.type];
 
-                    return formatter(value, this.format || format);
+                    return formatter(value, this.format || format,this.separator);
                 },
 
                 set (value) {
@@ -364,7 +416,7 @@
                             TYPE_VALUE_RESOLVER_MAP[type] ||
                             TYPE_VALUE_RESOLVER_MAP['default']
                         ).parser;
-                        const parsedValue = parser(value, this.format || DEFAULT_FORMATS[type]);
+                        const parsedValue = parser(value, this.format || DEFAULT_FORMATS[type],this.separator);
                         if (parsedValue) {
                             if (this.picker) this.picker.value = parsedValue;
                         }
@@ -375,6 +427,14 @@
             }
         },
         methods: {
+            /**
+             * @method 清除选中日期
+             */
+            clearSelect(e){
+                e.stopPropagation();
+                this.visible = false;
+                this.handleClear()
+            },
             toggleDrop(){
                 if(this.disabled || this.readonly){
                     return false;
@@ -423,20 +483,20 @@
             //             TYPE_VALUE_RESOLVER_MAP['default']
             //         ).formatter;
 
-            //         const parsedValue = parser(value, format);
+            //         const parsedValue = parser(value, format,this.separator);
 
             //         if (parsedValue[0] instanceof Date && parsedValue[1] instanceof Date) {
             //             if (parsedValue[0].getTime() > parsedValue[1].getTime()) {
             //                 correctValue = oldValue;
             //             } else {
-            //                 correctValue = formatter(parsedValue, format);
+            //                 correctValue = formatter(parsedValue, format,this.separator);
             //             }
             //             // todo 判断disabledDate
             //         } else {
             //             correctValue = oldValue;
             //         }
 
-            //         correctDate = parser(correctValue, format);
+            //         correctDate = parser(correctValue, format,this.separator);
             //     } else if (type === 'time') {
             //         const parsedDate = parseDate(value, format);
 
@@ -511,14 +571,15 @@
                         TYPE_VALUE_RESOLVER_MAP['date']
                     ).formatter;
                     const format = DEFAULT_FORMATS['date'];
-                    this.compareMinDate = formatter(this.value[2], this.format || format);
-                    this.compareMaxDate = formatter(this.value[3], this.format || format);
+                    this.compareMinDate = formatter(this.value[2], this.format || format,this.separator);
+                    this.compareMaxDate = formatter(this.value[3], this.format || format,this.separator);
                     Confirm.isCompare = true;
                 }else{
                     Confirm.isCompare = false;
                 }
                 this.currentValue = this.value;
                 this.picker.value = this.value;
+                this.picker.disabledFuction = '';
                 this.picker.resetView && this.picker.resetView();
                 //fix 取消不需要触发变化
                 // this.emitChange(this.value);
@@ -527,6 +588,9 @@
                 this.visible = false;
                 this.internalValue = '';
                 this.currentValue = '';
+                if(this.picker&&this.picker.disabledFuction){
+                    this.picker.disabledFuction = '';
+                }
                 this.$emit('on-clear');
                 this.dispatch('FormItem', 'on-form-change', '');
                 // #2215，当初始设置了 value，直接点 clear，这时 this.picker 还没有加载
@@ -549,19 +613,30 @@
                     this.picker.rightYearIcon = this.rightYearIcon;
                     this.picker.rightIcon = this.rightIcon;
                     this.picker.showTip = this.showTip;
+                    this.picker.dropForDate = this.dropForDate;
                     this.picker.min = this.min;
                     this.picker.max = this.max;
+                    this.picker.extraTip = this.extraTip;
+                    this.picker.maxRangeHour = this.maxRangeHour;
                     this.picker.maxRangeDay = this.maxRangeDay;
                     this.picker.maxRangeMonth = this.maxRangeMonth;
+                    this.picker.disabledOutRange = this.disabledOutRange;
+                    this.picker.dropIcon = this.dropIcon;
+                    this.picker.monthRows = this.monthRows;
                     if (type === 'datetime' || type === 'datetimerange') {
                         isConfirm = true;
                         this.picker.showTime = true;
                     }
                     this.picker.value = this.internalValue;
+                    this.picker.type = this.type;
+                    this.picker.separator = this.separator;
+                    this.picker.selectedBar = this.selectedBar;
                     this.picker.confirm = isConfirm;
                     this.picker.quickCompare = this.quickCompare;
+                    this.picker.emitShortCut = this.emitShortCut;
                     this.picker.originValue = (this.originValue)?this.originValue:[];
                     this.picker.selectionMode = this.selectionMode;
+                    this.picker.selectMaxHeight = this.selectMaxHeight;
                     if (this.format) this.picker.format = this.format;
 
                     // TimePicker
@@ -587,8 +662,8 @@
                                 TYPE_VALUE_RESOLVER_MAP['date']
                             ).formatter;
                             const format = DEFAULT_FORMATS['date'];
-                            this.compareMinDate = formatter(date[2], this.format || format);
-                            this.compareMaxDate = formatter(date[3], this.format || format);
+                            this.compareMinDate = formatter(date[2], this.format || format,this.separator);
+                            this.compareMaxDate = formatter(date[3], this.format || format,this.separator);
                         }
                         this.currentValue = date;
                         this.picker.value = date;
@@ -600,6 +675,11 @@
                         this.visible = false;
                         this.$emit('on-ok');
                     });
+
+                    this.picker.$on('on-change-picktype',(val)=>{
+                        this.picker.pikerType = val;
+                        this.picker.handleChangePikerType()
+                    })
 
                     this.picker.$on('on-pick-clear', () => {
                         this.handleClear();
@@ -640,15 +720,15 @@
                     TYPE_VALUE_RESOLVER_MAP['default']
                 ).formatter;
 
-                let newDate = formatter(date, format);
+                let newDate = formatter(date, format,this.separator);
                 
                 if (type === 'daterange' || type === 'timerange' || type === 'datetimerange') {
                     newDate = (this.isCompare)?[
-                        newDate.split(RANGE_SEPARATOR)[0], 
-                        newDate.split(RANGE_SEPARATOR)[1], 
+                        newDate.split(this.separator)[0], 
+                        newDate.split(this.separator)[1], 
                         this.compareMinDate, 
                         this.compareMaxDate, 
-                    ]:[newDate.split(RANGE_SEPARATOR)[0], newDate.split(RANGE_SEPARATOR)[1]];
+                    ]:[newDate.split(this.separator)[0], newDate.split(this.separator)[1]];
                 }
                 return newDate;
             }
@@ -682,10 +762,28 @@
                 if (!val && this.picker && typeof this.picker.handleClear === 'function') {
                     this.picker.handleClear();
                 }
-//                this.$emit('input', val);
+                //                this.$emit('input', val);
             },
             value (val) {
                 this.currentValue = val;
+                    if(this.picker){
+                        
+                        var Confirm = findComponentDownward(this.picker, 'Confirm');
+                        if(Confirm){
+                            
+                        if(val.length===4){
+                            // const formatter = (
+                            //     TYPE_VALUE_RESOLVER_MAP['date']
+                            // ).formatter;
+                            // const format = DEFAULT_FORMATS['date'];
+                            // this.compareMinDate = formatter(val[2], this.format || format,this.separator);
+                            // this.compareMaxDate = formatter(val[3], this.format || format,this.separator);
+                            Confirm.isCompare = true;
+                        }else{
+                            Confirm.isCompare = false;
+                        }
+                        }
+                    }
             },
             originValue(val){
                 if(this.picker&&this.picker.originValue){
@@ -702,18 +800,25 @@
                     ).parser;
 
                     if (val && type === 'time' && !(val instanceof Date)) {
-                        val = parser(val, this.format || DEFAULT_FORMATS[type]);
+                        val = parser(val, this.format || DEFAULT_FORMATS[type],this.separator);
                     } else if (val && type.match(/range$/) && Array.isArray(val) && val.filter(Boolean).length && !(val[0] instanceof Date) && !(val[1] instanceof Date)) {
-                        val = val.join(RANGE_SEPARATOR);
-                        val = parser(val, this.format || DEFAULT_FORMATS[type]);
+                        val = val.join(this.separator);
+                        val = parser(val, this.format || DEFAULT_FORMATS[type],this.separator);
                     } else if (typeof val === 'string' && type.indexOf('time') !== 0 ){
-                        val = parser(val, this.format || DEFAULT_FORMATS[type]) || val;
+                        val = parser(val, this.format || DEFAULT_FORMATS[type],this.separator) || val;
                     }
                     this.internalValue = val;
+                    
                 }
             },
             visualValue(val){
-                this.$emit('input', val);
+                if(this.type=='date'){
+                    this.$emit('input', val);
+
+                }else{
+                    let date = val.split(this.separator)
+                    this.$emit('input', date);
+                }            
             },
             open (val) {
                 if (val === true) {

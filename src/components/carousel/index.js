@@ -1,5 +1,5 @@
-import Carousel from './carousel.vue';
-import CarouselItem from './carousel-item.vue';
+import Carousel from './carousel.vue'
+import CarouselItem from './carousel-item.vue'
 
-Carousel.Item = CarouselItem;
-export default Carousel;
+Carousel.Item = CarouselItem
+export default Carousel

@@ -1,5 +1,5 @@
 <template>
-    <li :class="optionClasses" @click.stop.prevent="select" @mouseout.stop="blur"  v-show="!hidden"
+    <div :class="optionClasses" @click.stop.prevent="select" @mouseout.stop="blur"  v-show="!hidden"
         :title="getOptionLabel()">
         <slot>
             <template v-if="multiple">
@@ -15,7 +15,7 @@
                 {{ getOptionLabel() }}
             </template>
         </slot>
-    </li>
+    </div>
 </template>
 <!--
     option:{
@@ -33,8 +33,8 @@
     const optionPrefix = prefix+'option';
 
     export default {
-        name: 'Option',
-        componentName: 'Option',
+        name: 'FormOption',
+        componentName: 'FormOption',
         mixins: [ Emitter ],
         props: {
             option:{
@@ -45,6 +45,9 @@
                 type: Boolean,
                 default: false
             }
+        },
+        components:{
+            'Icon':Icon
         },
         data () {
             return {
@@ -79,7 +82,7 @@
                     return false;
                 }
                 // this.selected = !this.selected;
-                this.dispatch('Select', 'on-select', this);
+                this.dispatch('FormSelect', 'on-select', this);
             },
             blur () {
                 this.isFocus = false;
@@ -103,7 +106,7 @@
             this.updateSearchLabel();
             this.label = this.getOptionLabel();
             this.value = this.getOptionValue();
-            this.dispatch('Select','append');
+            this.dispatch('FormSelect','append');
             // this.updateLabel();
             // this.updateOptions();
             // this.dispatch('FormSelect', 'append');
@@ -111,7 +114,7 @@
             //     this.isFocus = false;
             // });
             // this.updateSearchLabel();
-            // this.dispatch('Select', 'append');
+            // this.dispatch('FormSelect', 'append');
             
             this.$on('on-search-change', (val) => {
                 this.searchChange(val);
@@ -129,7 +132,7 @@
 
         },
         created(){
-            const Select = findComponentUpward(this, 'Select');
+            const Select = findComponentUpward(this, 'FormSelect');
             if (Select){
                 this.multiple = Select.type==='multiple';
                 this.multiType = Select.multiType;
@@ -141,7 +144,7 @@
             // this.parentS.optionInstances.push(this);
         },
         beforeDestroy () {
-            this.dispatch('Select', 'remove');
+            this.dispatch('FormSelect', 'remove');
         }
     };
 </script>

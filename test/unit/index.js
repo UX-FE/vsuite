@@ -7,16 +7,14 @@ testsContext.keys().forEach(testsContext)
 
 // require all src files except main.js for coverage.
 // you can also change this to match only the subset of files that
-//you want coverage for.
+// you want coverage for.
 //const srcContext = require.context('../../src', true, /^\.\/(?!main(\.js)?$)/);
 // @todo
 // const srcContext = require.context('../../src/components/breadcrumb', true, /^\.\/(?!styles.*?(\.less)?$)/)
-// srcContext.keys().forEach(srcContext)
-
+//srcContext.keys().forEach(srcContext)
 
 // require all src files except main.js for coverage.
 // you can also change this to match only the subset of files that
 // you want coverage for.
-// const srcContext = require.context('../../src', true, /^\.\/(?!main(\.js)?$)/);
+// const srcContext = require.context('../../src', true, /^\.\/(?!index(\.js)?$)/);
 // srcContext.keys().forEach(srcContext);
-

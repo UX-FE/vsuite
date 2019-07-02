@@ -33,6 +33,7 @@
     </div>
 </template>
 <script>
+    import FormInput from '../input';
 import UploadDragger from './upload-dragger.vue';
 
 import {
@@ -42,6 +43,7 @@ const uploadPrefix = prefix + 'upload-iframe'
 export default {
   name:'IframeUpload',
   components: {
+    FormInput,
     UploadDragger
   },
   props: {

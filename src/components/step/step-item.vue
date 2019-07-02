@@ -18,6 +18,7 @@
 <script>
     import Emitter from '../../mixins/emitter';
     import { oneOf } from '../../utils/assist';
+    import Icon from '../icon';
 
     import { prefix } from '../var';
     const stepItemPrefix = prefix+'step-item';
@@ -42,6 +43,9 @@
             icon: {
                 type: String
             }
+        },
+        components:{
+            'Icon':Icon
         },
         data () {
             return {

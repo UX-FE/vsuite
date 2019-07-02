@@ -1,11 +1,11 @@
 <template>
-    <div :class="wrapClasses" v-if="pages.totalPages>0">
+    <div :class="wrapClasses" v-if="pages.totalPages&&pages.totalPages>0">
         <div v-if="showOpts&&optsPosition==='left'&&pages.totalCount>10" :class="infoClasses">
-            <Select v-model="currentPageSize" @on-change="handleSelect" :direction="optsDirection">
+            <FormSelect v-model="currentPageSize" @on-change="handleSelect" :direction="optsDirection" no-scroll>
                 <span slot="selection-name">{{currentOptsLabel}}</span>
-                <Option v-for="(item,index) in pageOpts" :key="index" :option="item">
-                </Option>
-            </Select>
+                <FormOption v-for="(item,index) in pageOpts" :key="index" :option="item">
+                </FormOption>
+            </FormSelect>
         </div>
         <ul :class="pagingClasses">
             <li v-if="currentPage!==1" :class="[prefix + '-pre']" @click="pre">
@@ -27,11 +27,11 @@
             </li>
         </ul>
         <div v-if="showOpts&&optsPosition==='middle'&&pages.totalCount>10" :class="infoClasses">
-            <Select v-model="currentPageSize" @on-change="handleSelect" :direction="optsDirection"> 
+            <FormSelect v-model="currentPageSize" @on-change="handleSelect" :direction="optsDirection" no-scroll> 
                 <span slot="selection-name">{{currentPageSize+'条/页'}}</span>
-                <Option v-for="(item,index) in pageOpts" :key="index" :option="item">
-                </Option>
-            </Select>
+                <FormOption v-for="(item,index) in pageOpts" :key="index" :option="item">
+                </FormOption>
+            </FormSelect>
         </div>
         <div v-if="showJump&&totalPages>1&&totalPages>1" :class="jumpClasses">
             <div :class="[prefix + '-edit']">
@@ -42,10 +42,10 @@
             </div>
         </div>
         <div v-if="showOpts&&optsPosition==='right'" :class="infoClasses">
-            <Select v-model="currentPageSize" @on-change="handleSelect">
-                <Option v-for="(item,index) in pageOpts" :key="index" :option="item">
-                </Option>
-            </Select>
+            <FormSelect v-model="currentPageSize" @on-change="handleSelect" no-scroll>
+                <FormOption v-for="(item,index) in pageOpts" :key="index" :option="item">
+                </FormOption>
+            </FormSelect>
         </div>
     </div>
 </template>
@@ -70,6 +70,7 @@
 <script>
     import Icon from '../icon';
     import Select from '../select';
+    import Option from '../option';
     import { findComponentUpward, oneOf } from '../../utils/assist';
     import { prefix } from '../var';
     const pagePrefix = prefix+'page';
@@ -77,6 +78,7 @@
     export default {
         name: 'Page',
         props: {
+            dataId:String,
             current:{
                 type:[Number,String],
                 default:1
@@ -135,6 +137,11 @@
                 default:false
             },
             jumpBtn:String
+        },
+        components:{
+            'Icon':Icon,
+            'FormSelect':Select,
+            'FormOption':Option
         },
         data () {
             return {
@@ -234,12 +241,12 @@
             },
             handleSelect(val){
                 this.currentOptsLabel = val+'条/页';
-                this.$emit("on-change-size", val);
+                this.$emit("on-change-size", val,(this.dataId?this.dataId:''));
             },
             page (page) {
                 if(this.currentPage!=page){
                     this.currentPage = parseInt(page);
-                    this.$emit('on-change',page);
+                    this.$emit('on-change',page,(this.dataId?this.dataId:''));
                 }
             },
             jumpPage(page){

@@ -35,6 +35,9 @@
             },
             icon:String
         },
+        components:{
+            'Icon':Icon
+        },
         data () {
             return {
                 prefix:backtopPrefix,

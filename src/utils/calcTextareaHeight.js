@@ -56,7 +56,7 @@ function calculateNodeStyling (node) {
   return {contextStyle, paddingSize, borderSize, boxSizing}
 }
 
-export default function calcTextareaHeight (targetNode, minRows = null, maxRows = null) {
+export default function calcTextareaHeight (targetNode, minRows = null, maxRows = null, rows = null) {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea')
     document.body.appendChild(hiddenTextarea)
@@ -75,6 +75,7 @@ export default function calcTextareaHeight (targetNode, minRows = null, maxRows 
   let height = hiddenTextarea.scrollHeight
   let minHeight = -Infinity
   let maxHeight = Infinity
+  let defaultHeight = Infinity
 
   if (boxSizing === 'border-box') {
     height = height + borderSize
@@ -99,7 +100,16 @@ export default function calcTextareaHeight (targetNode, minRows = null, maxRows 
     }
     height = Math.min(maxHeight, height)
   }
-
+  // 如果有默认rows,则默认最低都要，显示默认rows的高度
+  if (rows !== null) {
+    defaultHeight = singleRowHeight * rows
+    if (boxSizing === 'border-box') {
+      defaultHeight = defaultHeight + paddingSize + borderSize
+    }
+    if (height < defaultHeight) {
+      height = defaultHeight
+    }
+  }
   return {
     height: `${height}px`,
     minHeight: `${minHeight}px`,

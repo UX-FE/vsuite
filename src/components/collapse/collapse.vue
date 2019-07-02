@@ -126,7 +126,9 @@
                 }
 
                 this.currentValue = newActiveKey;
-                this.$emit('on-change', newActiveKey);
+
+                //增加传参:当前是否打开
+                this.$emit('on-change', {name:newActiveKey,index:data.index,open:!data.isActive});
             }
         },
         watch: {

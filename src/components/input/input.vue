@@ -1,7 +1,7 @@
 <template>
     <div :class="wrapClasses" :style="inputStyle">
         <template v-if="type !== 'textarea'">
-            <div :class="[prefix + '-group-prepend']" v-if="prepend" v-show="slotReady">
+            <div :class="[prefix + '-group-prepend']" v-if="prepend" v-show="slotReady" :style="{width: prependWidth}">
                 <slot name="prepend"></slot>
             </div>
             <div :class="[prefix+'-body']" :style="inputStyle">
@@ -45,7 +45,7 @@
             <transition name="fade">
                 <Icon :class="[prefix+'-icon']" :type="loadingIcon" v-if="loadingIcon" @click="handleIconClick"></Icon>
             </transition>
-            <div :class="[prefix + '-group-append']" v-if="append" v-show="slotReady">
+            <div :class="[prefix + '-group-append']" v-if="append" v-show="slotReady" :style="{width: appendWidth}">
                 <slot name="append"></slot>
             </div>
         </template>
@@ -79,6 +79,7 @@
     </div>
 </template>
 <script>
+    import Icon from '../icon';
     import { oneOf, findComponentUpward } from '../../utils/assist';
     import calcTextareaHeight from '../../utils/calcTextareaHeight';
     import Emitter from '../../mixins/emitter';
@@ -88,6 +89,9 @@
     export default {
         name: 'FormInput',
         mixins: [ Emitter ],
+        components:{
+            'Icon':Icon
+        },
         props: {
             type: {//类型
                 validator (value) {
@@ -163,6 +167,12 @@
             },
             elementId: {
                 type: String
+            },
+            prependWidth: {
+                type:String
+            },
+            appendWidth: {
+                type:String
             }
         },
         data () {
@@ -273,7 +283,7 @@
                 const minRows = autosize.minRows;
                 const maxRows = autosize.maxRows;
 
-                this.textareaStyles = calcTextareaHeight(this.$refs.textarea, minRows, maxRows);
+                this.textareaStyles = calcTextareaHeight(this.$refs.textarea, minRows, maxRows, this.rows);
             },
             focus () {
                 if (this.type === 'textarea') {

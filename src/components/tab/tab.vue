@@ -2,7 +2,7 @@
     <div :class="wrapClasses">
         <div :class="tabsClasses">
             <ul>
-                <li v-for="(item,index) in tabs" :key="index" :class="tabitemClasses(item)" @click="clickTab(index)">
+                <li v-for="(item,index) in tabs" :key="index" :style="{width:width}" :class="tabitemClasses(item)" @click="clickTab(index)">
                     <slot name="tab-item">
                         <Icon v-if="item.icon" :type="item.icon"></Icon>{{(item.label)?item.label:item.name}}
                     </slot>
@@ -39,7 +39,13 @@
                 validator (value) {
                     return oneOf(value, ['large', 'small']);
                 },
+            },
+            width:{
+                type: String
             }
+        },
+        components:{
+            'Icon':Icon
         },
         data(){
             return {
@@ -112,6 +118,10 @@
             }
         },
         watch: {
+            // 如果value为异步获取的，就不会更新Tab,所以要watch 监听
+            "value"(value){
+                this.activeTab = value
+            }
         }
     };
 </script>

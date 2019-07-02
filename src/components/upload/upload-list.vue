@@ -4,7 +4,6 @@
       v-for="(file, index) in files"
       :class="itemClasses(file)"
       :key="index+1"
-      tabindex="0"
       @keydown.delete="!disabled && $emit('remove', file)"
       @focus="focusing = true"
       @blur="focusing = false"
@@ -76,6 +75,7 @@
 <script>
 //   import Locale from 'element-ui/src/mixins/locale';
 import Progress from '../progress/progress';
+    import Icon from '../icon';
 import {
 prefix
 } from '../var'
@@ -83,13 +83,7 @@ const uploadPrefix = prefix + 'upload-list'
 
   export default {
     // mixins: [Locale],
-
-    data() {
-      return {
-        focusing: false
-      };
-    },
-    components: { Progress },
+    components: {Icon, Progress },
 
     props: {
       files: {
@@ -107,7 +101,8 @@ const uploadPrefix = prefix + 'upload-list'
     },
     data(){
       return {
-        prefix:uploadPrefix
+        prefix:uploadPrefix,
+        focusing: false
       }
     },
     computed:{

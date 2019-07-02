@@ -38,7 +38,7 @@ const router = new Router({
       meta: {
         module: 'component'
       }
-    },
+    }
   ]
 })
 

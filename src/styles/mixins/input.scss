@@ -27,6 +27,7 @@ $input-prefix: #{$css-prefix}input;
     }
 }
 @mixin readonly() {
+    background-color: $input-readonly-bg;
     opacity: 1;
     cursor: $cursor-disabled;
     &:hover,&:active,&:focus {
@@ -163,10 +164,12 @@ $input-prefix: #{$css-prefix}input;
     &[disabled],
     fieldset[disabled] & {
         @include disabled();
+        resize: initial;
     }
     &[readonly],
     fieldset[readonly] & {
         @include readonly();
+        resize: initial;
     }
     &-textarea{
         .#{$input-prefix}{

@@ -1,4 +1,5 @@
 $date-prefix:#{$css-prefix}date;
+$time-prefix:#{$css-prefix}time;
 $date-prefix-cells-width-with-seconds: $date-prefix-cells-width-base *3;
 $date-prefix-cells-width-with-date: $date-prefix-cells-width-with-date-base * 2;
 $date-prefix-cells-width-with-date-with-seconds: $date-prefix-cells-width-with-date-base * 3;
@@ -30,12 +31,25 @@ $btn-prefix:#{$css-prefix}btn;
         font-size:$font-size-base;
         padding:$date-ref-padding;
         &-name{
+            .placeholder{
+                color:$tip-color;
+            }
+            &-hasPreIcon{
+                padding:$date-ref-hasPreIcon-padding;
 
+            }
         }
         i{
             position: absolute;
-            right:$date-ref-icon-right;
-            top:$date-ref-icon-top;
+            &.pre-icon{
+                left:$date-ref-icon-right;
+                top:$date-ref-icon-top;
+            }
+            &.after-icon{
+                right:$date-ref-icon-right;
+                top:$date-ref-icon-top;
+            }
+
         }
 
     }
@@ -66,6 +80,12 @@ $btn-prefix:#{$css-prefix}btn;
             margin:$date-header-margin;
         }
         span{
+            span{
+                display: inline-block;
+                width: $date-cell-height;
+                height: $date-cell-height;
+
+            }
             em{
                 display: inline-block;
                 width: $date-cell-height;
@@ -78,7 +98,7 @@ $btn-prefix:#{$css-prefix}btn;
                 -o-border-radius: $date-cell-radius;
                 border-radius: $date-cell-radius;
                 text-align: center;
-                transition: all .2s ease-in-out;
+                z-index:2;
             }
         }
         &-with-seconds{
@@ -176,11 +196,12 @@ $btn-prefix:#{$css-prefix}btn;
             }
             &-selected{
                 &-start{
-                    em{
+                    span{
+                        position: relative;
                         &:before{
                             content: '';
                             display: block;
-                            width: $date-cell-padding;
+                            width: $date-cell-padding+$date-cell-width/2;
                             height: 100%;
                             position: absolute;
                             left:-$date-cell-padding;
@@ -189,9 +210,25 @@ $btn-prefix:#{$css-prefix}btn;
                             z-index: 1;
                         }
                     }
+                    em{
+                    }
 
                 }
                 &-end{
+                    span{
+                        position: relative;
+                        &:after{
+                            content: '';
+                            display: block;
+                            width: $date-cell-padding+$date-cell-width/2;
+                            height: 100%;
+                            position: absolute;
+                            right:-$date-cell-padding;
+                            top:0;
+                            background: $date-bg;
+                            z-index: 1;
+                        }
+                    }
                     em{
                         &:after{
                             content: '';
@@ -295,6 +332,49 @@ $btn-prefix:#{$css-prefix}btn;
                     }
                 }
             }
+            &.#{$date-prefix}{
+                &-cells-month{
+                    &-row-3{
+                        .#{$date-prefix}{
+                            &-cells{
+                                &-row{
+                                    margin: $date-month-row3-cell-roll-margin;
+                                }
+                                &-cell{
+                                    em{
+                                        width:$date-month-row3-cell-em-width;
+                                        height: $date-month-row3-cell-height;
+                                        line-height:$date-month-row3-cell-height;
+                                    }
+                                    width: $date-month-row3-cell-width;
+                                    height: $date-month-row3-cell-height;
+                                    padding: 0 $date-month-row3-cell-padding;
+                                    &:first-child,&:last-child{
+                                        width: $date-month-row3-cell-em-width;
+                                    }
+                                    &-selected-start{
+                                        em{
+                                            &:before{
+                                                width:$date-month-row3-cell-padding;
+                                                left:-$date-month-row3-cell-padding;
+                                            }
+                                        }
+                                    }
+                                    &-selected-end{
+                                        em{
+                                            &:after{
+                                                width:$date-month-row3-cell-padding;
+                                                right:-$date-month-row3-cell-padding;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
 
         }
     }
@@ -312,6 +392,26 @@ $btn-prefix:#{$css-prefix}btn;
     &-panel{
         &-icon-btn{
             position: absolute;
+        }
+        &-selectedbar{
+            height:35px;
+            line-height:35px;
+            border-bottom:1px solid #E8E8E8;
+            padding-left:24px;
+            font-size: 14px;
+            &-start-date{
+                color: rgba(0,0,0,0.65);
+                &.empty{
+                    color: rgba(0,0,0,0.25);
+                }
+            }
+            &-end-date{
+                color: rgba(0,0,0,0.65);
+                &.empty{
+                    color: rgba(0,0,0,0.25);
+                }
+
+            }
         }
         &-sidebar{
             width: $date-sidebar-width;
@@ -351,6 +451,20 @@ $btn-prefix:#{$css-prefix}btn;
         &-with-sidebar{
             width:$date-sidebar-width+$date-width;
             overflow: hidden;
+        }
+        &-select-wrap{
+
+        }
+        &-select{
+            &.vsu-select{
+                width:$date-select-width;
+                font-size:12px;
+                .vsu-option{
+                    font-size:12px;
+
+                }
+
+            }
         }
     }
     &-prev-btn{
@@ -398,6 +512,17 @@ $btn-prefix:#{$css-prefix}btn;
         border-top:$date-border;
         padding:$date-confirm-padding;
         position: relative;
+        &-time-trigger{
+            margin-right: 8px;
+            font-size: 14px;
+            color: $primary-color;
+            cursor: pointer;
+            &.disabled{
+                cursor: default;
+                color: $date-disable-color;
+            }
+
+        }
         &-date{
             position: absolute;
             left:16px;
@@ -408,6 +533,18 @@ $btn-prefix:#{$css-prefix}btn;
         }
         .#{$btn-prefix}+.#{$btn-prefix}{
             margin-left:8px;
+        }
+        &-extra-tip{  
+            position: absolute;
+            left: 24px;
+            top: 9px;
+            display: inline-block;
+            height: $date-confirm-height;
+            padding:$date-tip-padding;
+            font-size: $font-size-small;
+            color: $text-color;
+            line-height: $line-height-small;
+            text-align: left;
         }
         &-tip{    
             position: absolute;
@@ -485,7 +622,7 @@ $btn-prefix:#{$css-prefix}btn;
                 width:$date-sidebar-width+$date-prefix-cells-width * 2 + 72px;
                 .#{$date-prefix}{
                     &-confirm{
-                        width:552px;
+                        width:$date-confirm-width;
                         &-compare-btn{
                             position: absolute;
                             left: 16px;
@@ -580,8 +717,87 @@ $btn-prefix:#{$css-prefix}btn;
             }
         }
     }
+    &-wrapSelection{
+        .#{$date-prefix}{
+            &-ref{
+                z-index:$zindex-select+1;
+            }
+            &-drop{
+                padding-top:$date-ref-height;
+            }
+        }
+    }
 }
+.#{$time-prefix}{
+    &-with-range{
+        overflow:hidden;
 
+    }
+    &-panel{
+        float:left;
+        min-width: $date-prefix-cells-width * 2 + 72px;
+        &-body{
+            overflow: hidden;
+            padding-left:2px;
+        }
+        &-content{
+            float: left;
+            position: relative;
+            &:first-child{
+                border-right:2px solid $date-border-color;
+            }
+
+        }
+    }
+    &-header{
+        height:$date-time-header-height;
+        line-height: $date-time-header-height;
+        text-align: center;
+        font-size: $date-time-header-fontSize;
+        color: $text-color;
+        font-weight: 700;
+    }
+    &-cells{
+        overflow: hidden;
+        border-top:$date-border;
+        &-list{
+            width:$date-time-cell-width;
+            float:left;
+            &:not(:last-child){
+                border-right:$date-border;
+            }
+        }
+        &-ul{
+            height: $date-time-content-height;
+            margin-bottom: 0;
+        }
+        &-cell{
+            width:$date-time-cell-width;
+            height:$date-time-cell-height;
+            line-height:$date-time-cell-lineHeight;
+            font-size:$date-time-cell-fontSize;
+            color: $text-color;
+            text-align: center;
+            cursor: pointer;
+            &:hover{
+                background: $date-time-cell-hover-bg;
+            }
+            &-selected ,&-selected:hover{
+                background: $date-time-cell-active-bg;
+                font-weight:700;
+            }
+            &-disabled{
+                cursor: default;
+                color: $date-disable-color;
+                background: $date-bg;
+                &:hover{
+                    background: $date-bg;
+                }
+            }
+        }
+
+    }
+}
 .#{$date-prefix}-panel-content{
     .#{$date-prefix}-panel-content{
         .#{$date-prefix}{

@@ -16,12 +16,12 @@ import BaseButton from './components/button'
 import ButtonGroup from './components/buttongroup'
 // import form component
 import FormInput from './components/input'
-import Select from './components/select'
+import FormSelect from './components/select'
 import FormSwitch from './components/switch'
 import Date from './components/date'
 import Rate from './components/rate'
 import Upload from './components/upload'
-import Option from './components/option'
+import FormOption from './components/option'
 import OptionGroup from './components/optiongroup'
 import Radio from './components/radio'
 import RadioGroup from './components/radiogroup'
@@ -31,6 +31,7 @@ import Form from './components/form'
 import FormItem from './components/formitem'
 // import dialog component
 import Modal from './components/modal'
+import Drawer from './components/drawer'
 // import tip component
 import Alert from './components/alert'
 import Loading from './components/loading'
@@ -86,9 +87,9 @@ const components = {
   Main,
   Footer,
   Icon,
-  Select,
+  FormSelect,
   FormSwitch,
-  Option,
+  FormOption,
   OptionGroup,
   Radio,
   RadioGroup,
@@ -138,6 +139,7 @@ const components = {
   DropDownList,
   DropDownItem,
   Modal,
+  Drawer,
   Alert,
   Loading,
   NoData
@@ -156,8 +158,8 @@ const install = function (Vue, opts = {}) {
   Object.keys(components).forEach(key => {
     Vue.component(key, components[key])
   })
-  Vue.prototype.$Modal = Modal;
-  Vue.prototype.$Loading = Loading;
+  Vue.prototype.$Modal = Modal
+  Vue.prototype.$Loading = Loading
 }
 
 // auto install while vue exist

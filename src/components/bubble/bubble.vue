@@ -109,14 +109,19 @@
         },
         data () {
             return {
-                show:this.defaultVisible,
+                show:false,
                 tooltipStyles:{},
                 arrowStyles:{},
             };
         },
         watch:{
             defaultVisible(val){
-                this.show = val;
+                if(val){
+                    this.handleShow(val)
+
+                }else{
+                    this.show = val;
+                }
                 this.$emit("on-change",val);
             }
         },
@@ -478,6 +483,9 @@
             },
         },
         mounted () {
+            if(this.defaultVisible){
+                this.handleShow();
+            }
         },
         beforeDestroy () {
         }

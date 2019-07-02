@@ -1,0 +1,61 @@
+$icon-prefix: #{$css-prefix}icon;
+
+@mixin content-header() {
+    border-bottom: 1px solid $border-color-split;
+    padding: 14px 16px;
+    line-height: 1;
+    p,
+    &-inner
+    {
+        display: inline-block;
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        font-size: $font-size-base;
+        color: $title-color;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    p i, p span{
+        vertical-align: middle;
+    }
+}
+
+@mixin mask($mask-bg) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $mask-bg;
+    height: 100%;
+    z-index: $zindex-modal;
+
+    &-hidden {
+        display: none;
+    }
+}
+@mixin close-base($top: 0,$icon-font-size: 22px) {
+    font-size: $icon-font-size;
+    color: $legend-color;
+    transition: color $transition-time ease;
+    position: relative;
+    top: $top;
+    &:hover {
+        color: #444;
+    }
+}
+@mixin content-close($top: 0, $right: 0, $icon-font-size: 22px) {
+    font-size: $icon-font-size;
+    position: absolute;
+    right: $right;
+    top: $top;
+    overflow: hidden;
+    cursor: pointer;
+
+    .#{$icon-prefix}-ios-close {
+        @include close-base($top, $icon-font-size);
+    }
+}

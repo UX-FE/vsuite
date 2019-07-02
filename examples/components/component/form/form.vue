@@ -68,6 +68,43 @@
                 </div>
                 <div class="q-title">代码示例：</div>
             </div>
+             <div class="form-wrapper">
+                        <Form ref="searchForm" :value="searchForm" :rules="srules" :label-width=122>
+                                <FormItem name="mobile" label="手机号">
+                                    <FormInput v-model="searchForm.mobile" placeholder="请输入手机号" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem name="appid" label="产品id">
+                                    <FormInput v-model="searchForm.appid" placeholder="请输入产品id" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem name="beginTime" label="开始时间">
+                                    <FormInput v-model="searchForm.beginTime" placeholder="请输入开始时间" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem name="endTime" label="结束时间">
+                                    <FormInput v-model="searchForm.endTime" placeholder="请输入结束时间" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem name="mobileBrand" label="手机品牌">
+                                    <FormInput v-model="searchForm.mobileBrand" placeholder="请输入手机品牌" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem name="mobileMode" label="手机型号">
+                                    <FormInput v-model="searchForm.mobileMode" placeholder="请输入手机型号" :width="468"></FormInput>
+                                </FormItem>
+                                <FormItem name="osVersion" label="系统版本">
+                                    <FormInput v-model="searchForm.osVersion" placeholder="请输入系统版本" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem name="osType" label="系统类型">
+                                    <FormInput v-model="searchForm.osType" placeholder="请输入系统类型" :width="468"></FormInput>
+                                </FormItem>
+                                <FormItem name="ns" label="流量制式">
+                                    <FormInput v-model="searchForm.ns" placeholder="请输入流量制式" :width="468"></FormInput>
+                                </FormItem>
+                                <FormItem name="rt" label="返回结果">
+                                    <FormInput v-model="searchForm.rt" placeholder="请输入返回结果" :width="468" ></FormInput>
+                                </FormItem>
+                                <FormItem class="submit-wrap">
+                                    <BaseButton type="primary" @on-click-btn="handleSubmit_s('searchForm')" style="width:88px;">查询</BaseButton>
+                                </FormItem>
+                            </Form>
+                      </div>
 
     </div>
 </template>
@@ -171,6 +208,36 @@
                     age: [
                         { validator: validateAge, trigger: 'blur' }
                     ]
+                },
+                
+                searchForm:{
+                    mobile:'',
+                    appid:'',
+                    beginTime:'',
+                    endTime:'',
+                    mobileBrand:'',
+                    mobileMode:'',
+                    osVersion:'',
+                    osType:'',
+                    ns:'',
+                    rt:'',
+                },
+                srules:{
+                    appid:[
+                        {required: true, message: '请输入产品id', trigger: 'blur' },
+                        { type: 'string', min: 1, message: '请输入产品id', trigger: 'change' },
+
+                    ],
+                    beginTime:[
+                        {required: true, message: '请输入开始时间', trigger: 'blur' },
+                        { type: 'string', min: 1, message: '请输入开始时间', trigger: 'change' },
+
+                    ],
+                    endTime:[
+                        {required: true, message: '请输入结束时间', trigger: 'blur' },
+                        { type: 'string', min: 1, message: '请输入结束时间', trigger: 'change' },
+
+                    ],
                 },
                 api:{
                     thead:[
@@ -358,6 +425,13 @@
             };
         },
         methods: {
+            handleSubmit_s (name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        console.log("--------------")
+                    }
+                })
+            },
             handleAvatarChange(file,files){
                 this.imageUrl = file.url;
             },

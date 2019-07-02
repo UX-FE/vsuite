@@ -8,6 +8,7 @@
 </template>
 <script>
     import { oneOf } from '../../utils/assist'
+    import Icon from '../icon';
     import { prefix } from '../var';
     const avatarPrefix = prefix+'avatar';
     export default {
@@ -23,8 +24,11 @@
             icon:String,
             scale:{
                 type:[Number,String],
-                defa:1
+                default:1
             }
+        },
+        components:{
+            'Icon':Icon
         },
         data(){
             return  {

@@ -4,9 +4,9 @@
             <li>
                 <div :class="titleWrapClasses" @click.stop="clickTitle" :style="titleStyle">
                     <span :class="[prefix+'-arrow']">
-                        <Icon v-if="node.childs.length" :type="iconType" :class="{expanded:expanded}"></Icon>
+                        <Icon v-if="node.childs&&node.childs.length" :type="iconType" :class="{expanded:expanded}"></Icon>
                     </span>
-                    <i v-if="checkable" :class="[unCheckIcon?'vsu-ion vsu-ion-'+unCheckIcon:prefix+'-check-box']" @click.stop="handleCheck"></i>
+                    <i v-if="checkable" :class="[unCheckIcon?'unCheckIcon vsu-ion vsu-ion-'+unCheckIcon:prefix+'-check-box']" @click.stop="handleCheck"></i>
                     <span :class="[prefix+'-title']" :title="node.title+(node.length!==undefined?('（'+node.length+'）'):'')">
                         {{node.title}}
                         <span :class="[prefix+'-length']" v-if="node.length!==undefined">（{{node.length}}）</span>
@@ -27,7 +27,7 @@
                 </div>
                 <!-- 此处应该用显示隐藏的方式，原因：比如，用v-if的方式，选中父节点，找不到子节点，就不会进行子节点选中遍历 -->
                 <!-- <div v-if="expanded" :class="bodyWrapClasses"> -->
-                <div :class="bodyWrapClasses" :style="{display: expanded?'block':'none'}">
+                <div :class="bodyWrapClasses" :style="{display: expanded?'block':'none'}" v-if="node.childs">
                     <TreeNode v-for="(itm,i) in node.childs" :key="i" :node="itm" :level="level+1" :disabled="itm.disabled" 
                         :expand="itm.expand" :check="itm.check">
                     </TreeNode>
@@ -37,6 +37,7 @@
     </transition>
 </template>
 <script>
+    import Icon from '../icon';
     import Emitter from '../../mixins/emitter';
     import { findComponentUpward } from '../../utils/assist';
     import { prefix } from '../var';
@@ -44,6 +45,7 @@
     export default {
         name: 'TreeNode',
         componentName: 'TreeNode',
+        components:{Icon},
         mixins: [ Emitter ],
         props: {
             level:{

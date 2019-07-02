@@ -56,16 +56,19 @@
                 return new Promise(resolve => {
                     let valid = true;
                     let count = 0;
+                    // 未验证通过的field：验证未通过的field全部返回到回调中
+                    let unValidFields = []
                     this.fields.forEach(field => {
                         field.validate('', errors => {
                             if (errors) {
                                 valid = false;
+                                unValidFields.push(field)
                             }
                             if (++count === this.fields.length) {
                                 // all finish
                                 resolve(valid);
                                 if (typeof callback === 'function') {
-                                    callback(valid);
+                                    callback(valid,unValidFields);
                                 }
                             }
                         });

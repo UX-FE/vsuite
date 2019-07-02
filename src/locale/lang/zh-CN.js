@@ -21,7 +21,7 @@ const lang = {
       startTime: '开始时间',
       endTime: '结束时间',
       clear: '清除',
-      cancel:'取消',
+      cancel: '取消',
       ok: '确定',
       datePanelLabel: '[yyyy年] [m月]',
       month: '月',

@@ -15,10 +15,40 @@
                     :class="iconBtnCls('prev')"
                     @click="changeMonth(-1)"
                     v-show="currentView === 'date'"><Icon type="arrow-left"></Icon></span>
-                <date-panel-label
-                    :date-panel-label="datePanelLabel"
-                    :current-view="currentView"
-                    :date-prefix-cls="datePrefix"/>
+                <span v-if="dropForDate" :class="[datePanelPrefix + '-select-wrap']">
+                    <FormSelect :class="[datePanelPrefix + '-select']"
+                        :value="selectedYear.current.code"
+                        @on-change="handleChangeYear"
+                        size="small"
+                        label-in-value
+                        label-key="text" 
+                        value-key="code"
+                        :icon="dropIcon"
+                        :maxHeight="selectMaxHeight"
+                        >
+                        <FormOption v-for="(item,index) in selectedYear.years" :key="index" :option="item">
+                        </FormOption>
+                    </FormSelect>
+                    <FormSelect :class="[datePanelPrefix + '-select']"
+                        :value="selectedMonth.current.code"
+                        @on-change="handleChangeMonth"
+                        size="small"
+                        label-in-value
+                        label-key="text" 
+                        value-key="code"
+                        :icon="dropIcon"
+                        :maxHeight="selectMaxHeight"
+                        >
+                        <FormOption v-for="(item,index) in selectedMonth.months" :key="index" :option="item">
+                        </FormOption>
+                    </FormSelect>
+                </span>
+                <template v-else>
+                    <date-panel-label
+                        :date-panel-label="datePanelLabel"
+                        :current-view="currentView"
+                        :date-prefix-cls="datePrefix"/>
+                </template>
                 <span
                     :class="iconBtnCls('next', '-double')"
                     @click="changeYear(+1)"><Icon type="arrow-right"></Icon></span>
@@ -75,6 +105,8 @@
 </template>
 <script>
     import Icon from '../../icon/icon.vue';
+    import FormSelect from '../../select/select.vue';
+    import FormOption from '../../select/option.vue';
     import DateTable from '../base/date-table.vue';
     import YearTable from '../base/year-table.vue';
     import MonthTable from '../base/month-table.vue';
@@ -94,7 +126,7 @@
     export default {
         name: 'DatePicker',
         mixins: [ Mixin, Locale ],
-        components: { Icon, DateTable, YearTable, MonthTable , Confirm, datePanelLabel },
+        components: { Icon, FormSelect,FormOption,DateTable, YearTable, MonthTable , Confirm, datePanelLabel },
         data () {
             return {
                 datePanelPrefix: datePanelPrefix,
@@ -102,16 +134,36 @@
                 shortcuts: [],
                 currentView: 'date',
                 date: initTimeDate(),
+                monthRows:3,
                 value: '',
                 showTime: false,
                 selectionMode: 'day',
                 disabledDate: '',
+                dropForDate:false,
+                dropIcon:'',
                 year: null,
                 month: null,
+                min:'',
+                max:'',
                 confirm: false,
                 isTime: false,
                 format: 'yyyy-MM-dd',
                 curShortIndex:-1,//当前激活的快捷下标
+                selectedYear:{
+                    current:{
+                        code:'',
+                        text:''
+                    },
+                    years:[]
+                },
+                selectedMonth:{
+                    current:{
+                        code:'',
+                        text:''
+                    },
+                    months:[]
+                },
+                selectMaxHeight:156,
             };
         },
         computed: {
@@ -153,15 +205,134 @@
             date (val) {
                 // if (this.showTime) this.$refs.timePicker.date = val;
                 this.resetCurShort();
+                this.resetCurSelected();
             },
             format (val) {
                 // if (this.showTime) this.$refs.timePicker.format = val;
             },
             currentView (val) {
                 // if (val === 'time') this.$refs.timePicker.updateScroll();
+            },
+            min(val){
+                if(val&&this.max&&this.dropForDate){  
+                    var minYear = this.min.getFullYear();
+                    var maxYear = this.max.getFullYear();
+                    var minMonth = this.min.getMonth()+1;
+                    var maxMonth = this.max.getMonth()+1;
+                    this.selectedYear.years = [];
+                    for(var i = minYear;i<=maxYear;i++){
+                        this.selectedYear.years.push({
+                            code:i,
+                            text:i+'年'
+                        })
+                    }
+                    var currentYear = this.date.getFullYear();
+                    var currentMonth = this.date.getMonth()+1;
+                    // this.selectedYear.current = {
+                    //     code:currentYear,
+                    //     text:currentYear+'年'
+                    // }
+                    for(var i = 1;i<=currentMonth;i++){
+                        this.selectedMonth.months.push({
+                            code:i,
+                            text:i+'月'
+                        })
+                    }
+                    // this.selectedMonth.current = {
+                    //     code:currentMonth,
+                    //     text:currentMonth+'月'
+                    // }
+
+                }
+            },
+            month(val){
+                    this.selectedMonth.current = {
+                        code:val+1,
+                        text:(val+1)+'月'
+                    }
+
+            },
+            year(newval){
+                    this.selectedYear.current = {
+                        code:newval,
+                        text:newval+'年'
+                    }
+                    this.resetMonths(newval);
+                    
             }
         },
         methods: {
+            resetMonths(year){
+                if(this.min&&this.max&&this.dropForDate){
+                    var minYear = this.min.getFullYear();
+                    var maxYear = this.max.getFullYear();
+                    var minMonth = this.min.getMonth()+1;
+                    var maxMonth = this.max.getMonth()+1;
+                    this.selectedMonth.months = [];
+                    if((minYear<year)&&(year<maxYear)){
+                        for(var i = 1;i<=12;i++){
+                            this.selectedMonth.months.push({
+                                code:i,
+                                text:i+'月'
+                            })
+                        }
+                    }else if(minYear==year){
+                        for(var i = minMonth;i<=12;i++){
+                            this.selectedMonth.months.push({
+                                code:i,
+                                text:i+'月'
+                            })
+                        }
+
+                    }else if(maxYear==year){
+                        for(var i = 1;i<=maxMonth;i++){
+                            this.selectedMonth.months.push({
+                                code:i,
+                                text:i+'月'
+                            })
+                        }
+
+                    }
+                    var fit = false;
+                    this.selectedMonth.months.forEach((item,i)=>{
+                        if(this.selectedMonth.current.code==item.code){
+                            fit = true;
+                        }
+                    })
+                    if(!fit){
+                        this.selectedMonth.current = this.selectedMonth.months[0]
+                    }
+                }
+
+            },
+            resetCurSelected(){
+                var currentYear = this.date.getFullYear();
+                var currentMonth = this.date.getMonth()+1;
+                this.selectedYear.current = {
+                    code:currentYear,
+                    text:currentYear+'年'
+                }
+                this.selectedMonth.current = {
+                    code:currentMonth,
+                    text:currentMonth+'月'
+                }
+
+            },
+            handleChangeYear(item){
+                this.selectedYear.current = {
+                    code:item.code,
+                    text:item.text+'年'
+                }
+                this.year = item.code;
+                this.resetMonths(item.code);
+            },
+            handleChangeMonth(item){
+                this.selectedMonth.current = {
+                    code:item.code,
+                    text:item.text+'月'
+                }
+                this.month = item.code-1;
+            },
             resetCurShort(){
                 this.curShortIndex = -1;
                 this.shortcuts.forEach((item,i) => {

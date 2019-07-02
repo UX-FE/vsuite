@@ -47,7 +47,7 @@
     &.disabled,
     &[disabled] {
         cursor: $cursor-disabled;
-        @include btn-color($btn-disable-color, $btn-disable-bg, $btn-disable-border);
+        @include btn-color($btn-disable-color, $btn-disable-bg, transparent);
         > * {
             pointer-events: none;
         }

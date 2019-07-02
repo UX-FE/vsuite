@@ -151,6 +151,10 @@
                 href: '/component/modal'
               },
               {
+                name: 'drawer 抽屉',
+                href: '/component/drawer'
+              },
+              {
                 name: 'Step 步骤引导',
                 href: '/component/step'
               },

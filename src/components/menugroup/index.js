@@ -1,3 +1,3 @@
-import MenuGroup from '../menu/menu-group.vue';
+import MenuGroup from '../menu/menu-group.vue'
 
-export default MenuGroup;
+export default MenuGroup

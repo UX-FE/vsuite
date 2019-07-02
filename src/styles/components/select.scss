@@ -13,7 +13,7 @@ $tooltip-prefix:#{$css-prefix}tooltip;
     height: $select-option-height;
     line-height: $select-option-height;
     box-sizing: border-box;
-    list-style: none;
+    // list-style: none;
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -72,6 +72,11 @@ $tooltip-prefix:#{$css-prefix}tooltip;
         border-radius: $btn-border-radius;
         border: 1px solid $select-border-color;
         transition: all $transition-time $ease-in-out;
+        &>input{
+            position: absolute;
+            opacity: 0;
+            z-index: -1;
+        }
         &:hover{
             border-color: $select-active-color;
         }
@@ -329,10 +334,13 @@ $tooltip-prefix:#{$css-prefix}tooltip;
     &-disabled{
         .#{$select-prefix}{
             &-selection{
-                background-color: $select-disabled-backColor;
-                border-color: $select-disabled-borderColor;
-                color: $select-disabled-color;
+                background-color: $select-disabled-backColor !important;
+                border-color: $select-disabled-borderColor !important;
+                color: $select-disabled-color !important;
                 cursor: not-allowed;
+                &>i{
+                    color: $primary-disabled-color !important;
+                }
             }
         }
 

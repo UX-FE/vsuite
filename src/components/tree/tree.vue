@@ -6,10 +6,12 @@
     </div>
 </template>
 <script>
+    import TreeNode from '../tree/tree-node';
     import { prefix } from '../var';
     const treePrefix = prefix+'tree';
     export default {
         name: 'Tree',
+        components:{TreeNode},
         props: {
             tree:{
                 type:Array,

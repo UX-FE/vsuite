@@ -25,7 +25,7 @@
     export default {
         name: 'Chart',
         props: {
-            type: string
+            type: String
         },
         computed: {
             classes () {

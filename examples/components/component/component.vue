@@ -25,6 +25,7 @@ import vPage from './data/page'
 import vTree from './data/tree'
 import vProgress from './data/progress'
 import vModal from './dialog/modal'
+import vDrawer from './dialog/drawer'
 import vAlert from './tip/alert'
 import vLoading from './tip/loading'
 import vMessage from './tip/message'
@@ -76,6 +77,7 @@ export default {
             'v-date': vDate,
             'v-rate': vRate,
             'v-modal': vModal,
+            'v-drawer': vDrawer,
             'v-alert': vAlert,
             'v-loading': vLoading,
             'v-message': vMessage,

@@ -7,9 +7,10 @@ $scroll-prefix: #{$css-prefix}scroll;
     overflow: scroll;
     // overflow-x: auto; 
     height: 100%;
-    ::-webkit-scrollbar{
-      width:17px;/*隐藏滚轮*/
-      height:17px;/*隐藏滚轮*/
+    &::-webkit-scrollbar{
+      // width:17px;
+      // height:17px;
+      background-color: transparent;
     }
   }
   &-view{

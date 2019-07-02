@@ -71,6 +71,9 @@
             },
             
         },
+        components:{
+            'Icon':Icon
+        },
         data(){
             return {
                 visible:this.value

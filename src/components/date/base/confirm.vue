@@ -1,6 +1,6 @@
 <template>
     <div :class="[datePrefix + '-confirm']">
-        <span :class="timeClasses" v-if="showTime" @click="handleToggleTime">
+        <span :class="timeClasses" v-if="showTime&&!selectedBar" >
             <template v-if="showDate">
                 {{this.quickCompare ? this.originValue[0] + " - " + this.originValue[1] : this.selectValue}}
             </template>
@@ -10,18 +10,24 @@
         <span :class="[datePrefix + '-confirm-compare-btn']" v-if="compare">
             <Checkbox v-model="isCompare" :disabled="quickCompare" @on-change="handleCompareDate">时间对比</Checkbox>
         </span>
-        <span :class="compareTimeClasses" v-if="showTime&&isCompare" @click="handleToggleTime">
+        <span :class="compareTimeClasses" v-if="showTime&&isCompare" >
             <template v-if="showDate">
                 {{!this.quickCompare ? this.compareSelectValue : this.selectValue}}
             </template>
         </span>
-        <span :class="[datePrefix + '-confirm-tip']" v-if="showTip&&outRange">
-            <template v-if="pikerType==='month'">
-                最多可选择{{maxRangeMonth}}个自然月！已自动选择起始月份之{{selectOrderText}}的{{maxRangeMonth}}个自然月
-            </template>
-            <template v-else>
-                最多可选择{{maxRangeDay}}天！已自动选择起始日期之{{selectOrderText}}的{{maxRangeDay}}天
-            </template>
+        <span :class="[datePrefix + '-confirm-extra-tip']" v-if="extraTip">
+            {{extraTip}}
+        </span>
+        <span :class="[datePrefix + '-confirm-tip']" v-if="(showTip&&outRange)">
+                <template v-if="pikerType==='month'">
+                    最多可选择{{maxRangeMonth}}个自然月！已自动选择起始月份之{{selectOrderText}}的{{maxRangeMonth}}个自然月
+                </template>
+                <template v-else>
+                    最多可选择{{maxRangeDay}}天！已自动选择起始日期之{{selectOrderText}}的{{maxRangeDay}}天
+                </template>
+        </span>
+        <span :class="[(datePrefix + '-confirm-time-trigger'),(selectValue?'':'disabled')]" v-if="type=='datetimerange'" @click="handleToggleTime">
+            {{currentIsTime?'选择日期':'选择时间'}}
         </span>
         <span :class="[datePrefix + '-confirm-btn']">
         <BaseButton type="primary" @click.native="handleSuccess">{{ t('i.datepicker.ok') }}</BaseButton>
@@ -31,6 +37,7 @@
 </template>
 <script>
     import BaseButton from '../../button/button.vue';
+    import Checkbox from '../../checkbox/checkbox.vue';
     import Locale from '../../../mixins/locale';
     import { formatDate, parseDate,getDateRange } from '../util';
     import { prefix } from '../../var';
@@ -53,13 +60,16 @@
     export default {
         name:'Confirm',
         mixins: [ Locale ],
-        components: { BaseButton },
+        components: { BaseButton,Checkbox },
         props: {
+            value:'',
             minDate:'',
             maxDate:'',
             showTime: false,
             showDate: false,
             compare:false,
+            selectedBar:false,
+            type:'',
             quickCompare: false,
             originValue: {
                 type: Array,
@@ -71,6 +81,7 @@
             showTip:false,
             maxRangeDay:'',
             maxRangeMonth:'',
+            extraTip:'',
             order:'',
             maxRange:'',
             isTime: false,
@@ -83,6 +94,7 @@
                 selectValue:'',
                 compareSelectValue:'',
                 isCompare:false,
+                currentIsTime:this.isTime
             };
         },
         computed: {
@@ -145,8 +157,9 @@
                 this.$emit('on-pick-success');                
             },
             handleToggleTime () {
-                // if (this.timeDisabled) return;
-                // this.$emit('on-pick-toggle-time');
+                if (this.timeDisabled) return;
+                this.currentIsTime = !this.currentIsTime;
+                this.$emit('on-pick-toggle-time',this.currentIsTime)
             },
             handleCompareDate(){
                 this.$emit('on-pick-compare',this.isCompare,{
@@ -158,7 +171,16 @@
         mounted(){
             this.getSelectValue();
             // 如果是快速对比
-            this.isCompare = this.quickCompare;            
+            this.isCompare = this.quickCompare;
+            if(this.value.length){
+                let isValueCompare = true;
+                this.value.forEach((item,i)=>{
+                    if(!item){
+                        isValueCompare = false;
+                    }
+                })
+                this.isCompare = isValueCompare;
+            }     
         }
     };
 </script>

@@ -8,9 +8,13 @@
             </span>
         </div>
         <div v-for="rowIndex in Math.ceil(readCells.length/7)" :key="rowIndex" :class="[datePrefix + '-row']">
-            <span :class="getCellCls(cell)" v-for="(cell, index) in readCells" :key="rowIndex+index" v-if="((index>=(rowIndex-1)*7)&&(index<=((rowIndex-1)*7+6)))">
-                <em :index="index" @click="handleClick(cell)">{{ cell.text }}</em>
-            </span>
+            <template  v-for="(cell, index) in readCells" >
+                <span :class="getCellCls(cell)" :key="rowIndex+index" v-if="((index>=(rowIndex-1)*7)&&(index<=((rowIndex-1)*7+6)))">
+                    <span>
+                        <em :index="index" @click="handleClick(cell)">{{ cell.text }}</em>
+                    </span>
+                </span>
+            </template>
         </div>
     </div>
 </template>
@@ -47,6 +51,12 @@
                     return [];
                 }
             },  
+            type:false,
+            confirm:false,
+            disabledFuction:'',
+            curClickDate:'',
+            disabledOutRange:false,
+            maxRangeHour:'',
             maxRangeDay:'',
             handleDate:{},
             rangeState: {
@@ -64,7 +74,15 @@
                 datePrefix: datePrefix,
                 handleDateType:this.handleDate,
                 readCells: [],
-                isSingle:this.singleDate
+                hours: (this.handleDateType==='end')?((this.minDate)?this.minDate.getHours():0):0,
+                minutes: (this.handleDateType==='end')?((this.minDate)?this.minDate.getMinutes():0):0,
+                seconds: (this.handleDateType==='end')?((this.minDate)?this.minDate.getSeconds():0):0,
+                hoursEnd: (this.handleDateType==='end')?((this.maxDate)?this.maxDate.getHours():23):23,
+                minutesEnd: (this.handleDateType==='end')?((this.maxDate)?this.maxDate.getMinutes():59):59,
+                secondsEnd: (this.handleDateType==='end')?((this.maxDate)?this.maxDate.getSeconds():59):59,
+                isSingle:this.singleDate,
+                rangeDisabledDate:this.disabledFuction,
+                curDate:this.curClickDate
             };
         },
         watch: {
@@ -87,6 +105,9 @@
                 } else {
                     this.markRange();
                 }
+                this.hours= (this.handleDateType==='end')?((newVal)?newVal.getHours():0):0;
+                this.minutes= (this.handleDateType==='end')?((newVal)?newVal.getMinutes():0):0;
+                this.seconds=(this.handleDateType==='end')?((newVal)?newVal.getSeconds():0):0;
             },
             maxDate(newVal, oldVal) {
                 if (newVal && !oldVal) {
@@ -97,18 +118,31 @@
 //                        maxDate: this.maxDate
 //                    });
                 }
+                this.hoursEnd= (this.handleDateType==='end')?((newVal)?newVal.getHours():23):23;
+                this.minutesEnd= (this.handleDateType==='end')?((newVal)?newVal.getMinutes():59):59;
+                this.secondsEnd=(this.handleDateType==='end')?((newVal)?newVal.getSeconds():59):59;
             },
             cells: {
                 handler (cells) {
                     this.readCells = cells;
                 },
                 immediate: true
+            },
+            disabledFuction:{
+                handler(val){
+                    this.rangeDisabledDate= val;
+
+                },
+                deep:true
+            },
+            curClickDate:{
+                handler(val){
+                    this.curDate = val
+                },
+                deep:true
             }
         },
         computed: {
-            // rowNumber(){
-            //     re
-            // },
             classes () {
                 return [
                     `${datePrefix}`
@@ -159,7 +193,6 @@
                         cells.push(cell);
                     }
                 }
-
                 for (let i = 1; i <= dateCountOfMonth; i++) {
                     const cell = deepCopy(cell_tmpl);
                     cell.text = (i<10)?("0"+i):i;
@@ -167,7 +200,7 @@
                     const time = clearHours(cell.date);
                     cell.type = time === today ? 'today' : 'normal';
                     cell.selected = time === selectDay;
-                    cell.disabled = typeof disabledDate === 'function' && disabledDate(new Date(time));
+                    cell.disabled = (typeof disabledDate === 'function' && disabledDate(new Date(time)))||(typeof this.rangeDisabledDate === 'function' && this.rangeDisabledDate(new Date(time))) ;
                     cell.range = time >= minDay && time <= maxDay;
                     cell.start = this.minDate && time === minDay;
                     cell.end = this.maxDate && time === maxDay;
@@ -195,6 +228,7 @@
                 
                 if (cell.disabled) return;
                 const newDate = cell.date;
+                this.curDate= cell.date;
                 //如果是快速对比
                 if(this.quickCompare) {
                     const minDate = new Date(newDate.getTime());
@@ -217,7 +251,18 @@
                             const maxDate = new Date(newDate.getTime());
                             this.rangeState.selecting = true;
                             this.markRange(this.minDate);
-
+                            if(this.disabledOutRange&&this.maxRangeDay){
+                                this.markDisabled(newDate);
+                                this.$emit('on-change-diaFuc',this.rangeDisabledDate,this.curDate)
+                            }
+                            if(this.type=='datetimerange'){
+                                minDate.setHours(this.hours);
+                                minDate.setMinutes(this.minutes);
+                                minDate.setSeconds(this.seconds);
+                                maxDate.setHours(this.hoursEnd);
+                                maxDate.setMinutes(this.minutesEnd);
+                                maxDate.setSeconds(this.secondsEnd);
+                            }
                             this.$emit('on-pick', {minDate, maxDate}, false,'end');
                         }else{
                             if (newDate >= this.minDate) {//从前往后选
@@ -225,23 +270,42 @@
                                 const maxDate = new Date(newDate.getTime());
                                 this.rangeState.selecting = false;
                                 let isOutRange = false;
+                                
+                                if(this.type=='datetimerange'){
+                                    minDate.setHours(this.hours);
+                                    minDate.setMinutes(this.minutes);
+                                    minDate.setSeconds(this.seconds);
+                                    maxDate.setHours(this.hoursEnd);
+                                    maxDate.setMinutes(this.minutesEnd);
+                                    maxDate.setSeconds(this.secondsEnd);
+                                }
                                 if(!!this.maxRangeDay&&(getDateRange(minDate,maxDate)>this.maxRangeDay)){
                                     isOutRange = true;
-                                    maxDate.setTime(minDate.getTime() + 3600 * 1000 * 24 * (Number(this.maxRangeDay)-1));
+                                    maxDate.setTime(minDate.getTime() + 3600 * 1000 * 24 * (Number(this.maxRangeDay)));
                                 }
-
-                                this.$emit('on-pick', {minDate, maxDate},false,'start','straight',isOutRange);
+                                this.$emit('on-pick', {minDate, maxDate},this.confirm?false:true,'start','straight',isOutRange);
                             } else {//从后往前选
                                 const minDate = new Date(newDate.getTime());
                                 const maxDate = new Date(this.maxDate.getTime());
-                                let isOutRange = false;
+                                this.rangeState.selecting = false;
+                                let isOutRange = false;   
+                                if(this.type=='datetimerange'){
+                                    minDate.setHours(this.hours);
+                                    minDate.setMinutes(this.minutes);
+                                    minDate.setSeconds(this.seconds);
+                                    maxDate.setHours(this.hoursEnd);
+                                    maxDate.setMinutes(this.minutesEnd);
+                                    maxDate.setSeconds(this.secondsEnd);
+                                }
                                 if(!!this.maxRangeDay&&(getDateRange(minDate,maxDate)>this.maxRangeDay)){
                                     isOutRange = true;
-                                    minDate.setTime(maxDate.getTime() - 3600 * 1000 * 24 * (Number(this.maxRangeDay)-1));
+                                    minDate.setTime(maxDate.getTime() - 3600 * 1000 * 24 * (Number(this.maxRangeDay)));
                                 }
-
-                                this.$emit('on-pick', {minDate, maxDate}, false,'start','reverse',isOutRange);
+                                this.$emit('on-pick', {minDate, maxDate}, this.confirm?false:true,'start','reverse',isOutRange);
                             }
+
+                            this.rangeDisabledDate = '';
+                            this.$emit('on-change-diaFuc',this.rangeDisabledDate,'')
 
                         }
                     }
@@ -281,6 +345,14 @@
                         cell.end = maxDate && time === maxDay;
                     }
                 });
+            },
+            markDisabled(){
+                this.rangeDisabledDate = function(date){
+                    const minDay = clearHours(new Date(this.curDate))- 3600 * 1000 * 24 * (Number(this.maxRangeDay));
+                    const maxDay = clearHours(new Date(this.curDate))+ 3600 * 1000 * 24 * (Number(this.maxRangeDay));
+                     const time = clearHours(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+                     return  time < minDay || time > maxDay
+                };
             },
             getCellCls (cell) {
                 return [

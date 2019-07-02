@@ -73,6 +73,9 @@
                 type: String
             }
         },
+        components:{
+            'Icon':Icon
+        },
         data () {
             return {
                 prefix: ratePrefix,

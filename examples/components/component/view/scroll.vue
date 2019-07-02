@@ -8,6 +8,8 @@
 <br>
 <br>
 <br>
+<!-- <div style="height:1000px;">
+    
 <div style="position:absolute;">
     
           <div style="background:green;width:300px;overflow:hidden;position:relative;">
@@ -24,6 +26,40 @@
               </div>
           </div>
 </div>
+</div> -->
+<div style="height:1000px;">
+
+<div style="position:absolute;">
+    
+          <div style="background:green;width:300px;overflow:hidden;position:relative;">
+              <div style="height:100%;max-height:200px;overflow:scroll;" class="scrollbar">
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+                  <p>哈哈哈啊哈哈啊</p>
+              </div>
+          </div>
+</div>
+</div>
+
 
     </div>
 </template>
@@ -38,5 +74,31 @@
 .demo-scroll-wrap{
     font-size:14px;
     border:1px solid #ccc;
+}
+.scrollbar{
+    /*定义滚动条高宽及背景
+    高宽分别对应横竖滚动条的尺寸*/
+    &::-webkit-scrollbar
+    {
+        width:16px;
+        height:16px;
+        background-color:#F5F5F5;
+    }
+    /*定义滚动条轨道
+    内阴影+圆角*/
+    &::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius:10px;
+        background-color:#F5F5F5;
+    }
+    /*定义滑块
+    内阴影+圆角*/
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius:10px;
+        -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+        background-color:#555;
+    }
 }
 </style>

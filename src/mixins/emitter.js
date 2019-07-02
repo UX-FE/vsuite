@@ -24,7 +24,7 @@ export default {
         }
       }
       if (parent) {
-        if(componentName==='Layout'){
+        if (componentName === 'Layout') {
         }
         parent.$emit.apply(parent, [eventName].concat(params))
       }

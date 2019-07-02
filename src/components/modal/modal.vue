@@ -38,6 +38,8 @@
     import TransferDom from '../../directives/transfer-dom';
     import Emitter from '../../mixins/emitter';
     import clickoutside from '../../directives/clickoutside';
+    import Icon from '../icon';
+    import BaseButton from '../button';
 
     import { prefix } from '../var';
     const modalPrefix = prefix+'modal';
@@ -104,6 +106,10 @@
                 type: Boolean,
                 default: false
             },
+        },
+        components:{
+            'Icon':Icon,
+            'BaseButton':BaseButton
         },
         data () {
             return {

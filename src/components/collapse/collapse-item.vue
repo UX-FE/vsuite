@@ -59,6 +59,7 @@
             toggle () {
                 this.$parent.toggle({
                     name: this.name || this.index,
+                    index:this.index,
                     isActive: this.isActive
                 });
             }

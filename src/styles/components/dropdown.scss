@@ -80,6 +80,7 @@ $dropdown-prefix:#{$css-prefix}dropdown;
                 &-drop{
                     &-arrow{
                         right: 50%;
+                        margin-right: -6px;
                     }
                 }
             }

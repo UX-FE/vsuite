@@ -9,6 +9,7 @@ $primary-color          : #1864FF !default;// primary color
 $primary-hover-color    : #518aff !default;
 $primary-active-color   : #114abf !default;
 $primary-disabled-color : #e2e2e2 !default;
+$primary-readonly-color : rgba(0, 0, 0, 0.03) !default;
 
 // action color 
 $info-color             : #2db7f5 !default;
@@ -130,6 +131,7 @@ $zindex-back-top        : 10 !default;
 $zindex-select          : 900 !default;
 $zindex-menu            : 900 !default;
 $zindex-modal           : 1000 !default;
+$zindex-drawer          : 1000 !default;
 $zindex-message         : 1010 !default;
 $zindex-notification    : 1010 !default;
 $zindex-tooltip         : 1060 !default;
@@ -272,7 +274,7 @@ $input-bg                    : transparent !default;
 $input-hover-border-color    : $primary-color !default;
 $input-focus-border-color    : $primary-color !default;
 $input-disabled-bg           : $primary-disabled-color !default;
-
+$input-readonly-bg           : $primary-readonly-color !default;
 $input-icon-size             :18px !default;
 //----------------Input end-----------------
 //----------------Radio start-----------------
@@ -371,6 +373,7 @@ $date-height: 235px !default;
 $date-padding: 10px 16px 10px 16px !default;
 $date-bg: #fff !default;
 $date-border:1px solid rgba(0,0,0,0.09);
+$date-border-color: rgba(0,0,0,0.09);
 $date-radius: 4px !default;
 $date-shadow: $shadow-base !default;
 $date-color: $text-color !default;
@@ -385,7 +388,9 @@ $date-arrow-fontSize: 16px !default;
 $date-arrow-color: $text-color !default;
 $date-disable-color:$primary-disabled-color !default;
 
+$date-ref-height : 32px !default;
 $date-ref-padding : 5px 12px !default;
+$date-ref-hasPreIcon-padding : 5px 12px 5px 32px !default;
 $date-ref-icon-top :8px !default;
 $date-ref-icon-right : 12px !default;
 
@@ -421,11 +426,24 @@ $date-prev-arrow:41px;
 $date-prev-double-arrow:16px;
 
 $date-confirm-height:56px !default;
+$date-confirm-width:552px !default;
 $date-confirm-padding:12px 16px !default;
 $date-tip-color:#FF1A2E !default;
 $date-tip-padding:7px 0 !default;
 $date-tip-width:181px !default;
 $date-tip-left:196px !default;
+
+$date-time-cell-hover-bg:rgba(40,90,251,0.15) !default;
+$date-time-cell-active-bg:#F5F5F5 !default;
+$date-time-cell-width:91px !default;
+$date-time-cell-height:24px !default;
+$date-time-cell-lineHeight:22px !default;
+$date-time-cell-fontSize:14px !default;
+$date-time-header-fontSize:14px !default;
+$date-time-header-height:37px !default;
+$date-time-content-height:235px !default;
+
+$date-select-width:76px !default;
 
 $date-prefix-cells-width-base: 56px !default;
 $date-prefix-cells-width-with-date-base: 72px !default;
@@ -437,6 +455,15 @@ $date-month-cell-height:40px !default;
 $date-month-cell-padding:21px !default;
 $date-month-cell-side-width:61px !default;
 $date-month-cell-roll-margin:0 0 14px 0 !default;
+
+$date-month-row3-padding:10px 36px !default;
+$date-month-row3-cell-width:54px !default;
+$date-month-row3-cell-em-width:48px !default;
+$date-month-row3-cell-height:45px !default;
+$date-month-row3-cell-padding:6px !default;
+$date-month-row3-cell-side-width:61px !default;
+$date-month-row3-cell-roll-margin:0 0 20px 0 !default;
+$date-month-rows: 3 !default;
 
 $date-pickerBody-tbody-hover:#EEF3FF !default;
 //----------------Date end-----------------
@@ -522,6 +549,30 @@ $modal-close-icon-size:30px !default;
 $modal-close-icon-top:12px !default;
 $modal-close-icon-right:24px !default;
 //----------------Modal end-----------------
+
+
+//----------------Drawer start-----------------
+$drawer-bg:#fff !default;
+$drawer-shadow:0 2px 8px 0 rgba(0,0,0,0.15) !default;
+$drawer-mask-bg:rgba(0,0,0,0.65) !default;
+$drawer-header-height:64px !default;
+$drawer-header-bg:#fff !default;
+$drawer-header-border:1px solid $border-color-base !default;
+$drawer-header-padding:20px 24px !default;
+$drawer-header-font-size:16px !default;
+$drawer-header-color:$title-color !default;
+$drawer-body-padding:0 !default;
+$drawer-footer-bg: #fff !default;
+$drawer-footer-btn-width:65px !default;
+$drawer-footer-height:52px !default;
+$drawer-footer-border:1px solid $border-color-base !default;
+$drawer-footer-padding:10px 24px 10px !default;
+$drawer-footer-btn-margin:8px !default;
+$drawer-close-icon-color:$text-color !default;
+$drawer-close-icon-size:30px !default;
+$drawer-close-icon-top:15px !default;
+$drawer-close-icon-right:24px !default;
+//----------------Drawer end-----------------
 
 
 //tip component:

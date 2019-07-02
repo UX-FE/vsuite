@@ -51,7 +51,7 @@
     import Scroll from '../scroll'
     import Icon from '../icon'
     import Checkbox from '../checkbox'
-    import CheckboxGroup from '../checkboxgroup'
+    import CheckboxGroup from '../checkbox/checkbox-group'
     import { oneOf } from '../../utils/assist'
 
 import { prefix } from '../var'
@@ -115,6 +115,7 @@ export default {
           default: false
         }
       },
+      components:{CheckboxGroup,Checkbox,Scroll,Icon},
       data () {
         return {
           prefix: transferPrefix,

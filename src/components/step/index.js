@@ -1,3 +1,3 @@
-import Step from './step.vue';
+import Step from './step.vue'
 
-export default Step;
+export default Step

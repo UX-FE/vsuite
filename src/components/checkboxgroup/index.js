@@ -1,3 +1,3 @@
-import CheckboxGroup from '../checkbox/checkbox-group.vue';
+import CheckboxGroup from '../checkbox/checkbox-group.vue'
 
-export default CheckboxGroup;
+export default CheckboxGroup

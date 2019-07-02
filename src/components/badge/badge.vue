@@ -19,6 +19,10 @@
                 type:Number,
                 default:1
             },
+            translateX:{
+                type:[Number, String],
+                default:'50'
+            },
             dot:{
                 type:Boolean,
                 default:false
@@ -43,7 +47,7 @@
             },
             badgeStyles(){
                 return {
-                    'transform': ('translateX(50%) scale('+this.scale+')')
+                    'transform': ('translateX('+this.translateX+'%) scale('+this.scale+')')
                 }
             },
             showCount () {

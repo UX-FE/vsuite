@@ -1,7 +1,8 @@
 <template>
     <div :class="wrapClasses" v-clickoutside="handleClose">
         <div :class="selectionClasses" @click="toggleDrop" @mouseenter="hover = true"  @mouseleave="hover = false">
-            <input type="hidden" :name="name" v-model="currentValue"/>
+            <!-- select中的input改成text类型并设置id。用于表单验证时的标记定位 -->
+            <input type="text" :name="name" v-model="currentValue" :id="elementId"/>
             <slot name="selection">
                 <div :class="selectionNameClasses">
                     <slot name="selection-name">
@@ -32,12 +33,13 @@
                         </template>
                     </slot>
                 </div>
-                <Icon v-if="!!clearable&&(this.currentValue!=='')&&hover" type="close-circled" class="close-icon" @on-click-icon="clearSelect"></Icon>
-                <Icon v-if="!clearable||(!!clearable&&(this.currentValue!=='')&&!hover)" :type="icon" :class="{'is-reverse':(show)}"></Icon>
+                <Icon v-if="!!clearable&&(currentValue!=='')&&hover" type="close-circled" class="close-icon" @on-click-icon.stop="clearSelect"></Icon>
+                <Icon v-if="!clearable||(!!clearable&&(!hover||(hover&&currentValue==='')))" :type="icon" :class="{'is-reverse':(show)}"></Icon>
             </slot>
         </div>
         <transition :name="transitionName" @before-enter="handleMenuEnter" @after-leave="handleDestroy">
             <div v-show="showDrop" :class="dropClasses" ref="popper">
+                <slot name="pre"></slot>
                 <div v-if="filterable||searchable" :class="[prefix+'-search-wrap']">
                     <FormInput ref="search"
                     v-model="searchword" 
@@ -49,7 +51,14 @@
                     <Checkbox v-model="checkedAll" @on-change="handleCheckAll" :disabled="!!checkRange">全选</Checkbox>
                 </div>
                 <div :class="[prefix+'-drop-body']">
-                    <Scroll :max-height="maxHeight" ref="scrollbar" @on-scroll="handleScroll" always :class="{'scroll-search-nodata':filterable&&notFound}">
+                    <div v-if="noScroll"  :class="{'scroll-search-nodata':filterable&&notFound}">
+                        <div v-if="curStatus&&curStatus==='noData'" :class="nodataClasses"><slot name="nodata"></slot></div>
+                        <div v-if="!curStatus || (curStatus&&curStatus==='hasData')" :class="listClasses">
+                            <slot></slot>
+                        </div>
+                        <div v-if="curStatus&&curStatus==='loading'" :class="loadingClasses"><slot name="loading"></slot></div>
+                    </div>
+                    <Scroll v-else :max-height="maxHeight" ref="scrollbar" @on-scroll="handleScroll" always :class="{'scroll-search-nodata':filterable&&notFound}">
                         <div v-if="curStatus&&curStatus==='noData'" :class="nodataClasses"><slot name="nodata"></slot></div>
                         <div v-if="!curStatus || (curStatus&&curStatus==='hasData')" :class="listClasses">
                             <slot></slot>
@@ -71,6 +80,7 @@
                         <BaseButton @on-click-btn="handleCancel">取消</BaseButton>
                     </div>
                 </div>
+                <slot name="after"></slot>
                 <div v-if="bubble" :class="[prefix+'-drop-arrow']"></div>
             </div>
         </transition>
@@ -85,13 +95,18 @@
     import Icon from '../icon';
     import Scroll from '../scroll';
     import Checkbox from '../checkbox';
+    import TagGroup from '../tag/tag-group';
+    import Tag from '../tag';
+    import Tooltip from '../tooltip';
     import BaseButton from '../button';
+    import FormInput from '../input';
     import { prefix } from '../var';
     const selectPrefix = prefix+'select';
 
     export default {
-        name: 'Select',
+        name: 'FormSelect',
         mixins: [ Emitter ],
+        components: { Icon, Scroll, Checkbox,TagGroup,Tag,Tooltip,BaseButton,FormInput},
         directives: { clickoutside },
         props: {
             type:{
@@ -100,6 +115,10 @@
                 validator (value) {
                     return oneOf(value, ['single', 'multiple']);
                 }
+            },
+            noScroll:{
+                type:Boolean,
+                default:false,
             },
             defaultTitle:String,
             size:{
@@ -229,7 +248,10 @@
                 type:String,
                 default:'value'
             },
-            name:String
+            name:String,
+            elementId: {
+                type: String
+            }
         },
         data () {
             return {
@@ -265,6 +287,7 @@
                 }else{
                     this.currentValue = val;
                 }
+                this.resetCurrentValue(true)
             },
             placeholder(val){
                 this.currentPlaceHolder = val;
@@ -288,6 +311,7 @@
                 this.currentText();
             },
             show(val){
+                this.$emit('on-toggle',val);
                 if(val){
                     this.$emit('on-show');
                 }
@@ -407,7 +431,7 @@
                 }
             },
             transitionName () {
-                return this.deraction === 'bottom' ? 'slide-down' : 'slide-up';
+                return this.direction === 'top' ? 'slide-down' : 'slide-up';
             },
         },
         methods: {
@@ -455,7 +479,9 @@
                 // this.$refs.popper && this.$refs.popper.doDestroy();
             },
             updateScroll(){
-                this.$refs.scrollbar && this.$refs.scrollbar.update();
+                if(this.$refs.scrollbar && this.$refs.scrollbar.update && ((typeof this.$refs.scrollbar.update)=='function')){
+                    this.$refs.scrollbar && this.$refs.scrollbar.update();
+                }
             },
             currentText(){
                 if(this.fixTitle){
@@ -522,13 +548,15 @@
                     this.toggleDrop();
                 }
             },
-            resetCurrentValue(){
+            resetCurrentValue(isInit){
                 if(this.type==='multiple'){
                     this.currentValue = [];
                     this.value.forEach((item)=>{
                         this.currentValue.push(item)
                     })
-                    this.updateMultipleSelected();
+                    this.updateMultipleSelected(isInit);
+                }else{
+                    this.updateSingleSelected(isInit);
                 }
             },
             handleCancel(){
@@ -602,9 +630,9 @@
             getSearchResult(val){
                 if (findComponentDownward(this, 'OptionGroup')) {
                     this.broadcast('OptionGroup', 'on-search-change', val);
-                    this.broadcast('Option', 'on-search-change', val);
+                    this.broadcast('FormOption', 'on-search-change', val);
                 } else {
-                    this.broadcast('Option', 'on-search-change', val);
+                    this.broadcast('FormOption', 'on-search-change', val);
                 }
                 
                 this.$nextTick(() => this.updateScroll());
@@ -656,7 +684,9 @@
                     this.updateMultipleSelected(true, slot);
                 }
                 this.$nextTick(()=>{
-                    this.$refs["scrollbar"] && this.$refs["scrollbar"].update();
+                    if(this.$refs["scrollbar"] && this.$refs["scrollbar"].update && ((typeof this.$refs["scrollbar"].update)=='function')){
+                        this.$refs["scrollbar"] && this.$refs["scrollbar"].update();
+                    }
                 })
             },
             updateSingleSelected (init = false, slot = false) {
@@ -701,8 +731,8 @@
                         }
                     });
                     
-
-                    this.searchable?"":this.hideDrop();
+                    // 重复执行了hideDrop
+                    //this.searchable?"":this.hideDrop();
 
                     if (!init) {
                         // if (typeof(this.value)!=='string'&&typeof(this.value)!=='number') {

@@ -1,6 +1,6 @@
 <template>
     <div>
-                <Bubble trigger="hover" title="这是标题" content="我是气泡，你看到我了" hide-arrow>
+                <Bubble trigger="hover" title="这是标题" content="我是气泡，你看到我了" hide-arrow defaultVisible>
                     <BaseButton slot="target" type="primary">hover</BaseButton>
                 </Bubble>
                 <Bubble trigger="click" title="这是标题" content="我是气泡，你看到我了">

@@ -1,3 +1,3 @@
-import DropdownList from '../dropdown/dropdown-list.vue';
+import DropdownList from '../dropdown/dropdown-list.vue'
 
-export default DropdownList;
+export default DropdownList

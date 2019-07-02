@@ -1,28 +1,56 @@
 <template>
     <div>
-        {{baseSelect.value}}
+        <!-- {{baseSelect.value}}
+        <input v-model="baseSelect.value">
         <br/>
-        <Select v-model="baseSelect.value" placeholder="请选择" style="width:200px;">
-            <Option v-for="(item,index) in baseSelect.options" :key="index" :option="item">
-            </Option>
-        </Select>
-        <Select v-model="baseSelect.value" placeholder="请选择" style="width:200px;" :max-height=100>
-            <Option v-for="(item,index) in baseSelect.options" :key="index" :option="item">
-            </Option>
-        </Select>
-        <Select v-model="simple.value" placeholder="请选择" style="width:200px;">
-            <Option v-for="(item,index) in simple.options" :key="index" :option="item">
-            </Option>
-        </Select>
+        <FormSelect v-model="baseSelect.value" noScroll placeholder="请选择" style="width:200px;" @on-change="handleChangeBase">
+            <FormOption v-for="(item,index) in baseSelect.options" :key="index" :option="item">
+            </FormOption>
+        </FormSelect>
+        <FormSelect v-model="baseSelect.value" placeholder="请选择" style="width:200px;" :max-height=100 filterable>
+            <FormOption v-for="(item,index) in baseSelect.options" :key="index" :option="item">
+            </FormOption>
+        </FormSelect>
+        <FormSelect v-model="simple.value" placeholder="请选择" style="width:200px;">
+            <FormOption v-for="(item,index) in simple.options" :key="index" :option="item">
+            </FormOption>
+        </FormSelect> -->
+        <FormSelect 
+            :value="version.cur.code" 
+            placeholder="不限" 
+            class="select-col-2" 
+            style="width:224px;" 
+            filterable 
+            label-in-value
+            clearable
+            judge
+            multi-type="check-box" 
+            @on-submit="handleVersionChange" 
+            :type="version.type" 
+            :max-height=312 
+            label-key="text" 
+            value-key="code">
+            <div slot="selection-name">22223423</div>
+            <div class="select-content-col-2">
+                <template v-for="n in 2">
+                    <div :class="{'select-col-2':true,'col-left':(n==1)}" :key="n">
+                        <FormOption v-for="(item,index) in version.data" v-if="(n==1)?(index<Math.ceil(version.data.length/2)):(index>=Math.ceil(version.data.length/2))" :key="index" :option="item">
+                        </FormOption>
+                    </div>
+                </template>
+            </div>
+            <div slot="pre">00000000000000</div>
+            <div slot="after">11111111111111</div>
+        </FormSelect>{{version.cur.code}}
         <br/>
 {{baseSelect}}
-                <Select v-model="baseSelect.value" placeholder="请选择" style="width:200px;" clearable>
-                    <Option v-for="(item,index) in baseSelect.options" :key="index" :option="item">
-                    </Option>
-                </Select>
+                <FormSelect v-model="baseSelect.value" placeholder="请选择" style="width:200px;" clearable>
+                    <FormOption v-for="(item,index) in baseSelect.options" :key="index" :option="item">
+                    </FormOption>
+                </FormSelect>
                 <br/>
-                
-                <Select 
+                <button @click="handleChangeMultiValue">改变多选的值</button>
+                <FormSelect 
                     :value="version.cur.code" 
                     placeholder="不限" 
                     class="select-col-2" 
@@ -40,22 +68,22 @@
                     <div class="select-content-col-2">
                         <template v-for="n in 2">
                             <div :class="{'select-col-2':true,'col-left':(n==1)}" :key="n">
-                                <Option v-for="(item,index) in version.data" v-if="(n==1)?(index<Math.ceil(version.data.length/2)):(index>=Math.ceil(version.data.length/2))" :key="index" :option="item">
-                                </Option>
+                                <FormOption v-for="(item,index) in version.data" v-if="(n==1)?(index<Math.ceil(version.data.length/2)):(index>=Math.ceil(version.data.length/2))" :key="index" :option="item">
+                                </FormOption>
                             </div>
                         </template>
                     </div>
-                </Select>{{version.cur.code}}
+                </FormSelect>{{version.cur.code}}
                 <br/>
                 
-                <Select v-model="baseSelect.value" placeholder="请选择" style="width:200px;" bubble direction="top">
-                    <Option v-for="(item,index) in baseSelect.options" :key="index" :option="item">
-                    </Option>
-                </Select>
-                <Select v-model="baseSelect.value" placeholder="请选择" style="width:200px;" bubble direction="bottom">
-                    <Option v-for="(item,index) in baseSelect.options" :key="index" :option="item">
-                    </Option>
-                </Select>
+                <FormSelect v-model="baseSelect.value" placeholder="请选择" style="width:200px;" bubble direction="top">
+                    <FormOption v-for="(item,index) in baseSelect.options" :key="index" :option="item">
+                    </FormOption>
+                </FormSelect>
+                <FormSelect v-model="baseSelect.value" placeholder="请选择" style="width:200px;" bubble direction="bottom">
+                    <FormOption v-for="(item,index) in baseSelect.options" :key="index" :option="item">
+                    </FormOption>
+                </FormSelect>
     </div>
 </template>
 
@@ -178,6 +206,17 @@
                 },
             }
         },
+        methods:{
+            handleChangeMultiValue(){
+                this.version.cur.code = ["3.1.0"]
+            },
+            handleChangeBase(item){
+                alert(item)
+            },
+            handleVersionChange(){
+
+            }
+        }
     }
 </script>
 

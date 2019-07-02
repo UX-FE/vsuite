@@ -153,7 +153,8 @@
                         return true;
                     }
 
-                    this.validateState = 'validating';
+                    // form-item.vue 移除此语句。因为如果是异步接口验证，每次验证，都会闪烁一次，再显示错误信息。因为验证过程中(validating)隐藏了errorMsg
+                    //this.validateState = 'validating';
 
                     let descriptor = {};
                     descriptor[this.name] = rules;

@@ -1,3 +1,3 @@
-import DropdownItem from '../dropdown/dropdown-item.vue';
+import DropdownItem from '../dropdown/dropdown-item.vue'
 
-export default DropdownItem;
+export default DropdownItem

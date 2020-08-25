@@ -43,7 +43,7 @@
     "deepmerge": "^1.5.2",
     "echarts": "^4.1.0",
     "element-resize-detector": "^1.1.12",
-    "highcharts": "^6.1.0",
+    "highcharts": "^7.2.2",
     "highlight.js": "^9.12.0",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.20.1",

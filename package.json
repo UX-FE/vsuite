@@ -44,7 +44,7 @@
     "echarts": "^4.1.0",
     "element-resize-detector": "^1.1.12",
     "highcharts": "^6.1.0",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^10.4.1",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.20.1",
     "popper.js": "^0.6.4",

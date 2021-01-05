@@ -38,7 +38,7 @@
   "license": "MIT",
   "dependencies": {
     "async-validator": "^1.8.2",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "core-js": "^2.5.3",
     "deepmerge": "^1.5.2",
     "echarts": "^4.1.0",

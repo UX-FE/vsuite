@@ -95,7 +95,7 @@
     "less": "^2.7.3",
     "less-loader": "^2.2.3",
     "lolex": "^1.5.2",
-    "mocha": "^3.5.3",
+    "mocha": "^10.2.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "sinon": "^3.3.0",
